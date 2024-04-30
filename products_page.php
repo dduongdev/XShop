@@ -20,7 +20,7 @@
         
         <div class="container">
             <div class="grid wide">
-                <h1 class="product-page__header">Tất cả sản phẩm</h1>
+                <h1 class="products-page__header">Tất cả sản phẩm</h1>
                 <div class="row">
                     <div class="col l-2 m-0 c-0">
                         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" 
@@ -98,19 +98,19 @@
                     <div class="col l-10">
                         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" 
                             method="get"
-                            class="product-page__sort-bar">
-                            <span class="product-page__sort-title">
+                            class="products-page__sort-bar">
+                            <span class="products-page__sort-title">
                                 Sắp xếp theo
                             </span>
         
-                            <button class="product-page__sort-type" value="new">Mới nhất</button>
-                            <button class="product-page__sort-type" value="bestseller">Bán chạy</button>
+                            <button class="products-page__sort-type" value="new">Mới nhất</button>
+                            <button class="products-page__sort-type" value="bestseller">Bán chạy</button>
         
-                            <input type="radio" name="sort-price" id="product-page__sort-price-asc" value="price-asc">
-                            <label class="product-page__sort-type" for="product-page__sort-price-asc">Giá thấp đến cao</label>
+                            <input type="radio" name="sort-price" id="products-page__sort-price-asc" value="price-asc">
+                            <label class="products-page__sort-type" for="products-page__sort-price-asc">Giá thấp đến cao</label>
         
                             <input type="radio" name="sort-price" id="product-page__sort-price-desc" value="price-desc">
-                            <label class="product-page__sort-type" for="product-page__sort-price-desc">Giá cao đến thấp</label>
+                            <label class="products-page__sort-type" for="products-page__sort-price-desc">Giá cao đến thấp</label>
                         </form>
         
                         <div class="row">
@@ -119,16 +119,22 @@
                                     <div class="product-card__img" style="background-image: url(./images/products/polo_active_premium_gray.jpg);"></div>
                                     <div class="product-card__content">
                                         <div class="product-card__options-color">
-                                            <button class="product-card__color" value="gray" name="color">
+                                            <button class="product-card__color" name="color">
                                                 <span style="background-image: url(./images/product_colors/gray.jpg);"></span>
+                                                <img src="./images/products/polo_active_premium_gray.jpg" alt="Gray">
                                             </button>
         
-                                            <button class="product-card__color" value="black" name="color">
+                                            <button class="product-card__color" name="color">
                                                 <span style="background-image: url(./images/product_colors/black.jpg);"></span>
+                                                <img src="./images/products/polo_active_premium_black.jpg" alt="Black">
                                             </button>
                                         </div>
-                                        <p class="product-card__title">Áo Polo thể thao </p>
-                                        <p class="product-card__sub-title">Exdry / Xám</p>
+                                        <p class="product-card__title">Áo Polo Nam Cafe Bo Kẻ</p>
+                                        <p class="product-card__short-desc">
+                                            <span class="product-card__sub-title">Exdry</span>
+                                             / 
+                                            <span class="product-card__color-info"></span>
+                                        </p>
                                         <div class="product-card__price">
                                             <span class="product-card__current-price">449.000đ</span>
                                             <span class="product-card__old-price">499.000đ</span>
@@ -139,8 +145,8 @@
                             </div>
                         </div>
         
-                        <div class="product-page__loadmore">
-                            <button class="product-page__loadmore-btn">
+                        <div class="products-page__loadmore">
+                            <button class="products-page__loadmore-btn">
                                 Xem thêm
                             </button>
                         </div>
@@ -155,40 +161,17 @@
     <script>
         var colorButtons = document.querySelectorAll('.product-card__color');
 
-        colorButtons.forEach(function(button) {
-            button.addEventListener('click', function() {
-                var productCard = button.closest('.product-card');
-                var productCardImg = productCard.querySelector('.product-card__img');
-                var color = button.value;
-                // Thực hiện xử lý hình ảnh cho sản phẩm
-                var fileName = getBackgroundImageFileName(productCardImg);
-                fileName = fileName.replace(/^url\("(.*)"\)$/, '$1');
-                fileName = removeAfterFirstUnderscore(fileName);
-                fileName += color + ".jpg";
-                productCardImg.style.backgroundImage = "url('" + fileName + "')";
-            });
-        });
+        colorButtons.forEach(function(button){
+            button.addEventListener('click', function(){
+                var product_card = button.closest('.product-card');
+                var product_card_img = product_card.querySelector('.product-card__img');
+                var selectedImg = button.querySelector('img');
+                product_card_img.style.backgroundImage = "url('" + selectedImg.src + "')";
 
-        function getBackgroundImageFileName(element) {
-            // Lấy giá trị thuộc tính background-image đã tính toán
-            var computedStyle = window.getComputedStyle(element);
-            var backgroundImage = computedStyle.backgroundImage;
-            // Sử dụng biểu thức chính quy để trích xuất tên file từ chuỗi background-image
-            return backgroundImage;
-        }
-
-        function removeAfterFirstUnderscore(imagePath) {
-            // Tìm vị trí của dấu `_` đầu tiên trong đường dẫn hình ảnh
-            var underscoreIndex = imagePath.lastIndexOf('_');
-
-            // Nếu tìm thấy dấu `_`, trích xuất phần của đường dẫn từ đầu đến vị trí đó
-            if (underscoreIndex !== -1) {
-                return imagePath.substring(0, underscoreIndex + 1); // Bao gồm cả dấu `_`
-            }
-
-            // Nếu không tìm thấy dấu `_`, trả lại đường dẫn hình ảnh ban đầu
-            return imagePath;
-        }
+                var productCard_colorInfo = product_card.querySelector('.product-card__color-info');
+                productCard_colorInfo.innerText = selectedImg.alt;
+            })
+        })
     </script>
 </body>
 </html>
