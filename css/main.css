@@ -341,7 +341,7 @@
 /* End: Container CSS */
 
 /* Start: Product Page CSS */
-.product-page__header {
+.products-page__header {
     font-size: 2.4rem;
     text-transform: uppercase;
     font-weight: 500;
@@ -350,7 +350,7 @@
     margin-bottom: 20px;
 }
 
-.product-page__sort-bar {
+.products-page__sort-bar {
     display: flex;
     font-size: 1.4rem;
     height: 60px;
@@ -361,18 +361,18 @@
     padding-left: 8px;
 }
 
-.product-page__sort-bar > input[type="radio"] {
+.products-page__sort-bar > input[type="radio"] {
     display: none;
 }
 
-.product-page__sort-title {
+.products-page__sort-title {
     text-transform: uppercase;
     font-weight: 500;
     color: var(--text-color);
     margin-right: 4px;
 }
 
-.product-page__sort-type {
+.products-page__sort-type {
     margin: 0 4px;
     height: 40px;
     display: flex;
@@ -386,7 +386,7 @@
     cursor: pointer;
 }
 
-.product-page__loadmore {
+.products-page__loadmore {
     width: 100%;
     height: 88px;
     padding: 20px 0;
@@ -396,7 +396,7 @@
     border-bottom: #777 1px solid;
 }
 
-.product-page__loadmore-btn {
+.products-page__loadmore-btn {
     border: none;
     width: 180px;
     height: 48px;
@@ -409,7 +409,7 @@
     text-transform: uppercase;
 }
 
-.product-page__loadmore-btn:hover {
+.products-page__loadmore-btn:hover {
     background-color: #d9d9d9;
     color: var(--black-color);
 }
@@ -486,14 +486,14 @@
 }
 
 .product-filter__button:hover,
-.product-page__sort-type:hover {
+.products-page__sort-type:hover {
     background-image: linear-gradient(to left, #a8b7e1, rgb(61 108 235));
     color: var(--white-color);
     font-weight: 500;
 }
 
 /* Thêm vào class của btn hoặc khối đại diện btn cho các chức năng filter hoặc sort */
-.product-page__function-button--is-selected {
+.products-page__function-button--is-selected {
     background-image: linear-gradient(to left, #a8b7e1, rgb(61 108 235));
     color: var(--white-color);
     font-weight: 500;
@@ -522,6 +522,7 @@
     overflow: hidden;
     margin-bottom: 24px;
     display: block;
+    cursor: pointer;
 }
 
 .product-card__img {
@@ -547,6 +548,10 @@
     border-radius: 10px;
     padding: 2px;
     cursor: pointer;
+}
+
+.product-card__color img {
+    display: none;
 }
 
 .product-card__color:hover {
@@ -581,7 +586,7 @@
     -webkit-line-clamp: 2;
 }
 
-.product-card__sub-title {
+.product-card__short-desc {
     font-size: 1.2rem;
     color: #888;
 }

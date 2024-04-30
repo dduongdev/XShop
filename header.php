@@ -41,7 +41,7 @@
                     </a>
                 </li>
                 <li class="nav-sub__item">
-                    <a href="product_page.php" class="nav-sub__link">
+                    <a href="products_page.php" class="nav-sub__link">
                         Sản phẩm
                     </a>
                 </li>
