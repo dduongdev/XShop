@@ -19,8 +19,102 @@
         <?php include "header.php" ?>
 
         <div class="container">
+
+            <form action="">
+
+                <div class="row">
+
+                    <div class="col">
+
+                        <h3 class="title">Thông tin vận chuyển</h3>
+
+                        <div class="flex">
+                            <div class="inputBox">
+                                <input type="text" placeholder="Họ tên">
+                            </div>
+
+                            <div class="inputBox">
+                                <input type="text" placeholder="Số điện thoại">
+                            </div>
+                        </div>
+
+                        <div class="inputBox">
+                            <input type="email" placeholder="Email">
+                        </div>
+
+                        <div class="inputBox">
+                            <input type="text" placeholder="Địa chỉ (ví dụ: 30 Hoàng Văn Thụ, phường Quang Trung)">
+                        </div>
+
+                        <div class="inputBox">
+                            <input type="text" placeholder="Ghi chú thêm (Ví dụ: Giao hàng giờ hành chính)">
+                        </div>
+
+                    </div>
+
+                    <div class="col">
+                        <h3 class="title">Hình thức thanh toán</h3>
+                        
+                        <div class="payment-shipping">
+                            <form action="">
+                                <div class="mgb--20">
+                                    <label for="payment-COD" class="payment-method__item active">
+                                        <span class="payment-method__item-custom-checkbox custom-radio">
+                                            <input type="radio" id="payment-COD" name="payment-method" autocomplete="off" value="COD">
+                                            <span class="checkmark"></span>
+                                        </span>
+                                        <span class="payment-method__item-icon-wrapper">
+                                            <img src="https://www.coolmate.me/images/COD.svg" alt="COD - Thanh toán khi nhận hàng">
+                                        </span>
+                                        <span class="payment-method__item-name">
+                                            COD
+                                            <br>
+                                            Thanh toán khi nhận hàng
+                                        </span>
+                                    </label>
+                                </div>
+
+                                <div class="mgb--20">
+                                    <label for="payment-momo" class="payment-method__item active">
+                                        <span class="payment-method__item-custom-checkbox custom-radio">
+                                            <input type="radio" id="payment-momo" name="payment-method" autocomplete="off" value="momo">
+                                            <span class="checkmark"></span>
+                                        </span>
+                                        <span class="payment-method__item-icon-wrapper">
+                                            <img src="https://www.coolmate.me/images/momo-icon.png" alt="Thanh Toán MoMo">
+                                        </span>
+                                        <span class="payment-method__item-name">Thanh Toán MoMo</span>
+                                    </label>
+                                </div>
+
+                                <div class="mgb--20">
+                                    <label for="payment-flex_money" class="payment-method__item active">
+                                        <span class="payment-method__item-custom-checkbox custom-radio">
+                                            <input type="radio" id="payment-flex_money" name="payment-method" autocomplete="off" value="flex_money">
+                                            <span class="checkmark"></span>
+                                        </span>
+                                        <span class="payment-method__item-icon-wrapper">
+                                            <img src="https://mcdn.coolmate.me/image/April2023/mceclip1_21.png" alt="Chuyển khoản liên ngân hàng bằng QR Code <br> Chuyển tiền qua ví điện tử (MoMo, Zalopay,...)">
+                                        </span>
+                                        <span class="payment-method__item-name">
+                                            Chuyển khoản liên ngân hàng bằng QR Code
+                                            <br>
+                                            Chuyển tiền qua ví điện tử (MoMo, Zalopay,...)
+                                        </span>
+                                    </label>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
             
-        </div>
+                </div>
+
+                <input type="submit" value="proceed to checkout" class="submit-btn">
+
+            </form>
+
+        </div>  
 
         <?php include "footer.php" ?>
     </div>
