@@ -46,9 +46,33 @@
                             <input type="text" placeholder="Địa chỉ (ví dụ: 30 Hoàng Văn Thụ, phường Quang Trung)">
                         </div>
 
+                        <div class="detail-address">
+                            <div class="inputBox">
+                                <input type="text" placeholder="Tỉnh/Thành phố">
+                            </div>
+
+                            <div class="inputBox">
+                                <input type="text" placeholder="Quận/Huyện">
+                            </div>
+
+                            <div class="inputBox">
+                                <input type="text" placeholder="Thị trấn/Xã">
+                            </div>
+                        </div>
+
                         <div class="inputBox">
                             <input type="text" placeholder="Ghi chú thêm (Ví dụ: Giao hàng giờ hành chính)">
                         </div>
+
+                        <label for="save-current-to-address-book" class="flexx align--center custom-checkbox-label">
+                            <span class="custom-checkbox active">
+                                <input type="checkbox" id="save-current-to-address-book">
+                                <span class="checkmark"></span>
+                            </span>
+                            <span class="label">
+                                Lưu vào sổ địa chỉ để dùng cho lần mua hàng tiếp theo
+                            </span>
+                        </label>
 
                     </div>
 
@@ -114,7 +138,7 @@
 
             </form>
 
-        </div>  
+        </div>   
 
         <?php include "footer.php" ?>
     </div>

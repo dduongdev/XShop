@@ -972,3 +972,201 @@
     text-decoration: underline;
 }
 /* End: Login Page CSS */
+
+/* Start: Payment gateway css */
+.container-2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding:25px;
+    min-height: 100vh;
+    background: linear-gradient(90deg, #2ecc71 60%, #27ae60 40.1%);
+  }
+  
+  .container-2 form{
+    padding:20px;
+    width:700px;
+    background: #fff;
+    box-shadow: 0 5px 10px rgba(0,0,0,.1);
+  }
+  
+  .container-2 form .row{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap:15px;
+  }
+  
+  .container-2 form .row .col{
+    display: flex;
+    flex-direction: column;
+    flex:1 1 250px;
+  }
+  
+  .container-2 form .row .col .align--center .custom-checkbox {
+    display: block;
+    position: relative;
+    margin-right: 8px;
+    flex: 0 0 20px;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #d9d9d9;
+    border-radius: 5px;
+    transition: all .2s;
+  }
+  
+  .container-2 form .row .col .align--center .custom-checkbox.active {
+    border: 1px solid #2f5acf;
+  }
+  
+  .container-2 form .row .col .align--center .custom-checkbox~.label {
+    display: block;
+    margin-left: 10px;
+    font-weight: 600;
+  }
+  
+  .container-2 form .row .col .align--center .custom-checkbox .checkmark {
+    transform: translate(-50%, -50%) rotate(0deg);
+    border: 0;
+    width: 14px;
+    height: 14px;
+    background-color: #2f5acf;
+    border-radius: 4px;
+  }
+  
+  .container-2 form .row .col .align--center .custom-checkbox input {
+    display: none;
+  }
+  
+  .container-2 form .row .col .detail-address {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .container-2 form .row .col .flexx {
+    display: flex;
+  }
+  
+  .container-2 form .row .col .payment-method__item.active {
+    display: flex;
+    align-items: center;
+    border: 1px solid #D9D9D9;
+    border-radius: 16px;
+    padding: 15px 20px;
+    cursor: pointer;
+    transition: 0.2s all;
+    opacity: 0.6;
+    margin-bottom: 15px;
+  }
+  
+  .container-2 form .row .col .payment-method__item.active .payment-method__item-icon-wrapper {
+    margin: 0 1.5rem;
+    width: 35px;
+    height: 35px;
+  }
+  
+  .container-2 form .row .col .payment-method__item.active .payment-method__item-icon-wrapper img {
+    min-width: 35px;
+    max-height: 35px;
+    max-width: 55px;
+  }
+  
+  .container-2 form .row .col .payment-method__item.active:hover {
+    border: 1px solid #2f5acf;
+    opacity: 1;
+  }
+  
+  .container-2 form .row .col .payment-method__item.active .custom-radio {
+    display: block;
+    position: relative;
+    flex: 0 0 20px;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #d9d9d9;
+    border-radius: 20px;
+    transition: all .2s;
+  }
+  
+  .container-2 form .row .col .payment-method__item.active .custom-radio .checkmark {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 20px;
+    background-color: #2f5acf;
+  }
+  
+  .container-2 form .row .col .payment-method__item.active .custom-radio input:checked~.checkmark {
+    display: block;
+  }
+  
+  .container-2 form .row .col .payment-method__item.active .custom-radio input {
+    display: none;
+  }
+  
+  .container-2 form .row .col .payment-method__item.active .payment-method__item-custom-checkbox:hover {
+    border: 1px solid #2f5acf;
+  }
+  
+  .container-2 form .row .col .title{
+    font-size: 20px;
+    color:#333;
+    padding-bottom: 5px;
+    /* text-transform: uppercase; */
+  }
+  
+  .container-2 form .row .col .inputBox{
+    margin: 5px 0;
+  }
+  
+  /* .container form .row .col .inputBox span{
+    margin-bottom: 10px;
+    display: block;
+  } */
+  
+  .container-2 form .row .col .inputBox input{
+    width: 100%;
+    border:1px solid #ccc;
+    padding:10px 15px;
+    font-size: 15px;
+    text-transform: none;
+    border-radius: 16px;
+  }
+  
+  .container-2 form .row .col .inputBox input:focus{
+    border:1px solid #000;
+  }
+  
+  .container-2 form .row .col .flex{
+    display: flex;
+    gap:15px;
+  }
+  
+  .container-2 form .row .col .flex .inputBox{
+    margin-top: 5px;
+    flex: 1;
+  }
+  
+  .container-2 form .row .col .inputBox img{
+    height: 34px;
+    margin-top: 5px;
+    filter: drop-shadow(0 0 1px #000);
+  }
+  
+  .container-2 form .submit-btn{
+    width: 100%;
+    padding:12px;
+    font-size: 17px;
+    background: #27ae60;
+    color:#fff;
+    margin-top: 5px;
+    cursor: pointer;
+  }
+  
+  .container-2 form .submit-btn:hover{
+    background: #2ecc71;
+  }
+/* End: Payment gateway css */
