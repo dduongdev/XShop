@@ -6,7 +6,7 @@
     right: 0;
     transition: transform 0.3s ease;
     background-color: rgba(0, 0, 0, .8);
-    z-index: 2000;
+    z-index: 1;
     padding-left: 30px;
     padding-right: 30px;
     color: var(--white-color);
@@ -972,3 +972,336 @@
     text-decoration: underline;
 }
 /* End: Login Page CSS */
+
+/* Start: Product Detail CSS */
+.product-detail__images {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 1.2rem;
+    position: sticky;
+    top: 30px;
+}
+
+.product-detail__images img {
+    object-fit: cover;
+}
+
+.product-detail__main-image {
+    border-radius: 12px;
+}
+
+.product-detail__main-image {
+    width: 60%;
+}
+
+.product-detail__sub-images {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    align-content: flex-end;
+    flex-wrap: wrap;
+    height: 480px;
+}
+
+.product-detail__sub-image {
+    width: 28%;
+    border-radius: 4px;
+    opacity: 0.4;;
+    margin-right: 2px;
+    margin-bottom: 2px;
+}
+
+.product-detail__sub-image.product-detail__sub-image--is-selected {
+    opacity: 1;
+}
+
+.product_detail__content {
+    font-size: 1.6rem;
+    color: var(--text-color);
+}
+
+.product-detail__title {
+    font-size: 3.2rem;
+    font-weight: 700;
+}
+
+.product-detail__short-desc {
+    color: #777;
+}
+
+.product-detail__title,
+.product-detail__short-desc {
+    margin: 1rem 0;
+}
+
+.product-detail__ratings {
+    margin: 1.6rem 0;
+}
+
+.product-detail__price {
+    font-size: 2.4rem;
+    margin: 1.6rem 0;
+}
+
+.product-detail__price span {
+    margin-right: 1rem;
+}
+
+.product-detail__current-price {
+    font-weight: 700;
+}
+
+.product-detail__old-price {
+    color: #c4c4c4;
+    text-decoration: line-through;
+}
+
+.product-detail__discount {
+    font-weight: 700;
+    color: red;
+}
+
+.product-detail__policy {
+    margin-top: 1.6rem;
+    margin-bottom: 1.6rem;
+    padding: 1.6rem 0;
+    border-top: #777 1px solid;
+    border-bottom: #777 1px solid;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.product-detail__policy-item {
+    display: flex;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    align-items: center;
+}
+
+.product-detail__policy-icon {
+    font-size: 2.4rem;
+}
+
+.product-detail__policy-content {
+    font-size: 1.4rem;
+    margin-left: 4px;
+    line-height: 1.6rem;
+    font-weight: 400;
+}
+
+.product-detail__select-color {
+    margin-bottom: 1rem;
+}
+
+.product-detail__selected-color {
+    margin: 0;
+    margin-bottom: 4px;
+}
+
+.product-detail__selected-color span {
+    font-weight: 500;
+}
+
+.product-detail__color {
+    border: transparent 1px solid;
+    background-color: #fff;
+    border-radius: 14px;
+    padding: 2px;
+    cursor: pointer;
+}
+
+.product-detail__color span {
+    width: 48px;
+    height: 24px;
+    display: block;
+    background-repeat: no-repeat;
+    background-size: 250%;
+    background-position: 50%;
+    border-radius: 12px;
+    padding: 4px 0;
+}
+
+.product-detail__color:hover {
+    border: #000 1px solid;
+}
+
+.product-detail__color.product-detail__color--is-selected {
+    border: #000 1px solid;
+}
+
+.product-detail__select-size-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.product-detail__options-size {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.product-detail__size {
+    width: 8rem;
+    height: 3.2rem;
+    border-radius: 1.6rem;
+    border: #000 1px solid;
+    background-color: #fff;
+}
+
+.product-detail__size:hover {
+    background-image: linear-gradient(to left, #a8b7e1, rgb(61 108 235));
+    color: var(--white-color);
+    font-weight: 500;
+}
+
+.product-detail__actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.product-detail__select-quantity {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.quantity-change {
+    display: flex;
+    height: 4rem;
+    border: #777 1px solid;
+    border-radius: 2rem;
+    overflow: hidden;
+    width: 12rem;
+}
+
+.quantity__control {
+    display: none;
+}
+
+.quantity__reduce,
+.quantity__augure,
+.quantity__display {
+    line-height: 4rem;
+    width: 4rem;
+    font-size: 2.4rem;
+    display: block;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.quantity__display {
+    font-size: 2rem;
+}
+
+.product-detail__actions-item {
+    height: 4rem;
+    background-color: var(--black-color);
+    color: var(--white-color);
+    border-radius: 2rem;
+    font-weight: 500;
+    border: none;
+}
+
+.product-detail__actions-item:hover {
+    background-color: #d9d9d9;
+    color: var(--black-color);
+}
+
+
+.product-detail__add-to-cart-btn {
+    flex: 2;
+}
+
+.product-detail__buy-btn {
+    flex: 3;
+}
+/* End: Product Detail CSS */
+
+/* Start: Modal CSS */
+.select-size-guide-modal {
+    padding: 1.2rem;
+    border-radius: 16px;
+    background-color: var(--white-color);
+    font-size: 1.4rem;
+    position: relative;
+}
+
+.select-size-guide-modal__heading {
+    font-size: 2rem;
+}
+
+.select-size-guide-modal__content table {
+    border-collapse: collapse;
+    border-radius: 12px;
+    box-sizing: border-box;
+    font-weight: 500;
+}
+
+.select-size-guide-modal__content thead {
+    background-color: #777;
+    color: var(--white-color);
+}
+
+.select-size-guide-modal__content td {
+    padding: 5px 10px;
+    position: relative;
+    height: 3.2rem;
+}
+
+.select-size-guide-modal__content thead td:first-child {
+    border-top-left-radius: 16px;
+    border-bottom-left-radius: 16px;
+}
+
+.select-size-guide-modal__content tbody tr td:first-child::before {
+    content: "";
+    height: 100%;
+    border-left: #777 1px solid;
+    position: absolute;
+    left: 0;
+    top: -1.2rem;
+}
+
+.select-size-guide-modal__content tbody tr td:last-child::before {
+    content: "";
+    height: 100%;
+    border-right: #777 1px solid;
+    position: absolute;
+    right: 0;
+    top: -1.2rem;
+}
+
+.select-size-guide-modal__content thead td:last-child {
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
+}
+
+.select-size-guide-modal__content tbody tr td:first-child::after {
+    border-bottom-left-radius: 16px;
+}
+
+.select-size-guide-modal__content tbody tr td:last-child::after {
+    border-bottom-right-radius: 16px;
+}
+
+.select-size-guide-modal__content tbody td::after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    display: block;
+    top: 0;
+    right: 0;
+    border-bottom: #777 1px solid;
+}
+
+.select-size-guide-modal__footer {
+    margin-top: 1rem;
+}
+
+.select-size-guide-modal__tips {
+    font-weight: 500;
+}
+/* End: Modal CSS */
