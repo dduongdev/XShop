@@ -23,30 +23,37 @@
                 <div class="row">
                     <div class="col l-5">
                         <div class="product-detail__images">
-                            <img class="product-detail__main-image" src="./images/products/polo_active_premium_gray.jpg" alt="">
-
+                            <img src="./images/products/polo_active_premium_gray.jpg" alt="" class="product-detail__main-image">
+    
                             <div class="product-detail__sub-images">
-                                <img class="product-detail__sub-image" src="./images/products/polo_active_premium_gray.jpg" alt="Gray">
-                                <img class="product-detail__sub-image" src="./images/products/polo_active_premium_black.jpg" alt="Black">
+                                <img class="product-detail__sub-image" src="./images/products/polo_active_premium_gray.jpg" value="Gray" alt="Gray">
+                                <img class="product-detail__sub-image" src="./images/products/polo_active_premium_black.jpg" value="Black" alt="Black">
                             </div>
                         </div>
                     </div>
 
                     <div class="col l-7">
-                        <div class="product_detail__content">
+                        <div class="product-detail__container">
                             <p class="product-detail__title">Áo Polo Nam Cafe Bo Kẻ</p>
-                            <p class="product-detail__short-desc">
-                                <span class="product-detail__sub-title">Exdry</span>
-                                 / 
-                                <span class="product-detail__color-info"></span>
+                            <p class="product-detail__sub-title">
+                                <span class="product-detail__short-desc">
+                                    Exdry
+                                </span>
+
+                                /
+
+                                <span class="product-detail__short-info">
+
+                                </span>
                             </p>
-                        
+
                             <div class="product-detail__ratings">
                                 <i class="fa-solid fa-star"></i>
                                 <i class="fa-solid fa-star"></i>
                                 <i class="fa-solid fa-star"></i>
                                 <i class="fa-regular fa-star-half-stroke"></i>
                                 <i class="fa-regular fa-star"></i>
+                                <span class="product-detail__rating-score">(4.5)</span>
                             </div>
 
                             <div class="product-detail__price">
@@ -54,102 +61,150 @@
                                 <span class="product-detail__old-price">499.000đ</span>
                                 <span class="product-detail__discount">-10%</span>
                             </div>
-                            
+
                             <div class="product-detail__policy">
                                 <div class="row">
-                                    <div class="product-detail__policy-item col l-6">
-                                        <i class="fa-solid fa-right-left product-detail__policy-icon"></i>
-                                        <span class="product-detail__policy-content">Đổi trả miễn phí trong vòng 15 ngày</span>
-                                    </div>
-                                    
-                                    <div class="product-detail__policy-item col l-6">
-                                        <i class="fa-solid fa-arrow-rotate-left product-detail__policy-icon"></i>
-                                        <span class="product-detail__policy-content">Đổi trả cực dễ chỉ cần số điện thoại</span>
+                                    <div class="col l-6">
+                                        <div class="product-detail__policy-item">
+                                            <i class="fa-solid fa-right-left product-detail__policy-icon"></i>
+                                            <span class="product-detail__policy-content">Đổi trả miễn phí trong vòng 15 ngày</span>
+                                        </div>
                                     </div>
 
-                                    <div class="product-detail__policy-item col l-6">
-                                        <i class="fa-solid fa-phone product-detail__policy-icon"></i>
-                                        <span class="product-detail__policy-content">Hotline 0385.216.798 hỗ trợ từ 8h30 - 22h mỗi ngày</span>
+                                    <div class="col l-6">
+                                        <div class="product-detail__policy-item">
+                                            <i class="fa-solid fa-arrow-rotate-left product-detail__policy-icon"></i>
+                                            <span class="product-detail__policy-content">Đổi trả cực dễ chỉ cần số điện thoại</span>
+                                        </div>
                                     </div>
-    
+
+                                    <div class="col l-6">
+                                        <div class="product-detail__policy-item">
+                                            <i class="fa-solid fa-phone product-detail__policy-icon"></i>
+                                            <span class="product-detail__policy-content">Hotline 0385.216.798 hỗ trợ từ 8h30 - 22h mỗi ngày</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
-                            <form action="">
-                                <div class="product-detail__select-color">
-                                    <div class="product-detail__select-color-header">
-                                        <p class="product-detail__selected-color">Màu sắc: <span></span></p>
+                            <form action="" class="product-detail__options">
+                                <div class="product-option">
+                                    <div class="product-option__heading">
+                                        <span>Màu sắc: </span>
+                                        <span class="product-option__selected-option product-option__selected-option--color"></span>
                                     </div>
-    
-                                    <div class="product-detail__options-color">
-                                        <button class="product-detail__color" name="color" value="Gray">
+                                    
+                                    <div class="product-option__select product-option__select--color-select">
+                                        <button class="product-option__select-item product-option__select-item--color" name="color" value="Gray">
                                             <span style="background-image: url(./images/product_colors/gray.jpg);"></span>
                                         </button>
-    
-                                        <button class="product-detail__color" name="color" value="Black">
+
+                                        <button class="product-option__select-item product-option__select-item--color" name="color" value="Black">
                                             <span style="background-image: url(./images/product_colors/black.jpg);"></span>
                                         </button>
                                     </div>
                                 </div>
 
-                                <div class="product-detail__select-size">
-                                    <div class="product-detail__select-size-header">
-                                        <div class="product-detail__selected-size">
-                                            Kích thước: 
-                                            <span></span>
+                                <div class="product-option">
+                                    <div class="product-option__heading product-option__heading--size-option">
+                                        <div class="">
+                                            <span>Kích thước: </span>
+                                            <span class="product-option__selected-option product-option__selected-option--size"></span>
                                         </div>
+
                                         <span class="product-detail__select-size-guide">
                                             Hướng dẫn chọn size
                                         </span>
                                     </div>
 
-                                    <div class="product-detail__options-size">
-                                        <button class="product-detail__size">
+                                    <div class="product-option__select product-option__select--size-select">
+                                        <button class="product-option__select-item product-option__select-item--size" value="S">
                                             S
                                         </button>
-                                        
-                                        <button class="product-detail__size">
+
+                                        <button class="product-option__select-item product-option__select-item--size" value="M">
                                             M
                                         </button>
-                                        
-                                        <button class="product-detail__size">
+
+                                        <button class="product-option__select-item product-option__select-item--size" value="L">
                                             L
                                         </button>
 
-                                        <button class="product-detail__size">
+                                        <button class="product-option__select-item product-option__select-item--size" value="XL">
                                             XL
                                         </button>
 
-                                        <button class="product-detail__size">
+                                        <button class="product-option__select-item product-option__select-item--size" value="2XL">
                                             2XL
                                         </button>
 
-                                        <button class="product-detail__size">
+                                        <button class="product-option__select-item product-option__select-item--size" value="3XL">
                                             3XL
                                         </button>
-
                                     </div>
                                 </div>
 
-                                <div class="product-detail__select-quantity">
-                                    <div class="product-detail__select-quantity-header">
-                                        <p class="product-detail__select-quantity-heading">Số lượng</p>
-                                    </div>
-                                    <div class="quantity-change">
-                                        <span class="quantity__reduce">-</span>
-                                        <span class="quantity__display">1</span>
-                                        <input type="number" value="1" min="1" max="99" class="quantity__control">
-                                        <span class="quantity__augure">+</span>
+                                <div class="product-option">
+                                    <div class="product-option__heading">
+                                        <span>Số lượng: </span>
                                     </div>
 
-                                    <p class="quantity__quantity-remaining">7749 sản phẩm có sẵn</p>
+                                    <div class="product-option__select product-option__select--quantity-select">
+                                        <div class="quantity-change">
+                                            <span class="quantity__reduce">-</span>
+                                            <span class="quantity__display">1</span>
+                                            <input type="number" value="1" min="1" max="99" class="quantity__control">
+                                            <span class="quantity__augure">+</span>
+                                        </div>
+
+                                        <span class="quantity__quantity-remaining">7749 sản sản phẩm có sẵn</span>
+                                    </div>
                                 </div>
 
                                 <div class="product-detail__actions">
-                                    <button class="product-detail__actions-item product-detail__add-to-cart-btn">Thêm vào giỏ hàng</button>
-                                    <button class="product-detail__actions-item product-detail__buy-btn">Mua ngay</button>
+                                    <button class="product-detail__action-btn product-detail__action-btn--add-to-cart">
+                                        Thêm vào giỏ hàng
+                                    </button>
+
+                                    <button class="product-detail__action-btn product-detail__action-btn--buy">
+                                        Mua ngay
+                                    </button>
                                 </div>
                             </form>
+
+                            <div class="product-detail__description">
+                                <p class="product-detail__description-heading">
+                                    Mô tả sản phẩm
+                                </p>
+
+                                <p class="product-detail__description-item">
+                                    Chất liệu: 50% S.Café + 50% Recycled PET
+                                </p>
+
+                                <p class="product-detail__description-item">
+                                    Sợi S.Café có tính kháng khuẩn tự nhiên và chống tia UV
+                                </p>
+
+                                <p class="product-detail__description-item">
+                                    Công nghệ Hydroponic tăng khả năng bốc hơi ẩm khỏi vải, giúp nhanh khô
+                                </p>
+
+                                <p class="product-detail__description-item">
+                                    Bo cổ dùng sợi Hightwisted 45D/75D tạo co giãn và bền form
+                                </p>
+
+                                <p class="product-detail__description-item">
+                                    Phù hợp với: đi làm, đi chơi
+                                </p>
+
+                                <p class="product-detail__description-item">
+                                    Kiểu dáng Regular fit
+                                </p>
+
+                                <p class="product-detail__description-item">
+                                    Tự hào sản xuất tại Việt Nam
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -261,47 +316,69 @@
     </div>
 
     <script>
+        var productImages = {
+            "Gray": "./images/products/polo_active_premium_gray.jpg",
+            "Black": "./images/products/polo_active_premium_black.jpg"
+        }
+
+        var mainImage = document.querySelector('.product-detail__main-image');
         var subImages = document.querySelectorAll('.product-detail__sub-image');
-        subImages.forEach(function(img){
-            img.addEventListener('click', function(){
-                var mainImage = document.querySelector('.product-detail__main-image');
-                mainImage.src = productImgMatchWithColor[this.alt];
+        subImages.forEach(
+            x => x.addEventListener('click', function(){
+                subImages.forEach(
+                    y => y.classList.remove('product-detail__sub-image--is-selected')
+                )
+                x.classList.add('product-detail__sub-image--is-selected');
 
-                var colorInfo = document.querySelector('.product-detail__color-info');
-                colorInfo.innerText = this.alt;
+                var colorValue = x.getAttribute('value');
+                mainImage.src = productImages[colorValue];
+                shortInfo_colorChanged(colorValue);
             })
-            img.addEventListener('click', function(){
-                subImages.forEach(function(img){
-                    img.classList.remove('product-detail__sub-image--is-selected');
-                })
-                this.classList.add('product-detail__sub-image--is-selected');
+        )
+
+        function shortInfo_colorChanged(info){
+            var shortInfo = document.querySelector('.product-detail__short-info');
+            shortInfo.innerText = info;
+        }
+
+        var productOptionItems = document.querySelectorAll('.product-option__select-item');
+        productOptionItems.forEach(
+            x => x.addEventListener('click', function(event){
+                event.preventDefault();
             })
-        })
+        )
 
-        var productImgMatchWithColor = {
-            Gray: './images/products/polo_active_premium_gray.jpg',
-            Black: './images/products/polo_active_premium_black.jpg'
-        };
+        var productColorOptions = document.querySelectorAll('.product-option__select-item--color');
+        productColorOptions.forEach(
+            x => x.addEventListener('click', function(){
+                productColorOptions.forEach(
+                    y => y.classList.remove('product-option__select-item--is-selected')
+                )
+                x.classList.add('product-option__select-item--is-selected');
 
-        var colorButtons = document.querySelectorAll('.product-detail__color');
-        colorButtons.forEach(function(button){
-            button.addEventListener('click', function(){
-                var mainImage = document.querySelector('.product-detail__main-image');
-                mainImage.src = productImgMatchWithColor[this.value];
+                var colorValue = x.getAttribute('value');
+                mainImage.src = productImages[colorValue];
+                shortInfo_colorChanged(colorValue);
 
-                var colorInfo = document.querySelector('.product-detail__color-info');
-                colorInfo.innerText = this.value;
-
-                var selectedColor = document.querySelector('.product-detail__selected-color');
-                selectedColor.querySelector('span').innerText = this.value;
+                var selectedColorInfo = document.querySelector('.product-option__selected-option--color');
+                selectedColorInfo.innerText = colorValue;
             })
-            button.addEventListener('click', function(){
-                colorButtons.forEach(function(button){
-                    button.classList.remove('product-detail__color--is-selected');
-                })
-                this.classList.add('product-detail__color--is-selected');
+        )
+
+        var productSizeOptions = document.querySelectorAll('.product-option__select-item--size');
+        productSizeOptions.forEach(
+            x => x.addEventListener('click', function(){
+                productSizeOptions.forEach(
+                    y => y.classList.remove('product-option__select-item--is-selected')
+                )
+                x.classList.add('product-option__select-item--is-selected');
+
+                var sizeValue = x.getAttribute('value');
+
+                var selectedSizeInfo = document.querySelector('.product-option__selected-option--size');
+                selectedSizeInfo.innerText = sizeValue;
             })
-        })
+        )
     </script>
 
     <script>
@@ -313,9 +390,6 @@
             modal.classList.remove('modal--close');
             selectSizeGuideModal.classList.remove('modal--close');
         })
-
-        
-
 
         function closeCurrentModal(){
             modal.classList.add('modal--close');
@@ -356,7 +430,6 @@
                 quantityDisplay.innerHTML = quantityControl.value;
             }
         })
-
     </script>
 </body>
 </html>
