@@ -325,6 +325,9 @@
         var subImages = document.querySelectorAll('.product-detail__sub-image');
         subImages.forEach(
             x => x.addEventListener('click', function(){
+                productColorOptions.forEach(
+                    y => y.classList.remove('product-option__select-item--is-selected')
+                )
                 subImages.forEach(
                     y => y.classList.remove('product-detail__sub-image--is-selected')
                 )
@@ -351,6 +354,9 @@
         var productColorOptions = document.querySelectorAll('.product-option__select-item--color');
         productColorOptions.forEach(
             x => x.addEventListener('click', function(){
+                subImages.forEach(
+                    y => y.classList.remove('product-detail__sub-image--is-selected')
+                )
                 productColorOptions.forEach(
                     y => y.classList.remove('product-option__select-item--is-selected')
                 )
