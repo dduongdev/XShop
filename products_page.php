@@ -145,8 +145,8 @@
                             </div>
                         </div>
         
-                        <div class="products-page__loadmore">
-                            <button class="products-page__loadmore-btn">
+                        <div class="loadmore">
+                            <button class="loadmore-btn">
                                 Xem thêm
                             </button>
                         </div>

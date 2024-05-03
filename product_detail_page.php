@@ -20,194 +20,289 @@
 
         <div class="container">
             <div class="grid wide">
-                <div class="row">
-                    <div class="col l-5">
-                        <div class="product-detail__images">
-                            <img src="./images/products/polo_active_premium_gray.jpg" alt="" class="product-detail__main-image">
+                <section>
+                    <div class="row">
+                        <div class="col l-3 l-o-2">
+                            <div class="product-detail__images">
+                                <img src="./images/products/polo_active_premium_gray.jpg" alt="" class="product-detail__main-image">
+        
+                                <div class="product-detail__sub-images">
+                                    <img class="product-detail__sub-image" src="./images/products/polo_active_premium_gray.jpg" value="Gray" alt="Gray">
+                                    <img class="product-detail__sub-image" src="./images/products/polo_active_premium_black.jpg" value="Black" alt="Black">
+                                </div>
+                            </div>
+                        </div>
     
-                            <div class="product-detail__sub-images">
-                                <img class="product-detail__sub-image" src="./images/products/polo_active_premium_gray.jpg" value="Gray" alt="Gray">
-                                <img class="product-detail__sub-image" src="./images/products/polo_active_premium_black.jpg" value="Black" alt="Black">
+                        <div class="col l-6">
+                            <div class="product-detail__container">
+                                <p class="product-detail__title">Áo Polo Nam Cafe Bo Kẻ</p>
+                                <p class="product-detail__sub-title">
+                                    <span class="product-detail__short-desc">
+                                        Exdry
+                                    </span>
+    
+                                    /
+    
+                                    <span class="product-detail__short-info">
+    
+                                    </span>
+                                </p>
+    
+                                <div class="rating-score">
+                                    <div class="rating-score__star is-active"></div>
+                                    <div class="rating-score__star is-active"></div>
+                                    <div class="rating-score__star is-active"></div>
+                                    <div class="rating-score__star is-half"></div>
+                                    <div class="rating-score__star is-neutral"></div>
+                                    <span class="product-detail__rating-score">(3.5)</span>
+                                </div>
+    
+                                <div class="product-detail__price">
+                                    <span class="product-detail__current-price">449.000đ</span>
+                                    <span class="product-detail__old-price">499.000đ</span>
+                                    <span class="product-detail__discount">-10%</span>
+                                </div>
+    
+                                <div class="product-detail__policy">
+                                    <div class="row">
+                                        <div class="col l-6">
+                                            <div class="product-detail__policy-item">
+                                                <i class="fa-solid fa-right-left product-detail__policy-icon"></i>
+                                                <span class="product-detail__policy-content">Đổi trả miễn phí trong vòng 15 ngày</span>
+                                            </div>
+                                        </div>
+    
+                                        <div class="col l-6">
+                                            <div class="product-detail__policy-item">
+                                                <i class="fa-solid fa-arrow-rotate-left product-detail__policy-icon"></i>
+                                                <span class="product-detail__policy-content">Đổi trả cực dễ chỉ cần số điện thoại</span>
+                                            </div>
+                                        </div>
+    
+                                        <div class="col l-6">
+                                            <div class="product-detail__policy-item">
+                                                <i class="fa-solid fa-phone product-detail__policy-icon"></i>
+                                                <span class="product-detail__policy-content">Hotline 0385.216.798 hỗ trợ từ 8h30 - 22h mỗi ngày</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <form action="" class="product-detail__options">
+                                    <div class="product-option">
+                                        <div class="product-option__heading">
+                                            <span>Màu sắc: </span>
+                                            <span class="product-option__selected-option product-option__selected-option--color"></span>
+                                        </div>
+                                        
+                                        <div class="product-option__select product-option__select--color-select">
+                                            <button class="product-option__select-item product-option__select-item--color" name="color" value="Gray">
+                                                <span style="background-image: url(./images/product_colors/gray.jpg);"></span>
+                                            </button>
+    
+                                            <button class="product-option__select-item product-option__select-item--color" name="color" value="Black">
+                                                <span style="background-image: url(./images/product_colors/black.jpg);"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+    
+                                    <div class="product-option">
+                                        <div class="product-option__heading product-option__heading--size-option">
+                                            <div class="">
+                                                <span>Kích thước: </span>
+                                                <span class="product-option__selected-option product-option__selected-option--size"></span>
+                                            </div>
+    
+                                            <span class="product-detail__select-size-guide">
+                                                Hướng dẫn chọn size
+                                            </span>
+                                        </div>
+    
+                                        <div class="product-option__select product-option__select--size-select">
+                                            <button class="product-option__select-item product-option__select-item--size" value="S">
+                                                S
+                                            </button>
+    
+                                            <button class="product-option__select-item product-option__select-item--size" value="M">
+                                                M
+                                            </button>
+    
+                                            <button class="product-option__select-item product-option__select-item--size" value="L">
+                                                L
+                                            </button>
+    
+                                            <button class="product-option__select-item product-option__select-item--size" value="XL">
+                                                XL
+                                            </button>
+    
+                                            <button class="product-option__select-item product-option__select-item--size" value="2XL">
+                                                2XL
+                                            </button>
+    
+                                            <button class="product-option__select-item product-option__select-item--size" value="3XL">
+                                                3XL
+                                            </button>
+                                        </div>
+                                    </div>
+    
+                                    <div class="product-option">
+                                        <div class="product-option__heading">
+                                            <span>Số lượng: </span>
+                                        </div>
+    
+                                        <div class="product-option__select product-option__select--quantity-select">
+                                            <div class="quantity-change">
+                                                <span class="quantity__reduce">-</span>
+                                                <span class="quantity__display">1</span>
+                                                <input type="number" value="1" min="1" max="99" class="quantity__control">
+                                                <span class="quantity__augure">+</span>
+                                            </div>
+    
+                                            <span class="quantity__quantity-remaining">7749 sản phẩm có sẵn</span>
+                                        </div>
+                                    </div>
+    
+                                    <div class="product-detail__actions">
+                                        <button class="product-detail__action-btn product-detail__action-btn--add-to-cart">
+                                            Thêm vào giỏ hàng
+                                        </button>
+    
+                                        <button class="product-detail__action-btn product-detail__action-btn--buy">
+                                            Mua ngay
+                                        </button>
+                                    </div>
+                                </form>
+    
+                                <div class="product-detail__description">
+                                    <p class="product-detail__description-heading">
+                                        Mô tả sản phẩm
+                                    </p>
+    
+                                    <p class="product-detail__description-item">
+                                        Chất liệu: 50% S.Café + 50% Recycled PET
+                                    </p>
+    
+                                    <p class="product-detail__description-item">
+                                        Sợi S.Café có tính kháng khuẩn tự nhiên và chống tia UV
+                                    </p>
+    
+                                    <p class="product-detail__description-item">
+                                        Công nghệ Hydroponic tăng khả năng bốc hơi ẩm khỏi vải, giúp nhanh khô
+                                    </p>
+    
+                                    <p class="product-detail__description-item">
+                                        Bo cổ dùng sợi Hightwisted 45D/75D tạo co giãn và bền form
+                                    </p>
+    
+                                    <p class="product-detail__description-item">
+                                        Phù hợp với: đi làm, đi chơi
+                                    </p>
+    
+                                    <p class="product-detail__description-item">
+                                        Kiểu dáng Regular fit
+                                    </p>
+    
+                                    <p class="product-detail__description-item">
+                                        Tự hào sản xuất tại Việt Nam
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
+                </section>
 
-                    <div class="col l-7">
-                        <div class="product-detail__container">
-                            <p class="product-detail__title">Áo Polo Nam Cafe Bo Kẻ</p>
-                            <p class="product-detail__sub-title">
-                                <span class="product-detail__short-desc">
-                                    Exdry
-                                </span>
+                <section class="product-detail__feedback">
+                    <div class="row">
+                        <div class="col l-2 l-o-1">
+                            <div class="overall-rating">
+                                <span class="overall-rating__title">Đánh giá sản phẩm</span>
+                                <span class="overall-rating__score">3.5</span>
+                                <div class="rating-score rating-score--overall-rating">
+                                    <div class="rating-score__star is-active"></div>
+                                    <div class="rating-score__star is-active"></div>
+                                    <div class="rating-score__star is-active"></div>
+                                    <div class="rating-score__star is-half"></div>
+                                    <div class="rating-score__star is-neutral"></div>
+                                </div>
+                                <span class="overall-rating__count">5 lượt đánh giá</span>
+                            </div>
+                        </div>
 
-                                /
+                        <div class="col l-8">
+                            <div class="row">
+                                <div class="col l-6">
+                                    <div class="feedback-item">
+                                        <div class="rating-score rating-score--feedback-item">
+                                            <div class="rating-score__star is-active"></div>
+                                            <div class="rating-score__star is-active"></div>
+                                            <div class="rating-score__star is-active"></div>
+                                            <div class="rating-score__star is-half"></div>
+                                            <div class="rating-score__star is-neutral"></div>
+                                        </div>
 
-                                <span class="product-detail__short-info">
+                                        <p class="feedback-item__author">Nguyễn Đông Dương</p>
+                                        <p class="feedback-item__purchased-product-short-info">Black / 3XL</p>
+                                        <p class="feedback-item__content">Ảo mỏng, nhẹ, thoáng, thấm mồ hôi. Quần short nhẹ, mình mặc để chạy bộ khá thoải mái</p>
+                                    </div>
+                                </div>
 
-                                </span>
-                            </p>
+                                <div class="col l-6">
+                                    <div class="feedback-item">
+                                        <div class="rating-score rating-score--feedback-item">
+                                            <div class="rating-score__star is-active"></div>
+                                            <div class="rating-score__star is-active"></div>
+                                            <div class="rating-score__star is-active"></div>
+                                            <div class="rating-score__star is-half"></div>
+                                            <div class="rating-score__star is-neutral"></div>
+                                        </div>
 
-                            <div class="product-detail__ratings">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-regular fa-star-half-stroke"></i>
-                                <i class="fa-regular fa-star"></i>
-                                <span class="product-detail__rating-score">(4.5)</span>
+                                        <p class="feedback-item__author">Nguyễn Đông Dương</p>
+                                        <p class="feedback-item__purchased-product-short-info">Black / 3XL</p>
+                                        <p class="feedback-item__content">Ảo mỏng, nhẹ, thoáng, thấm mồ hôi. Quần short nhẹ, mình mặc để chạy bộ khá thoải mái</p>
+                                    </div>
+                                </div>
+
+                                <div class="col l-6">
+                                    <div class="feedback-item">
+                                        <div class="rating-score rating-score--feedback-item">
+                                            <div class="rating-score__star is-active"></div>
+                                            <div class="rating-score__star is-active"></div>
+                                            <div class="rating-score__star is-active"></div>
+                                            <div class="rating-score__star is-half"></div>
+                                            <div class="rating-score__star is-neutral"></div>
+                                        </div>
+
+                                        <p class="feedback-item__author">Nguyễn Đông Dương</p>
+                                        <p class="feedback-item__purchased-product-short-info">Black / 3XL</p>
+                                        <p class="feedback-item__content">Ảo mỏng, nhẹ, thoáng, thấm mồ hôi. Quần short nhẹ, mình mặc để chạy bộ khá thoải mái</p>
+                                    </div>
+                                </div>
+
+                                <div class="col l-6">
+                                    <div class="feedback-item">
+                                        <div class="rating-score rating-score--feedback-item">
+                                            <div class="rating-score__star is-active"></div>
+                                            <div class="rating-score__star is-active"></div>
+                                            <div class="rating-score__star is-active"></div>
+                                            <div class="rating-score__star is-half"></div>
+                                            <div class="rating-score__star is-neutral"></div>
+                                        </div>
+
+                                        <p class="feedback-item__author">Nguyễn Đông Dương</p>
+                                        <p class="feedback-item__purchased-product-short-info">Black / 3XL</p>
+                                        <p class="feedback-item__content">Ảo mỏng, nhẹ, thoáng, thấm mồ hôi. Quần short nhẹ, mình mặc để chạy bộ khá thoải mái</p>
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="product-detail__price">
-                                <span class="product-detail__current-price">449.000đ</span>
-                                <span class="product-detail__old-price">499.000đ</span>
-                                <span class="product-detail__discount">-10%</span>
-                            </div>
-
-                            <div class="product-detail__policy">
-                                <div class="row">
-                                    <div class="col l-6">
-                                        <div class="product-detail__policy-item">
-                                            <i class="fa-solid fa-right-left product-detail__policy-icon"></i>
-                                            <span class="product-detail__policy-content">Đổi trả miễn phí trong vòng 15 ngày</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="col l-6">
-                                        <div class="product-detail__policy-item">
-                                            <i class="fa-solid fa-arrow-rotate-left product-detail__policy-icon"></i>
-                                            <span class="product-detail__policy-content">Đổi trả cực dễ chỉ cần số điện thoại</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="col l-6">
-                                        <div class="product-detail__policy-item">
-                                            <i class="fa-solid fa-phone product-detail__policy-icon"></i>
-                                            <span class="product-detail__policy-content">Hotline 0385.216.798 hỗ trợ từ 8h30 - 22h mỗi ngày</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <form action="" class="product-detail__options">
-                                <div class="product-option">
-                                    <div class="product-option__heading">
-                                        <span>Màu sắc: </span>
-                                        <span class="product-option__selected-option product-option__selected-option--color"></span>
-                                    </div>
-                                    
-                                    <div class="product-option__select product-option__select--color-select">
-                                        <button class="product-option__select-item product-option__select-item--color" name="color" value="Gray">
-                                            <span style="background-image: url(./images/product_colors/gray.jpg);"></span>
-                                        </button>
-
-                                        <button class="product-option__select-item product-option__select-item--color" name="color" value="Black">
-                                            <span style="background-image: url(./images/product_colors/black.jpg);"></span>
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <div class="product-option">
-                                    <div class="product-option__heading product-option__heading--size-option">
-                                        <div class="">
-                                            <span>Kích thước: </span>
-                                            <span class="product-option__selected-option product-option__selected-option--size"></span>
-                                        </div>
-
-                                        <span class="product-detail__select-size-guide">
-                                            Hướng dẫn chọn size
-                                        </span>
-                                    </div>
-
-                                    <div class="product-option__select product-option__select--size-select">
-                                        <button class="product-option__select-item product-option__select-item--size" value="S">
-                                            S
-                                        </button>
-
-                                        <button class="product-option__select-item product-option__select-item--size" value="M">
-                                            M
-                                        </button>
-
-                                        <button class="product-option__select-item product-option__select-item--size" value="L">
-                                            L
-                                        </button>
-
-                                        <button class="product-option__select-item product-option__select-item--size" value="XL">
-                                            XL
-                                        </button>
-
-                                        <button class="product-option__select-item product-option__select-item--size" value="2XL">
-                                            2XL
-                                        </button>
-
-                                        <button class="product-option__select-item product-option__select-item--size" value="3XL">
-                                            3XL
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <div class="product-option">
-                                    <div class="product-option__heading">
-                                        <span>Số lượng: </span>
-                                    </div>
-
-                                    <div class="product-option__select product-option__select--quantity-select">
-                                        <div class="quantity-change">
-                                            <span class="quantity__reduce">-</span>
-                                            <span class="quantity__display">1</span>
-                                            <input type="number" value="1" min="1" max="99" class="quantity__control">
-                                            <span class="quantity__augure">+</span>
-                                        </div>
-
-                                        <span class="quantity__quantity-remaining">7749 sản phẩm có sẵn</span>
-                                    </div>
-                                </div>
-
-                                <div class="product-detail__actions">
-                                    <button class="product-detail__action-btn product-detail__action-btn--add-to-cart">
-                                        Thêm vào giỏ hàng
-                                    </button>
-
-                                    <button class="product-detail__action-btn product-detail__action-btn--buy">
-                                        Mua ngay
-                                    </button>
-                                </div>
-                            </form>
-
-                            <div class="product-detail__description">
-                                <p class="product-detail__description-heading">
-                                    Mô tả sản phẩm
-                                </p>
-
-                                <p class="product-detail__description-item">
-                                    Chất liệu: 50% S.Café + 50% Recycled PET
-                                </p>
-
-                                <p class="product-detail__description-item">
-                                    Sợi S.Café có tính kháng khuẩn tự nhiên và chống tia UV
-                                </p>
-
-                                <p class="product-detail__description-item">
-                                    Công nghệ Hydroponic tăng khả năng bốc hơi ẩm khỏi vải, giúp nhanh khô
-                                </p>
-
-                                <p class="product-detail__description-item">
-                                    Bo cổ dùng sợi Hightwisted 45D/75D tạo co giãn và bền form
-                                </p>
-
-                                <p class="product-detail__description-item">
-                                    Phù hợp với: đi làm, đi chơi
-                                </p>
-
-                                <p class="product-detail__description-item">
-                                    Kiểu dáng Regular fit
-                                </p>
-
-                                <p class="product-detail__description-item">
-                                    Tự hào sản xuất tại Việt Nam
-                                </p>
+                            <div class="loadmore">
+                                <button class="loadmore-btn">
+                                    Xem thêm
+                                </button>
                             </div>
                         </div>
                     </div>
-                </div>
+                </section>
             </div>
         </div>
 

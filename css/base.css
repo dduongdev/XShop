@@ -92,6 +92,7 @@ a {
     background-color: #000;
     color: var(--white-color);
     box-shadow: 0 4.5px 5px rgba(0, 0, 0, .2509803922);
+    cursor: pointer;
 }
 
 .modal__close-btn:hover {
