@@ -157,7 +157,7 @@
                                             <span class="quantity__augure">+</span>
                                         </div>
 
-                                        <span class="quantity__quantity-remaining">7749 sản sản phẩm có sẵn</span>
+                                        <span class="quantity__quantity-remaining">7749 sản phẩm có sẵn</span>
                                     </div>
                                 </div>
 
@@ -328,6 +328,7 @@
                 productColorOptions.forEach(
                     y => y.classList.remove('product-option__select-item--is-selected')
                 )
+                document.querySelector('.product-option__selected-option--color').innerText = "";
                 subImages.forEach(
                     y => y.classList.remove('product-detail__sub-image--is-selected')
                 )
