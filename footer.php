@@ -160,18 +160,6 @@
                         <span>
                             <img src="./images/paymentproviders/9263fa8c83628f5deff55e2a90758b06.png" alt="" class="footer__payment-provider">
                         </span>
-                        <span>
-                            <img src="./images/paymentproviders/a0a9062ebe19b45c1ae0506f16af5c16.png" alt="" class="footer__payment-provider">
-                        </span>
-                        <span>
-                            <img src="./images/paymentproviders/bc2a874caeee705449c164be385b796c.png" alt="" class="footer__payment-provider">
-                        </span>
-                        <span>
-                            <img src="./images/paymentproviders/d4bbea4570b93bfd5fc652ca82a262a8.png" alt="" class="footer__payment-provider">
-                        </span>
-                        <span>
-                            <img src="./images/paymentproviders/38fd98e55806c3b2e4535c4e4a6c4c08.png" alt="" class="footer__payment-provider">
-                        </span>
                     </div>
                 </div>
 
