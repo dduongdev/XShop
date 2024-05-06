@@ -1671,7 +1671,7 @@
     box-shadow: 0 0 3px #c72323;
 }
 
-.pagination-item .pagination-item-link--disable:hover {
+.pagination__link.pagination__link--disable:hover {
     cursor: default;
     box-shadow: none;
 }
