@@ -661,6 +661,7 @@
     font-size: 1.4rem;
     margin-bottom: 30px;
     color: #d9d9d9;
+    line-height: 2rem;
 }
 
 .footer__message-send-opinion-btn {
@@ -786,7 +787,7 @@
 
 .footer__address {
     color: #d9d9d9;
-    line-height: 200%;
+    line-height: 2rem;
     margin: 0;
 }
 
@@ -1464,3 +1465,117 @@
     font-weight: 500;
 }
 /* End: Modal CSS */
+
+/* Start: Cart */
+.cart__heading {
+    font-size: 4rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+.cart__content {
+    border-top: #777 1px solid;
+    border-bottom: #777 1px solid;
+}
+
+.cart__item {
+    display: flex;
+    align-items: center;
+    font-size: 1.6rem;
+    color: var(--text-color);
+    gap: 2rem;
+    padding: 2rem 1rem;
+}
+
+.container--cart input[type="checkbox"] {
+    transform: scale(1.4);
+}
+
+.cart__product-img {
+    width: 10rem;
+    height: 10rem;
+    object-fit: cover;
+    object-position: 0 0;
+}
+
+.cart__product-name {
+    flex: 1;
+    line-height: 2rem;
+}
+
+.cart__product-options {
+    height: 4rem;
+}
+
+.cart__product-options--size {
+    width: 6rem;
+}
+
+.cart__product-options--color {
+    width: 10rem;
+}
+
+.cart__product-old-price {
+    color: #c4c4c4;
+    text-decoration: line-through;
+}
+
+.cart__delete-cart-item-btn {
+    width: 8rem;
+    height: 4rem;
+    border-radius: 2rem;
+    border: none;
+    background-color: rgba(0, 0, 0, .8);
+    color: var(--white-color);
+    font-weight: 500;
+}
+
+.cart__delete-cart-item-btn:hover {
+    color: var(--black-color);
+    background-color: #d9d9d9;
+}
+
+.cart__product-current-price {
+    color: #242424;
+    font-weight: 700;
+}
+
+.cart__footer {
+    display: flex;
+    font-size: 1.8rem;
+    align-items: center;
+    padding: 2rem 1rem;
+    position: sticky;
+    bottom: 0;
+    background-color: #fff;
+    gap: 1rem;
+    box-shadow: 
+        0 -5px 15px rgba(0, 0, 0, 0.1), 
+        -5px 0 15px rgba(0, 0, 0, 0.1),
+        5px 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.cart__select-all {
+    display: flex;
+    gap: 1rem;
+}
+
+.cart__total-bill {
+    margin-left: auto;
+}
+
+.cart__buy-btn {
+    background-image: linear-gradient(to left, #a8b7e1, rgb(61 108 235));
+    height: 4rem;
+    width: 16rem;
+    border: none;
+    color: var(--white-color);
+    font-weight: 500;
+    border-radius: 2rem;
+    cursor: pointer;
+}
+
+.cart__buy-btn:hover {
+    opacity: 0.8;
+}
+/* End: Cart */

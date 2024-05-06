@@ -109,7 +109,7 @@
                 </div>
 
                 <div class="header__action-item header__action-item--has-cart-dialog">
-                    <a href="#" class="header__action-link">
+                    <a href="cart_page.php" class="header__action-link">
                         <i class="header__action-icon fa-solid fa-cart-shopping"></i>
                     </a>
 
@@ -143,7 +143,7 @@
                                     sản phẩm trong giỏ hàng
                                 </span>
 
-                                <a href="#" class="header-dialog_show-all-btn cart-dialog__show-all-btn">
+                                <a href="cart_page.php" class="header-dialog_show-all-btn cart-dialog__show-all-btn">
                                     Xem tất cả
                                 </a>
                             </footer>
