@@ -150,5 +150,7 @@
 
         <?php include "footer.php" ?>
     </div>
+
+    <script src="./js/quantity_up_down.js"></script>
 </body>
 </html>

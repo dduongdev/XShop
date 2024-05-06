@@ -511,27 +511,6 @@
         )
     </script>
 
-    <script>
-        var quantityControl = document.querySelector('.quantity__control');
-        var quantityDisplay = document.querySelector('.quantity__display');
-        
-        var quantityReduce = document.querySelector('.quantity__reduce');
-        quantityReduce.addEventListener('click', function(){
-            var currentQuantity = parseInt(quantityControl.value);
-            if(currentQuantity > 1){
-                quantityControl.value = currentQuantity - 1;
-                quantityDisplay.innerHTML = quantityControl.value;
-            }
-        })
-
-        var quantityAugure = document.querySelector('.quantity__augure');
-        quantityAugure.addEventListener('click', function(){
-            var currentQuantity = parseInt(quantityControl.value);
-            if(currentQuantity < 99){
-                quantityControl.value = currentQuantity + 1;
-                quantityDisplay.innerHTML = quantityControl.value;
-            }
-        })
-    </script>
+    <script src="./js/quantity_up_down.js"></script>
 </body>
 </html>
