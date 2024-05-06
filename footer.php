@@ -88,17 +88,7 @@
                         </li>
                         <li>
                             <a href="#" class="footer__menu-link ">
-                                Chính sách bảo mật
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="footer__menu-link ">
                                 Chăm sóc khách hàng
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="footer__menu-link ">
-                                Chính sách bảo hành
                             </a>
                         </li>
                     </ul>
@@ -113,16 +103,6 @@
                         <li>
                             <a href="#" class="footer__menu-link ">
                                 Giới thiệu về X-Shop
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="footer__menu-link ">
-                                Nhà máy
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="footer__menu-link ">
-                                Care & Share
                             </a>
                         </li>
                         <li>
@@ -147,11 +127,6 @@
                         <li>
                             <a href="#" class="footer__menu-link ">
                                 Trung tâm trợ giúp
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="footer__menu-link ">
-                                X-Shop Blog
                             </a>
                         </li>
                         <li>
