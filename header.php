@@ -36,7 +36,7 @@
 
             <ul class="nav-sub">
                 <li class="nav-sub__item">
-                    <a href="#" class="nav-sub__link">
+                    <a href="index.php" class="nav-sub__link">
                         Trang chủ
                     </a>
                 </li>
