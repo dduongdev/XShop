@@ -22,7 +22,7 @@
             <div class="grid wide">
                 <section>
                     <div class="row">
-                        <div class="col l-3 l-o-2">
+                        <div class="col l-4 l-o-1">
                             <div class="product-detail__images">
                                 <img src="./images/products/polo_active_premium_gray.jpg" alt="" class="product-detail__main-image">
         
