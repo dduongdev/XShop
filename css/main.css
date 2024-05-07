@@ -974,7 +974,7 @@
 /* End: Login Page CSS */
 
 /* START: Payment gateway css */
-.container {
+.payment-gateway {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
@@ -993,21 +993,21 @@
     background-color: #fff;
 }
 
-.container .cart-section {
+.payment-gateway .cart-section {
     margin-left: auto;
 }
 
-.container .cart-section .title {
+.payment-gateway .cart-section .title {
     font-size: 25px;
     font-weight: 700;
     margin: 2rem 0 1rem;
 }
 
-.container .cart-section #customer-info-block .grid.grid-name-phone {
+.payment-gateway .cart-section #customer-info-block .grid.grid-name-phone {
     flex-wrap: nowrap;
 }
 
-.container .cart-section #customer-info-block .grid {
+.payment-gateway .cart-section #customer-info-block .grid {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -1018,11 +1018,11 @@
     float: none;
 }
 
-.container .cart-section #customer-info-block .grid .six-twelfths {
+.payment-gateway .cart-section #customer-info-block .grid .six-twelfths {
     width: 50%;
 }
 
-.container .cart-section #customer-info-block .grid .grid__column {
+.payment-gateway .cart-section #customer-info-block .grid .grid__column {
     position: relative;
     box-sizing: border-box;
     min-height: 1px;
@@ -1033,7 +1033,7 @@
     width: 100%;
 }
 
-.container .cart-section.cart-payment-scroll .checkout-btn {
+.payment-gateway .cart-section.cart-payment-scroll .checkout-btn {
     border-radius: 16px;
     height: 55px;
     width: 100%;
@@ -1047,7 +1047,7 @@
     margin-bottom: 20px;
 }
 
-.container .cart-section.cart-payment-scroll p {
+.payment-gateway .cart-section.cart-payment-scroll p {
     display: block;
     margin-block-start: 1em;
     margin-block-end: 1em;
@@ -1056,28 +1056,28 @@
     unicode-bidi: isolate;
 }
 
-.container .cart-section.cart-payment-scroll .cart-return-text a {
+.payment-gateway .cart-section.cart-payment-scroll .cart-return-text a {
     background-color: transparent;
     text-decoration: none;
     color: inherit;
     transition: all .2s;
 }
 
-.container .cart-section.cart-payment-scroll .cart-return-text a b {
+.payment-gateway .cart-section.cart-payment-scroll .cart-return-text a b {
     font-weight: bolder;
 }
 
-.container .cart-section.cart-payment-scroll .payment-shipping form {
+.payment-gateway .cart-section.cart-payment-scroll .payment-shipping form {
     display: block;
     margin-top: 0em;
     unicode-bidi: isolate;
 }
 
-.container .cart-section.cart-payment-scroll .payment-shipping form .mgb--20 {
+.payment-gateway .cart-section.cart-payment-scroll .payment-shipping form .mgb--20 {
     margin-bottom: 20px;
 }
 
-.container .cart-section.cart-payment-scroll .payment-shipping form .mgb--20 .payment-method__item {
+.payment-gateway .cart-section.cart-payment-scroll .payment-shipping form .mgb--20 .payment-method__item {
     display: flex;
     align-items: center;
     border: 1px solid #D9D9D9;
@@ -1087,7 +1087,7 @@
     transition: 0.2s all;
 }
 
-.container .cart-section.cart-payment-scroll .payment-shipping form .mgb--20 .payment-method__item .custom-radio {
+.payment-gateway .cart-section.cart-payment-scroll .payment-shipping form .mgb--20 .payment-method__item .custom-radio {
     display: block;
     position: relative;
     flex: 0 0 20px;
@@ -1098,11 +1098,11 @@
     transition: all .2s;
 }
 
-.container .cart-section.cart-payment-scroll .payment-shipping form .mgb--20 .payment-method__item .payment-method__item-custom-checkbox {
+.payment-gateway .cart-section.cart-payment-scroll .payment-shipping form .mgb--20 .payment-method__item .payment-method__item-custom-checkbox {
     border: 1px solid #2f5acf;
 }
 
-.container .cart-section.cart-payment-scroll .payment-shipping form .mgb--20 .payment-method__item .custom-radio {
+.payment-gateway .cart-section.cart-payment-scroll .payment-shipping form .mgb--20 .payment-method__item .custom-radio {
     display: block;
     position: relative;
     flex: 0 0 20px;
@@ -1113,11 +1113,11 @@
     transition: all .2s;
 }
 
-.container .cart-section.cart-payment-scroll .payment-shipping form .mgb--20 .payment-method__item .custom-radio input {
+.payment-gateway .cart-section.cart-payment-scroll .payment-shipping form .mgb--20 .payment-method__item .custom-radio input {
     display: none;
 }
 
-.container .cart-section.cart-payment-scroll .payment-shipping form .mgb--20 .payment-method__item .custom-radio input:checked~.checkmark {
+.payment-gateway .cart-section.cart-payment-scroll .payment-shipping form .mgb--20 .payment-method__item .custom-radio input:checked~.checkmark {
     display: block;
     position: absolute;
     top: 50%;
@@ -1129,14 +1129,14 @@
     background-color: #2f5acf;
 }
 
-.container .cart-section.cart-payment-scroll .payment-shipping form .mgb--20 .payment-method__item .payment-method__item-icon-wrapper {
+.payment-gateway .cart-section.cart-payment-scroll .payment-shipping form .mgb--20 .payment-method__item .payment-method__item-icon-wrapper {
     margin: 0 1.5rem;
     min-width: 35px;
     max-height: 35px;
     max-width: 55px;
 }
 
-.container .cart-section.cart-payment-scroll .payment-shipping form .mgb--20 .payment-method__item .payment-method__item-icon-wrapper img {
+.payment-gateway .cart-section.cart-payment-scroll .payment-shipping form .mgb--20 .payment-method__item .payment-method__item-icon-wrapper img {
     min-width: 35px;
     max-height: 35px;
     max-width: 55px;
@@ -1155,16 +1155,16 @@
     transition: all .2s;
 }
 
-.container .cart-section #customer-info-block .address-block select {
-    display: inline-block;
-    margin-right: 10px;
-    background: #fff;
-    border: 1px solid #d9d9d9;
-    box-sizing: border-box;
+.payment-gateway .cart-section #customer-info-block .grid__selected {
+    margin-left: 2px;
+    margin-right: 2px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.payment-gateway .cart-section #customer-info-block .grid.grid__selected .selectedBox {
+    padding: 12px 20px;
     border-radius: 16px;
-    height: 50px;
-    width: calc(30% - 10px);
-    padding: 5px 20px;
-    transition: all .2s;
+    margin-right: 25px;
 }
 /* END: Payment gateway css */
