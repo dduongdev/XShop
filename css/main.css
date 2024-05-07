@@ -402,7 +402,7 @@
     height: 48px;
     font-size: 1.4rem;
     font-weight: 700;
-    background-color: var(--black-color);
+    background-color: rgba(0, 0, 0, .8);
     color: var(--white-color);
     border-radius: 24px;
     cursor: pointer;
@@ -1676,3 +1676,101 @@
     box-shadow: none;
 }
 /* End: Pagination CSS */
+
+/* Start: Payment gateway CSS */
+.container--payment-gateway {
+    justify-content: center;
+    align-items: center;
+    font-size: 1.6rem;
+}
+
+.payment-gateway__form-row {
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+
+.payment-gateway__heading {
+    font-weight: bolder;
+    font-size: 3rem;
+    text-align: center;
+    padding: 2rem 0;
+}
+
+.payment-gateway__form-control {
+    background: #fff;
+    border: 1px solid #d9d9d9;
+    box-sizing: border-box;
+    border-radius: 16px;
+    height: 50px;
+    width: 100%;
+    padding: 5px 20px;
+    transition: all .2s;
+}
+
+.payment-gateway__form-control--payment-method {
+    display: flex;
+    align-items: center;
+    border: 1px solid #D9D9D9;
+    border-radius: 16px;
+    padding: 3rem 2rem;
+    cursor: pointer;
+    transition: 0.2s all;
+    gap: 1rem;
+    font-size: 1.4rem;
+    line-height: 1.8rem;
+}
+
+.payment-method__item-icon-wrapper {
+    margin-right: 8px;
+}
+
+.payment-method__item-icon-wrapper img {
+    width: 4rem;
+    vertical-align: middle;
+}
+
+.payment-gateway__custom-radio {
+    display: block;
+    position: relative;
+    flex: 0 0 20px;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #d9d9d9;
+    border-radius: 20px;
+    transition: all .2s;
+}
+
+.payment-gateway__custom-radio input[type="radio"] {
+    display: none;
+}
+
+.payment-gateway__custom-radio input[type="radio"]:checked + .payment-gateway__custom-radio-checkmark {
+    display: none;display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 20px;
+    background-color: #2f5acf;
+}
+
+.payment-gateway__form-submit-btn {
+    border-radius: 1.6rem;
+    background-color: rgba(0, 0, 0, .8);
+    color: var(--white-color);
+    font-weight: 500;
+    border: none;
+    width: 100%;
+    font-size: 2rem;
+    padding: 2rem 0;
+    height: 6rem;
+    margin-top: 2rem;
+}
+
+.payment-gateway__form-submit-btn:hover {
+    background-color: #d9d9d9;
+    color: var(--text-color);
+}
+/* End: Payment gateway CSS */
