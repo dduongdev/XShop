@@ -24,9 +24,9 @@
             <div class="home__container grid wide">
                 <div class="slider">
                     <div class="slider__content">
-                        <a href="#"><img src="./images/slider/slider_content.webp"></a>
-                        <a href="#"><img src="./images/slider/slider_content2.webp"></a>
-                        <a href="#"><img src="./images/slider/slider_content3.webp"></a>
+                        <a href="#"><img src="./images/slider/banner.png"></a>
+                        <a href="#"><img src="./images/slider/COOL_TEE_(1).jpg"></a>
+                        <a href="#"><img src="./images/slider/mceclip2_67.jpg"></a>
                     </div>
     
                     <div class="slider__action">

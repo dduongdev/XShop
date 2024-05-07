@@ -1588,9 +1588,15 @@
     justify-content: center;
 }
 
+.slider__content {
+    width: 100%;
+    height: 48rem;
+}
+
 .slider__content img {
     width: 100%;
-    object-fit: contain;
+    height: 100%;
+    object-fit: cover;
     display: none;
 }
 
