@@ -98,7 +98,7 @@
                                             </span>
         
                                             <span class="payment-method__item-icon-wrapper">
-                                                <img src="https://www.coolmate.me/images/COD.svg" alt="COD <br> Thanh toán khi nhận hàng">
+                                                <img src="./images/icons/COD.svg" alt="COD <br> Thanh toán khi nhận hàng">
                                             </span>
         
                                             <span class="payment-method__item-name">
@@ -119,7 +119,7 @@
                                             </span>
         
                                             <span class="payment-method__item-icon-wrapper">
-                                                <img src="https://www.coolmate.me/images/momo-icon.png" alt="Thanh Toán MoMo">
+                                                <img src="./images/icons/momo-icon.png" alt="Thanh Toán MoMo">
                                             </span>
         
                                             <span class="payment-method__item-name">
@@ -138,7 +138,7 @@
                                             </span>
         
                                             <span class="payment-method__item-icon-wrapper">
-                                                <img src="https://gateway.zalopay.vn/image/emvco/icon-vietqr.svg" alt="Quét QR & Thanh toán bằng ứng dụng ngân hàng<br/>Mờ ứng dụng ngân hàng để thanh toán">
+                                                <img src="./images/icons/icon-vietqr.svg" alt="Quét QR & Thanh toán bằng ứng dụng ngân hàng<br/>Mờ ứng dụng ngân hàng để thanh toán">
                                             </span>
         
                                             <span class="payment-method__item-name">
@@ -159,7 +159,7 @@
                                             </span>
         
                                             <span class="payment-method__item-icon-wrapper">
-                                                <img src="https://mcdn.coolmate.me/image/April2023/mceclip1_21.png" alt="">
+                                                <img src="./images/icons/mceclip1_21.png" alt="">
                                             </span>
         
                                             <span class="payment-method__item-name">
