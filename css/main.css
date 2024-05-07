@@ -1588,22 +1588,10 @@
     justify-content: center;
 }
 
-.slider__content {
-    padding: 0 2.4rem;
-}
-
 .slider__content img {
     width: 100%;
     object-fit: contain;
-}
-
-.slider__action {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    justify-content: space-between;
-    width: 94%;
+    display: none;
 }
 
 .slider__change-slide-button {
@@ -1614,14 +1602,25 @@
     color: #fff;
     cursor: pointer;
     font-weight: 500;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.slider__prev-button {
+    left: 1rem;
+}
+
+.slider__next-button {
+    right: 1rem;
 }
 
 .slider__change-slide-button:hover {
     opacity: 0.8;
 }
 
-.slider--hidden {
-    display: none;
+.slider__content img.slider--display {
+    display: block;
 }
 
 .home__product-suggest {

@@ -21,7 +21,7 @@
         <?php include "header.php" ?>
 
         <div class="container">
-            <div class="home__container">
+            <div class="home__container grid wide">
                 <div class="slider">
                     <div class="slider__content">
                         <a href="#"><img src="./images/slider/slider_content.webp"></a>
@@ -356,25 +356,18 @@
         var slider = document.querySelector('.slider');
         var sliderImages = slider.querySelectorAll('img');
 
-        var currentIndexSlider = 0;
-        var prevIndexSlider = sliderImages.length - 1;
-
-        sliderImages.forEach(
-            x => x.classList.add("slider--hidden")
-        )
+        var currentIndexSlider = sliderImages.length - 1;
 
         function nextSlider(){
-            prevIndexSlider = currentIndexSlider;
-            sliderImages[currentIndexSlider].classList.add("slider--hidden");
+            sliderImages[currentIndexSlider].classList.remove("slider--display");
             currentIndexSlider = (currentIndexSlider + 1) % sliderImages.length;
-            sliderImages[currentIndexSlider].classList.remove("slider--hidden");
+            sliderImages[currentIndexSlider].classList.add("slider--display");
         }
 
         function prevSlider(){
-            sliderImages[currentIndexSlider].classList.add("slider--hidden");
-            sliderImages[prevIndexSlider].classList.remove("slider--hidden");
-            currentIndexSlider = prevIndexSlider;
-            prevIndexSlider = (prevIndexSlider == 0) ? sliderImages.length - 1 : prevIndexSlider - 1; 
+            sliderImages[currentIndexSlider].classList.remove("slider--display");
+            currentIndexSlider = (currentIndexSlider == 0) ? sliderImages.length - 1 : currentIndexSlider - 1;
+            sliderImages[currentIndexSlider].classList.add("slider--display");
         }
 
         // setInterval(nextSlider, 2000);
