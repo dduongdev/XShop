@@ -64,11 +64,6 @@
                                             </button>
                                         </div>
                                         <p class="product-card__title">Áo Polo Nam Cafe Bo Kẻ</p>
-                                        <p class="product-card__short-desc">
-                                            <span class="product-card__sub-title">Exdry</span>
-                                             / 
-                                            <span class="product-card__color-info"></span>
-                                        </p>
                                         <div class="product-card__price">
                                             <span class="product-card__current-price">449.000đ</span>
                                             <span class="product-card__old-price">499.000đ</span>
@@ -94,11 +89,6 @@
                                             </button>
                                         </div>
                                         <p class="product-card__title">Áo Polo Nam Cafe Bo Kẻ</p>
-                                        <p class="product-card__short-desc">
-                                            <span class="product-card__sub-title">Exdry</span>
-                                             / 
-                                            <span class="product-card__color-info"></span>
-                                        </p>
                                         <div class="product-card__price">
                                             <span class="product-card__current-price">449.000đ</span>
                                             <span class="product-card__old-price">499.000đ</span>
@@ -124,11 +114,6 @@
                                             </button>
                                         </div>
                                         <p class="product-card__title">Áo Polo Nam Cafe Bo Kẻ</p>
-                                        <p class="product-card__short-desc">
-                                            <span class="product-card__sub-title">Exdry</span>
-                                             / 
-                                            <span class="product-card__color-info"></span>
-                                        </p>
                                         <div class="product-card__price">
                                             <span class="product-card__current-price">449.000đ</span>
                                             <span class="product-card__old-price">499.000đ</span>
@@ -154,11 +139,6 @@
                                             </button>
                                         </div>
                                         <p class="product-card__title">Áo Polo Nam Cafe Bo Kẻ</p>
-                                        <p class="product-card__short-desc">
-                                            <span class="product-card__sub-title">Exdry</span>
-                                             / 
-                                            <span class="product-card__color-info"></span>
-                                        </p>
                                         <div class="product-card__price">
                                             <span class="product-card__current-price">449.000đ</span>
                                             <span class="product-card__old-price">499.000đ</span>
@@ -184,11 +164,6 @@
                                             </button>
                                         </div>
                                         <p class="product-card__title">Áo Polo Nam Cafe Bo Kẻ</p>
-                                        <p class="product-card__short-desc">
-                                            <span class="product-card__sub-title">Exdry</span>
-                                             / 
-                                            <span class="product-card__color-info"></span>
-                                        </p>
                                         <div class="product-card__price">
                                             <span class="product-card__current-price">449.000đ</span>
                                             <span class="product-card__old-price">499.000đ</span>
@@ -214,11 +189,6 @@
                                             </button>
                                         </div>
                                         <p class="product-card__title">Áo Polo Nam Cafe Bo Kẻ</p>
-                                        <p class="product-card__short-desc">
-                                            <span class="product-card__sub-title">Exdry</span>
-                                             / 
-                                            <span class="product-card__color-info"></span>
-                                        </p>
                                         <div class="product-card__price">
                                             <span class="product-card__current-price">449.000đ</span>
                                             <span class="product-card__old-price">499.000đ</span>
@@ -244,11 +214,6 @@
                                             </button>
                                         </div>
                                         <p class="product-card__title">Áo Polo Nam Cafe Bo Kẻ</p>
-                                        <p class="product-card__short-desc">
-                                            <span class="product-card__sub-title">Exdry</span>
-                                             / 
-                                            <span class="product-card__color-info"></span>
-                                        </p>
                                         <div class="product-card__price">
                                             <span class="product-card__current-price">449.000đ</span>
                                             <span class="product-card__old-price">499.000đ</span>
@@ -274,11 +239,6 @@
                                             </button>
                                         </div>
                                         <p class="product-card__title">Áo Polo Nam Cafe Bo Kẻ</p>
-                                        <p class="product-card__short-desc">
-                                            <span class="product-card__sub-title">Exdry</span>
-                                             / 
-                                            <span class="product-card__color-info"></span>
-                                        </p>
                                         <div class="product-card__price">
                                             <span class="product-card__current-price">449.000đ</span>
                                             <span class="product-card__old-price">499.000đ</span>
@@ -304,11 +264,6 @@
                                             </button>
                                         </div>
                                         <p class="product-card__title">Áo Polo Nam Cafe Bo Kẻ</p>
-                                        <p class="product-card__short-desc">
-                                            <span class="product-card__sub-title">Exdry</span>
-                                             / 
-                                            <span class="product-card__color-info"></span>
-                                        </p>
                                         <div class="product-card__price">
                                             <span class="product-card__current-price">449.000đ</span>
                                             <span class="product-card__old-price">499.000đ</span>

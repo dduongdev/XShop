@@ -30,7 +30,7 @@
         </div>
 
         <div class="header__inner">
-            <a href="#">
+            <a href="index.php">
                 <img src="./images/logo.png" alt="Logo" class="header__logo">
             </a>
 

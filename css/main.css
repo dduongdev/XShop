@@ -540,7 +540,6 @@
 
 .product-card__content {
     padding: 4px;
-    min-height: 120px;
 }
 
 .product-card__options-color {
@@ -589,11 +588,6 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
-}
-
-.product-card__short-desc {
-    font-size: 1.2rem;
-    color: #888;
 }
 
 .product-card__price {

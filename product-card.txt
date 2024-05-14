@@ -15,11 +15,6 @@
             ...
         </div>
         <p class="product-card__title"></p>
-        <p class="product-card__short-desc">
-            <span class="product-card__sub-title">Exdry</span>
-             / 
-            <span class="product-card__color-info"></span>
-        </p>
         <div class="product-card__price">
             <span class="product-card__current-price"></span>
             <span class="product-card__old-price"></span>
