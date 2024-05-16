@@ -1,20 +1,14 @@
 <a class="product-card">
     <div class="product-card__img" style="background-image: url();"></div>
-    <div class="product-card__content">
-        <div class="product-card__options-color">
-            <button class="product-card__color" name="color">
-                <span style="background-image: url();"></span>
-                <img src="link_product_img_match_with_color" alt="color_name">
-            </button>
-
-            <button class="product-card__color" name="color">
-                <span style="background-image: url();"></span>
-                <img src="link_product_img_match_with_color" alt="color_name">
-            </button>
-
-            ...
-        </div>
+        <div class="product-card__content">
+                                            
         <p class="product-card__title"></p>
+
+        <div class="rating-score rating-score--product-card">
+            <?php initRatingStars(); ?>
+            <span class="product-detail__rating-score">()</span>
+        </div>
+
         <div class="product-card__price">
             <span class="product-card__current-price"></span>
             <span class="product-card__old-price"></span>

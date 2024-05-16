@@ -1,4 +1,9 @@
-
+<?php
+    require_once './php/dbconnect.php';
+    require_once './php/dbcommands.php';
+    require_once './php/functions.php';
+    require_once './php/product_dao.php';
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -48,230 +53,46 @@
                                 </div>
                             </div>
         
-                            <div class="col l-2">
-                                <a class="product-card">
-                                    <div class="product-card__img" style="background-image: url(./images/products/polo_active_premium_gray.jpg);"></div>
-                                    <div class="product-card__content">
-                                        <div class="product-card__options-color">
-                                            <button class="product-card__color" name="color">
-                                                <span style="background-image: url(./images/product_colors/gray.jpg);"></span>
-                                                <img src="./images/products/polo_active_premium_gray.jpg" alt="Gray">
-                                            </button>
-        
-                                            <button class="product-card__color" name="color">
-                                                <span style="background-image: url(./images/product_colors/black.jpg);"></span>
-                                                <img src="./images/products/polo_active_premium_black.jpg" alt="Black">
-                                            </button>
-                                        </div>
-                                        <p class="product-card__title">Áo Polo Nam Cafe Bo Kẻ</p>
-                                        <div class="product-card__price">
-                                            <span class="product-card__current-price">449.000đ</span>
-                                            <span class="product-card__old-price">499.000đ</span>
-                                            <span class="product-card__discount">-10%</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-    
-                            <div class="col l-2">
-                                <a class="product-card">
-                                    <div class="product-card__img" style="background-image: url(./images/products/polo_active_premium_gray.jpg);"></div>
-                                    <div class="product-card__content">
-                                        <div class="product-card__options-color">
-                                            <button class="product-card__color" name="color">
-                                                <span style="background-image: url(./images/product_colors/gray.jpg);"></span>
-                                                <img src="./images/products/polo_active_premium_gray.jpg" alt="Gray">
-                                            </button>
-        
-                                            <button class="product-card__color" name="color">
-                                                <span style="background-image: url(./images/product_colors/black.jpg);"></span>
-                                                <img src="./images/products/polo_active_premium_black.jpg" alt="Black">
-                                            </button>
-                                        </div>
-                                        <p class="product-card__title">Áo Polo Nam Cafe Bo Kẻ</p>
-                                        <div class="product-card__price">
-                                            <span class="product-card__current-price">449.000đ</span>
-                                            <span class="product-card__old-price">499.000đ</span>
-                                            <span class="product-card__discount">-10%</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-    
-                            <div class="col l-2">
-                                <a class="product-card">
-                                    <div class="product-card__img" style="background-image: url(./images/products/polo_active_premium_gray.jpg);"></div>
-                                    <div class="product-card__content">
-                                        <div class="product-card__options-color">
-                                            <button class="product-card__color" name="color">
-                                                <span style="background-image: url(./images/product_colors/gray.jpg);"></span>
-                                                <img src="./images/products/polo_active_premium_gray.jpg" alt="Gray">
-                                            </button>
-        
-                                            <button class="product-card__color" name="color">
-                                                <span style="background-image: url(./images/product_colors/black.jpg);"></span>
-                                                <img src="./images/products/polo_active_premium_black.jpg" alt="Black">
-                                            </button>
-                                        </div>
-                                        <p class="product-card__title">Áo Polo Nam Cafe Bo Kẻ</p>
-                                        <div class="product-card__price">
-                                            <span class="product-card__current-price">449.000đ</span>
-                                            <span class="product-card__old-price">499.000đ</span>
-                                            <span class="product-card__discount">-10%</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-    
-                            <div class="col l-2">
-                                <a class="product-card">
-                                    <div class="product-card__img" style="background-image: url(./images/products/polo_active_premium_gray.jpg);"></div>
-                                    <div class="product-card__content">
-                                        <div class="product-card__options-color">
-                                            <button class="product-card__color" name="color">
-                                                <span style="background-image: url(./images/product_colors/gray.jpg);"></span>
-                                                <img src="./images/products/polo_active_premium_gray.jpg" alt="Gray">
-                                            </button>
-        
-                                            <button class="product-card__color" name="color">
-                                                <span style="background-image: url(./images/product_colors/black.jpg);"></span>
-                                                <img src="./images/products/polo_active_premium_black.jpg" alt="Black">
-                                            </button>
-                                        </div>
-                                        <p class="product-card__title">Áo Polo Nam Cafe Bo Kẻ</p>
-                                        <div class="product-card__price">
-                                            <span class="product-card__current-price">449.000đ</span>
-                                            <span class="product-card__old-price">499.000đ</span>
-                                            <span class="product-card__discount">-10%</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-    
-                            <div class="col l-2">
-                                <a class="product-card">
-                                    <div class="product-card__img" style="background-image: url(./images/products/polo_active_premium_gray.jpg);"></div>
-                                    <div class="product-card__content">
-                                        <div class="product-card__options-color">
-                                            <button class="product-card__color" name="color">
-                                                <span style="background-image: url(./images/product_colors/gray.jpg);"></span>
-                                                <img src="./images/products/polo_active_premium_gray.jpg" alt="Gray">
-                                            </button>
-        
-                                            <button class="product-card__color" name="color">
-                                                <span style="background-image: url(./images/product_colors/black.jpg);"></span>
-                                                <img src="./images/products/polo_active_premium_black.jpg" alt="Black">
-                                            </button>
-                                        </div>
-                                        <p class="product-card__title">Áo Polo Nam Cafe Bo Kẻ</p>
-                                        <div class="product-card__price">
-                                            <span class="product-card__current-price">449.000đ</span>
-                                            <span class="product-card__old-price">499.000đ</span>
-                                            <span class="product-card__discount">-10%</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-    
-                            <div class="col l-2">
-                                <a class="product-card">
-                                    <div class="product-card__img" style="background-image: url(./images/products/polo_active_premium_gray.jpg);"></div>
-                                    <div class="product-card__content">
-                                        <div class="product-card__options-color">
-                                            <button class="product-card__color" name="color">
-                                                <span style="background-image: url(./images/product_colors/gray.jpg);"></span>
-                                                <img src="./images/products/polo_active_premium_gray.jpg" alt="Gray">
-                                            </button>
-        
-                                            <button class="product-card__color" name="color">
-                                                <span style="background-image: url(./images/product_colors/black.jpg);"></span>
-                                                <img src="./images/products/polo_active_premium_black.jpg" alt="Black">
-                                            </button>
-                                        </div>
-                                        <p class="product-card__title">Áo Polo Nam Cafe Bo Kẻ</p>
-                                        <div class="product-card__price">
-                                            <span class="product-card__current-price">449.000đ</span>
-                                            <span class="product-card__old-price">499.000đ</span>
-                                            <span class="product-card__discount">-10%</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-    
-                            <div class="col l-2">
-                                <a class="product-card">
-                                    <div class="product-card__img" style="background-image: url(./images/products/polo_active_premium_gray.jpg);"></div>
-                                    <div class="product-card__content">
-                                        <div class="product-card__options-color">
-                                            <button class="product-card__color" name="color">
-                                                <span style="background-image: url(./images/product_colors/gray.jpg);"></span>
-                                                <img src="./images/products/polo_active_premium_gray.jpg" alt="Gray">
-                                            </button>
-        
-                                            <button class="product-card__color" name="color">
-                                                <span style="background-image: url(./images/product_colors/black.jpg);"></span>
-                                                <img src="./images/products/polo_active_premium_black.jpg" alt="Black">
-                                            </button>
-                                        </div>
-                                        <p class="product-card__title">Áo Polo Nam Cafe Bo Kẻ</p>
-                                        <div class="product-card__price">
-                                            <span class="product-card__current-price">449.000đ</span>
-                                            <span class="product-card__old-price">499.000đ</span>
-                                            <span class="product-card__discount">-10%</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-    
-                            <div class="col l-2">
-                                <a class="product-card">
-                                    <div class="product-card__img" style="background-image: url(./images/products/polo_active_premium_gray.jpg);"></div>
-                                    <div class="product-card__content">
-                                        <div class="product-card__options-color">
-                                            <button class="product-card__color" name="color">
-                                                <span style="background-image: url(./images/product_colors/gray.jpg);"></span>
-                                                <img src="./images/products/polo_active_premium_gray.jpg" alt="Gray">
-                                            </button>
-        
-                                            <button class="product-card__color" name="color">
-                                                <span style="background-image: url(./images/product_colors/black.jpg);"></span>
-                                                <img src="./images/products/polo_active_premium_black.jpg" alt="Black">
-                                            </button>
-                                        </div>
-                                        <p class="product-card__title">Áo Polo Nam Cafe Bo Kẻ</p>
-                                        <div class="product-card__price">
-                                            <span class="product-card__current-price">449.000đ</span>
-                                            <span class="product-card__old-price">499.000đ</span>
-                                            <span class="product-card__discount">-10%</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-    
-                            <div class="col l-2">
-                                <a class="product-card">
-                                    <div class="product-card__img" style="background-image: url(./images/products/polo_active_premium_gray.jpg);"></div>
-                                    <div class="product-card__content">
-                                        <div class="product-card__options-color">
-                                            <button class="product-card__color" name="color">
-                                                <span style="background-image: url(./images/product_colors/gray.jpg);"></span>
-                                                <img src="./images/products/polo_active_premium_gray.jpg" alt="Gray">
-                                            </button>
-        
-                                            <button class="product-card__color" name="color">
-                                                <span style="background-image: url(./images/product_colors/black.jpg);"></span>
-                                                <img src="./images/products/polo_active_premium_black.jpg" alt="Black">
-                                            </button>
-                                        </div>
-                                        <p class="product-card__title">Áo Polo Nam Cafe Bo Kẻ</p>
-                                        <div class="product-card__price">
-                                            <span class="product-card__current-price">449.000đ</span>
-                                            <span class="product-card__old-price">499.000đ</span>
-                                            <span class="product-card__discount">-10%</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
+                            <?php 
+                                $sql = $PRODUCT_QUERY_GET_PRODUCT_CARD_INFO;
+                                $result = $_conn->query($sql);
+                                while($row = $result->fetch_assoc()){
+                                    $rating = getGeneralRatingOfProduct($row['id']);
+
+                                    $unit_price = $row['unit_price'];
+                                    $discount_percentage = $row['discount_percentage'];
+                                    $sell_price = $unit_price * (1-$discount_percentage);
+
+
+                                    echo '<div class="col l-2">';
+                                    echo '<a class="product-card" href="product_detail_page.php?id='.$row['id'].'&product='.$row['slug'].'">';
+                                    echo '<div class="product-card__img" style="background-image: url('.$row['main_img'].');"></div>';
+                                    echo '<div class="product-card__content">';
+
+                                    echo '<p class="product-card__title">'.$row['product_name'].'</p>';
+
+                                    echo '<div class="rating-score rating-score--product-card">';
+                                    initRatingStars($rating['rating_score']);
+                                    echo '<span class="product-detail__rating-score">('.$rating['rating_score'].')</span>';
+                                    echo '</div>';
+
+                                    echo '<div class="product-card__price">';
+                                    if($discount_percentage > 0){
+                                        echo '<span class="product-card__current-price">'.number_format($sell_price, 0, ',', '.').'đ</span>';
+                                        echo '<span class="product-card__old-price">'.number_format($unit_price, 0, ',', '.').'đ</span>';
+                                        echo '<span class="product-card__discount">-'.($discount_percentage * 100).'%</span>';
+                                    }
+                                    else {
+                                        echo '<span class="product-card__current-price">'.number_format($unit_price, 0, ',', '.').'đ</span>';
+                                    }
+                                    echo '</div>';
+
+                                    echo '</div>';
+                                    echo '</a>';
+                                    echo '</div>';
+                                }
+                                $result->close();
+                            ?>
 
                             <div class="col l-12">
                                 <ul class="pagination">

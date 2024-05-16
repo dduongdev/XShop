@@ -25,35 +25,35 @@
                     <form class="register-form" 
                         action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>"
                         method="post">
-                        <h1 class="register-form__heading">Register</h1>
+                        <h1 class="register-form__heading">Đăng ký</h1>
                         <div class="register-form__input-box">
-                            <input type="text" placeholder="Username" required>
+                            <input type="text" placeholder="Tên đăng nhập" required>
                         </div>
                                 
                         <div class="register-form__input-box">
-                            <input type="text" placeholder="Full Name" required>
+                            <input type="text" placeholder="Tên của bạn" required>
                         </div>
             
                         <div class="register-form__input-box">
-                            <input type="email" placeholder="Email" required>
+                            <input type="email" placeholder="Email của bạn" required>
                         </div>
                         
                         <div class="register-form__input-box">
-                            <input type="text" placeholder="Phone Number" required>
+                            <input type="text" placeholder="SĐT của bạn" required>
                         </div>
             
                         <div class="register-form__input-box">
-                            <input type="password" placeholder="Password" required>
+                            <input type="password" placeholder="Mật khẩu" required>
                         </div>
             
                         <div class="register-form__input-box">
-                            <input type="password" placeholder="Confirm Password" required>
+                            <input type="password" placeholder="Nhập lại mật khẩu" required>
                         </div>
                 
-                        <button type="submit" class="register_form__btn">Register</button>
+                        <button type="submit" class="register_form__btn">Đăng ký</button>
                 
                         <div class="register-form__link-box">
-                            <p>Already have an account? <a href="#">register</a></p>
+                            <p>Bạn đã có tài khoản? <a href="login_page.php">Đăng nhập</a></p>
                         </div>
                     </form>
                 </div>

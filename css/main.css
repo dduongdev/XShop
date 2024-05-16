@@ -422,6 +422,8 @@
     border-radius: 8px;
     display: flex;
     flex-direction: column;
+    position: sticky;
+    top: 4rem;
 }
 
 .product-filter__item {
@@ -472,11 +474,11 @@
 .product-filter__color {
     display: flex;
     flex-wrap: wrap;
+    gap: 0.4rem;
 }
 
 .product-filter__button {
-    width: calc(92% / 3);
-    margin: 2px;
+    min-width: calc(92% / 3);
     border: #777 1px solid;
     background-color: var(--white-color);
     border-radius: 8px;
@@ -514,6 +516,8 @@
     width: 20px;
     height: 20px;
     border-radius: 10px;
+    width: 80%;
+    margin-bottom: 4px;
 }
 
 .product-card {
@@ -573,17 +577,13 @@
     padding: 4px 0;
 }
 
-.product-card__title,
-.product-card__sub-title {
-    margin: 0;
-    margin-bottom: 8px;
-}
-
 .product-card__title {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
+    margin: 4px 0;
+    line-height: 1.8rem;
     color: #231f20;
     font-weight: 700;
-    max-height: 3.2rem;
+    max-height: 3.6rem;
     overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -815,6 +815,7 @@
 .register-form__heading {
     font-size: 36px;
     text-align: center;
+    padding-bottom: 2rem;
 }
 
 .register-form__input-box {
@@ -894,6 +895,7 @@
 .login-form__heading {
     font-size: 36px;
     text-align: center;
+    padding-bottom: 2rem;
 }
 
 .login-form__input-box {
@@ -1021,6 +1023,7 @@
     font-size: 3.2rem;
     font-weight: 700;
     padding: 1rem 0;
+    line-height: 3.4rem;
 }
 
 .product-detail__sub-title {
@@ -1031,6 +1034,25 @@
     margin: 1.6rem 0;
     display: flex;
     align-items: center;
+}
+
+.rating-score--product-detail {
+    margin: 0;
+    margin-bottom: 1.6rem;
+}   
+
+.product-detail__rating-score {
+    margin-left: 4px;
+}
+
+.rating-score.rating-score--product-card {
+    margin: 6px 0;
+    font-size: 1.4rem;
+}
+
+.rating-score.rating-score--product-card .rating-score__star {
+    width: 1.6rem;
+    height: 1.6rem;
 }
 
 .rating-score__star {
@@ -1056,6 +1078,8 @@
 .product-detail__price {
     margin: 1.6rem 0;
     font-size: 2.4rem;
+    display: flex;
+    gap: 0.8rem;
 }
 
 .product-detail__current-price {
@@ -1117,6 +1141,8 @@
     margin: 1.6rem 0;
 }
 
+
+
 .product-option__select--color-select {
     display: flex;
     flex-wrap: wrap;
@@ -1157,7 +1183,7 @@
 .product-detail__select-size-guide {
     text-decoration: underline;
     color: #1302ff;
-    font-size: 400;
+    font-weight: 400;
     cursor: pointer;
 }
 
@@ -1254,7 +1280,7 @@
 
 .product-detail__action-btn {
     height: 4rem;
-    background-color: var(--black-color);
+    background-color: rgba(0, 0, 0, .8);
     color: var(--white-color);
     border-radius: 2rem;
     font-weight: 500;
@@ -1281,6 +1307,7 @@
     font-size: 1.4rem;
     font-weight: 400;
     position: relative;
+    line-height: 1.8rem;
 }
 
 .product-detail__description-item::before {

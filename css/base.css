@@ -33,6 +33,10 @@ a {
     color: inherit;
 }
 
+.hidden_tag {
+    display: none;
+}
+
 .font-weight-300 {
     font-weight: 300;
 }

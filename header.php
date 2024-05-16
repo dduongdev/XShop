@@ -116,7 +116,7 @@
                     <div class="header-dialog cart-dialog">
                         <div class="header-dialog__container">
                             <header class="header-dialog__header">
-                                <p>Thông báo</p>
+                                <p>Giỏ hàng</p>
                             </header>
     
                             <ul class="header-dialog__list">

@@ -23,23 +23,23 @@
             <div class="grid wide">
                 <div class="login-container">
                     <form class="login-form" action="">
-                        <h1 class="login-form__heading">Login</h1>
+                        <h1 class="login-form__heading">Đăng nhập</h1>
                         <div class="login-form__input-box">
-                            <input type="text" placeholder="Username" required>
+                            <input type="text" placeholder="Tên đăng nhập" required>
                         </div>
             
                         <div class="login-form__input-box">
-                            <input type="password" placeholder="Password" required>
+                            <input type="password" placeholder="Mật khẩu" required>
                         </div>
             
                         <div class="login-form__forgot-password-box">
-                            <a href="#">Forgot password?</a>
+                            <a href="#">Quên mật khẩu?</a>
                         </div>
             
-                        <button type="submit" class="login-form__btn">Login</button>
+                        <button type="submit" class="login-form__btn">Đăng nhập</button>
             
                         <div class="login-form__link-box">
-                            <p>Don't have an account? <a href="register_page.php">Register</a></p>
+                            <p>Bạn chưa có tài khoản? <a href="register_page.php">Đăng ký</a></p>
                         </div>
                     </form>
                 </div>

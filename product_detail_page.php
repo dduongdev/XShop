@@ -1,3 +1,26 @@
+<?php
+    require_once './php/functions.php';
+    require_once './php/product_dao.php';
+    require_once './php/color_dao.php';
+
+    $product_id = $_GET['id'];
+    
+    $product_colors = getAllColorsOfProduct($product_id);
+    $current_color_slug = array_key_first($product_colors);    
+    
+    $product_info = getProductInformation($product_id);
+    $unit_price = $product_info['unit_price'];
+    $discount_percentage = $product_info['discount_percentage'];
+
+    $images_of_product_color = getAllImagesOfProductColor($product_id, $current_color_slug); 
+
+    $sizes_of_product_color = getAllSizesOfColor($product_id, $current_color_slug);
+
+    $rating = getGeneralRatingOfProduct($product_id);
+
+    echo '<script>var product_id = '.$product_id.';</script>';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,6 +36,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
     <div class="app">
@@ -24,43 +48,45 @@
                     <div class="row">
                         <div class="col l-4 l-o-1">
                             <div class="product-detail__images">
-                                <img src="./images/products/polo_active_premium_gray.jpg" alt="" class="product-detail__main-image">
+                                <?php
+                                    echo '<img src="'.$images_of_product_color[0].'" alt="" class="product-detail__main-image">';
+                                ?>
         
                                 <div class="product-detail__sub-images">
-                                    <img class="product-detail__sub-image" src="./images/products/polo_active_premium_gray.jpg" value="Gray" alt="Gray">
-                                    <img class="product-detail__sub-image" src="./images/products/polo_active_premium_black.jpg" value="Black" alt="Black">
+                                    <?php
+                                        for($i=0; $i<count($images_of_product_color); $i++){
+                                            if($i == 0){
+                                                echo '<img class="product-detail__sub-image product-detail__sub-image--is-selected" src="'.$images_of_product_color[$i].'">';
+                                            }
+                                            else{
+                                                echo '<img class="product-detail__sub-image" src="'.$images_of_product_color[$i].'">';
+                                            }
+                                        }
+                                    ?>
                                 </div>
                             </div>
                         </div>
     
                         <div class="col l-6">
                             <div class="product-detail__container">
-                                <p class="product-detail__title">Áo Polo Nam Cafe Bo Kẻ</p>
-                                <p class="product-detail__sub-title">
-                                    <span class="product-detail__short-desc">
-                                        Exdry
-                                    </span>
-    
-                                    /
-    
-                                    <span class="product-detail__short-info">
-    
-                                    </span>
-                                </p>
-    
-                                <div class="rating-score">
-                                    <div class="rating-score__star is-active"></div>
-                                    <div class="rating-score__star is-active"></div>
-                                    <div class="rating-score__star is-active"></div>
-                                    <div class="rating-score__star is-half"></div>
-                                    <div class="rating-score__star is-neutral"></div>
-                                    <span class="product-detail__rating-score">(3.5)</span>
+                                <p class="product-detail__title"><?php echo $product_info['product_name']; ?></p>
+
+                                <div class="rating-score rating-score--product-detail">
+                                    <?php initRatingStars($rating['rating_score']); ?>
+                                    <span class="product-detail__rating-score">(<?php echo $rating['rating_score']; ?>)</span>
                                 </div>
     
                                 <div class="product-detail__price">
-                                    <span class="product-detail__current-price">449.000đ</span>
-                                    <span class="product-detail__old-price">499.000đ</span>
-                                    <span class="product-detail__discount">-10%</span>
+                                    <?php
+                                        if($discount_percentage > 0){
+                                            echo '<span class="product-detail__current-price">'.number_format($unit_price * (1-$discount_percentage), 0, ',', '.').'đ</span>';
+                                            echo '<span class="product-detail__old-price">'.number_format($unit_price, 0, ',', '.').'đ</span>';
+                                            echo '<span class="product-detail__discount">-'.($discount_percentage * 100).'%</span>';
+                                        }
+                                        else{
+                                            echo '<span class="product-detail__current-price">'.number_format($unit_price, 0, ',', '.').'đ</span>';
+                                        }
+                                    ?>
                                 </div>
     
                                 <div class="product-detail__policy">
@@ -92,17 +118,22 @@
                                     <div class="product-option">
                                         <div class="product-option__heading">
                                             <span>Màu sắc: </span>
-                                            <span class="product-option__selected-option product-option__selected-option--color"></span>
+                                            <span class="product-option__selected-option product-option__selected-option--color"><?php echo $product_colors[$current_color_slug]['color_name']; ?></span>
                                         </div>
                                         
                                         <div class="product-option__select product-option__select--color-select">
-                                            <button class="product-option__select-item product-option__select-item--color" name="color" value="Gray">
-                                                <span style="background-image: url(./images/product_colors/gray.jpg);"></span>
-                                            </button>
-    
-                                            <button class="product-option__select-item product-option__select-item--color" name="color" value="Black">
-                                                <span style="background-image: url(./images/product_colors/black.jpg);"></span>
-                                            </button>
+                                            <?php
+                                                foreach($product_colors as $key => $value){
+                                                    if(strcasecmp($key, $current_color_slug) == 0){
+                                                        echo '<button class="product-option__select-item product-option__select-item--color product-option__select-item--is-selected" name="color" value="'.$key.'" color-value="'.$value['color_name'].'">';
+                                                    }
+                                                    else {
+                                                        echo '<button class="product-option__select-item product-option__select-item--color" name="color" value="'.$key.'" color-value="'.$value['color_name'].'">';
+                                                    }
+                                                    echo '<span style="background-image: url('.$value['img'].');"></span>';
+                                                    echo '</button>';
+                                                }
+                                            ?>
                                         </div>
                                     </div>
     
@@ -119,29 +150,11 @@
                                         </div>
     
                                         <div class="product-option__select product-option__select--size-select">
-                                            <button class="product-option__select-item product-option__select-item--size" value="S">
-                                                S
-                                            </button>
-    
-                                            <button class="product-option__select-item product-option__select-item--size" value="M">
-                                                M
-                                            </button>
-    
-                                            <button class="product-option__select-item product-option__select-item--size" value="L">
-                                                L
-                                            </button>
-    
-                                            <button class="product-option__select-item product-option__select-item--size" value="XL">
-                                                XL
-                                            </button>
-    
-                                            <button class="product-option__select-item product-option__select-item--size" value="2XL">
-                                                2XL
-                                            </button>
-    
-                                            <button class="product-option__select-item product-option__select-item--size" value="3XL">
-                                                3XL
-                                            </button>
+                                            <?php 
+                                                foreach($sizes_of_product_color as $size){
+                                                    echo '<button class="product-option__select-item product-option__select-item--size" name="size" value="'.$size['size_name'].'">'.$size['size_name'].'</button>';
+                                                }
+                                            ?>
                                         </div>
                                     </div>
     
@@ -174,37 +187,11 @@
                                 </form>
     
                                 <div class="product-detail__description">
-                                    <p class="product-detail__description-heading">
-                                        Mô tả sản phẩm
-                                    </p>
-    
-                                    <p class="product-detail__description-item">
-                                        Chất liệu: 50% S.Café + 50% Recycled PET
-                                    </p>
-    
-                                    <p class="product-detail__description-item">
-                                        Sợi S.Café có tính kháng khuẩn tự nhiên và chống tia UV
-                                    </p>
-    
-                                    <p class="product-detail__description-item">
-                                        Công nghệ Hydroponic tăng khả năng bốc hơi ẩm khỏi vải, giúp nhanh khô
-                                    </p>
-    
-                                    <p class="product-detail__description-item">
-                                        Bo cổ dùng sợi Hightwisted 45D/75D tạo co giãn và bền form
-                                    </p>
-    
-                                    <p class="product-detail__description-item">
-                                        Phù hợp với: đi làm, đi chơi
-                                    </p>
-    
-                                    <p class="product-detail__description-item">
-                                        Kiểu dáng Regular fit
-                                    </p>
-    
-                                    <p class="product-detail__description-item">
-                                        Tự hào sản xuất tại Việt Nam
-                                    </p>
+                                    <?php 
+                                        foreach(json_decode($product_info['product_desc'], true) as $line){
+                                            echo '<p class="product-detail__description-item">'.$line.'</p>';
+                                        }
+                                    ?>
                                 </div>
                             </div>
                         </div>
@@ -216,15 +203,11 @@
                         <div class="col l-2 l-o-1">
                             <div class="overall-rating">
                                 <span class="overall-rating__title">Đánh giá sản phẩm</span>
-                                <span class="overall-rating__score">3.5</span>
+                                <span class="overall-rating__score"><?php echo $rating['rating_score']; ?></span>
                                 <div class="rating-score rating-score--overall-rating">
-                                    <div class="rating-score__star is-active"></div>
-                                    <div class="rating-score__star is-active"></div>
-                                    <div class="rating-score__star is-active"></div>
-                                    <div class="rating-score__star is-half"></div>
-                                    <div class="rating-score__star is-neutral"></div>
+                                    <?php initRatingStars($rating['rating_score']); ?>
                                 </div>
-                                <span class="overall-rating__count">5 lượt đánh giá</span>
+                                <span class="overall-rating__count"><?php echo $rating['rating_count'] ?> lượt đánh giá</span>
                             </div>
                         </div>
 
@@ -411,59 +394,48 @@
     </div>
 
     <script>
-        var productImages = {
-            "Gray": "./images/products/polo_active_premium_gray.jpg",
-            "Black": "./images/products/polo_active_premium_black.jpg"
-        }
+        var option_items = document.querySelectorAll('.product-option__select-item');
+        option_items.forEach(x => x.addEventListener('click', function(event){
+            event.preventDefault();
+        }))
+    </script>
 
+    <script>
+        $(document).ready(function(){
+            $('.product-option__select-item').click(function(e){
+                e.preventDefault();
+            })
+
+            $('.product-option__select-item--color').click(function(){
+                var color_slug = $(this).val();
+                var action = 'product_detail_change';
+
+                $.ajax({
+                    type: 'post',
+                    url: './php/ajax_response.php',
+                    dataType: 'json',
+                    data: {
+                        action, product_id, color_slug
+                    }
+                }).done(function(response){
+                    $('.product-detail__main-image').attr('src', response.main_image);
+                    $('.product-detail__sub-images').html(response.images);
+                    $('.product-option__select--size-select').html(response.sizes);
+                })
+            })
+        })
+    </script>
+
+    <script>
         var mainImage = document.querySelector('.product-detail__main-image');
         var subImages = document.querySelectorAll('.product-detail__sub-image');
         subImages.forEach(
             x => x.addEventListener('click', function(){
-                productColorOptions.forEach(
-                    y => y.classList.remove('product-option__select-item--is-selected')
-                )
-                document.querySelector('.product-option__selected-option--color').innerText = "";
                 subImages.forEach(
                     y => y.classList.remove('product-detail__sub-image--is-selected')
                 )
-                x.classList.add('product-detail__sub-image--is-selected');
-
-                var colorValue = x.getAttribute('value');
-                mainImage.src = productImages[colorValue];
-                shortInfo_colorChanged(colorValue);
-            })
-        )
-
-        function shortInfo_colorChanged(info){
-            var shortInfo = document.querySelector('.product-detail__short-info');
-            shortInfo.innerText = info;
-        }
-
-        var productOptionItems = document.querySelectorAll('.product-option__select-item');
-        productOptionItems.forEach(
-            x => x.addEventListener('click', function(event){
-                event.preventDefault();
-            })
-        )
-
-        var productColorOptions = document.querySelectorAll('.product-option__select-item--color');
-        productColorOptions.forEach(
-            x => x.addEventListener('click', function(){
-                subImages.forEach(
-                    y => y.classList.remove('product-detail__sub-image--is-selected')
-                )
-                productColorOptions.forEach(
-                    y => y.classList.remove('product-option__select-item--is-selected')
-                )
-                x.classList.add('product-option__select-item--is-selected');
-
-                var colorValue = x.getAttribute('value');
-                mainImage.src = productImages[colorValue];
-                shortInfo_colorChanged(colorValue);
-
-                var selectedColorInfo = document.querySelector('.product-option__selected-option--color');
-                selectedColorInfo.innerText = colorValue;
+                this.classList.add('product-detail__sub-image--is-selected');
+                mainImage.src = this.src;
             })
         )
 
@@ -479,6 +451,21 @@
 
                 var selectedSizeInfo = document.querySelector('.product-option__selected-option--size');
                 selectedSizeInfo.innerText = sizeValue;
+            })
+        )
+
+        var productSizeOptions = document.querySelectorAll('.product-option__select-item--color');
+        productSizeOptions.forEach(
+            x => x.addEventListener('click', function(){
+                productSizeOptions.forEach(
+                    y => y.classList.remove('product-option__select-item--is-selected')
+                )
+                x.classList.add('product-option__select-item--is-selected');
+
+                var colorValue = x.getAttribute('color-value');
+
+                var selectedSizeInfo = document.querySelector('.product-option__selected-option--color');
+                selectedSizeInfo.innerText = colorValue;
             })
         )
     </script>
@@ -512,5 +499,6 @@
     </script>
 
     <script src="./js/quantity_up_down.js"></script>
+    <script src="./js/functions.js"></script>
 </body>
 </html>
