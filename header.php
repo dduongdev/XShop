@@ -17,12 +17,12 @@
                     </a>
                 </li>
                 <li class="nav-main__item nav-main__item--separate">
-                    <a href="register_page.php" class="nav-main__link font-weight-500">
+                    <a href="../register_page.php" class="nav-main__link font-weight-500">
                         Đăng ký
                     </a>
                 </li>
                 <li class="nav-main__item">
-                    <a href="login_page.php" class="nav-main__link font-weight-500">
+                    <a href="../login_page.php" class="nav-main__link font-weight-500">
                         Đăng nhập
                     </a>
                 </li>
@@ -30,18 +30,18 @@
         </div>
 
         <div class="header__inner">
-            <a href="index.php">
-                <img src="./images/logo.png" alt="Logo" class="header__logo">
+            <a href="../index.php">
+                <img src="../images/logo.png" alt="Logo" class="header__logo">
             </a>
 
             <ul class="nav-sub">
                 <li class="nav-sub__item">
-                    <a href="index.php" class="nav-sub__link">
+                    <a href="../index.php" class="nav-sub__link">
                         Trang chủ
                     </a>
                 </li>
                 <li class="nav-sub__item">
-                    <a href="products_page.php" class="nav-sub__link">
+                    <a href="../products_page.php" class="nav-sub__link">
                         Sản phẩm
                     </a>
                 </li>
@@ -109,7 +109,7 @@
                 </div>
 
                 <div class="header__action-item header__action-item--has-cart-dialog">
-                    <a href="cart_page.php" class="header__action-link">
+                    <a href="../cart_page.php" class="header__action-link">
                         <i class="header__action-icon fa-solid fa-cart-shopping"></i>
                     </a>
 
@@ -143,7 +143,7 @@
                                     sản phẩm trong giỏ hàng
                                 </span>
 
-                                <a href="cart_page.php" class="header-dialog_show-all-btn cart-dialog__show-all-btn">
+                                <a href="../cart_page.php" class="header-dialog_show-all-btn cart-dialog__show-all-btn">
                                     Xem tất cả
                                 </a>
                             </footer>

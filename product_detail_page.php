@@ -1,24 +1,40 @@
 <?php
-    require_once './php/functions.php';
+    require_once './php/init_rating_stars.php';
     require_once './php/product_dao.php';
     require_once './php/color_dao.php';
 
-    $product_id = $_GET['id'];
+    $product_id;
+    $product_colors;
+    $current_color_slug;
+    $product_info;
+    $unit_price;
+    $discount_percentage;
+    $images_of_product_color;
+    $sizes_of_product_color;
+    $rating;
+
+    $url_parts = explode('-', $_SERVER['REQUEST_URI']);
+    $product_id = array_pop($url_parts);
+
+    if(isExistProduct($product_id)){
+        $product_colors = getAllColorsOfProduct($product_id);
+        $current_color_slug = array_key_first($product_colors);    
+        
+        $product_info = getProductInformation($product_id);
+        $unit_price = $product_info['unit_price'];
+        $discount_percentage = $product_info['discount_percentage'];
     
-    $product_colors = getAllColorsOfProduct($product_id);
-    $current_color_slug = array_key_first($product_colors);    
+        $images_of_product_color = getAllImagesOfProductColor($product_id, $current_color_slug); 
     
-    $product_info = getProductInformation($product_id);
-    $unit_price = $product_info['unit_price'];
-    $discount_percentage = $product_info['discount_percentage'];
-
-    $images_of_product_color = getAllImagesOfProductColor($product_id, $current_color_slug); 
-
-    $sizes_of_product_color = getAllSizesOfColor($product_id, $current_color_slug);
-
-    $rating = getGeneralRatingOfProduct($product_id);
-
-    echo '<script>var product_id = '.$product_id.';</script>';
+        $sizes_of_product_color = getAllSizesOfColor($product_id, $current_color_slug);
+    
+        $rating = getGeneralRatingOfProduct($product_id);
+    }
+    else{
+        header("HTTP/1.0 404 Not Found");
+        echo "Page not found";
+        exit();
+    }
 ?>
 
 <!DOCTYPE html>
@@ -29,9 +45,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>X-Shop</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
-    <link rel="stylesheet" href="./css/grid.css">
-    <link rel="stylesheet" href="./css/base.css">
-    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="../css/grid.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -124,14 +140,17 @@
                                         <div class="product-option__select product-option__select--color-select">
                                             <?php
                                                 foreach($product_colors as $key => $value){
+                                                    $uid = uniqid('product-option_', true);
                                                     if(strcasecmp($key, $current_color_slug) == 0){
-                                                        echo '<button class="product-option__select-item product-option__select-item--color product-option__select-item--is-selected" name="color" value="'.$key.'" color-value="'.$value['color_name'].'">';
+                                                        echo '<label for="'.$uid.'" class="product-option__select-item product-option__select-item--color product-option__select-item--is-selected" color-value="'.$value['color_name'].'">';
+                                                        echo '<input type="radio" class="hidden_tag" name="color" value="'.$key.'" id="'.$uid.'" checked>';
                                                     }
                                                     else {
-                                                        echo '<button class="product-option__select-item product-option__select-item--color" name="color" value="'.$key.'" color-value="'.$value['color_name'].'">';
+                                                        echo '<label for="'.$uid.'" class="product-option__select-item product-option__select-item--color" color-value="'.$value['color_name'].'">';
+                                                        echo '<input type="radio" class="hidden_tag" name="color" value="'.$key.'" id="'.$uid.'">';
                                                     }
                                                     echo '<span style="background-image: url('.$value['img'].');"></span>';
-                                                    echo '</button>';
+                                                    echo '</label>';
                                                 }
                                             ?>
                                         </div>
@@ -151,9 +170,13 @@
     
                                         <div class="product-option__select product-option__select--size-select">
                                             <?php 
-                                                foreach($sizes_of_product_color as $size){
-                                                    echo '<button class="product-option__select-item product-option__select-item--size" name="size" value="'.$size['size_name'].'">'.$size['size_name'].'</button>';
-                                                }
+                                                foreach($sizes_of_product_color as $key => $value){
+                                                    $uid = uniqid('product-option_', true);
+                                                    echo '<label for="'.$uid.'" class="product-option__select-item product-option__select-item--size">';
+                                                    echo $value['size_name'];
+                                                    echo '<input type="radio" class="hidden_tag" name="size" value="'.$key.'" size-value="'.$value['size_name'].'" id="'.$uid.'">';
+                                                    echo '</label>';
+                                                }   
                                             ?>
                                         </div>
                                     </div>
@@ -171,7 +194,10 @@
                                                 <span class="quantity__augure">+</span>
                                             </div>
     
-                                            <span class="quantity__quantity-remaining">7749 sản phẩm có sẵn</span>
+                                            <span class="quantity__quantity-remaining hidden_tag">
+                                                <span class="quantity__quantity-remaining-value">7749</span>
+                                                sản phẩm có sẵn
+                                            </span>
                                         </div>
                                     </div>
     
@@ -394,25 +420,21 @@
     </div>
 
     <script>
-        var option_items = document.querySelectorAll('.product-option__select-item');
-        option_items.forEach(x => x.addEventListener('click', function(event){
-            event.preventDefault();
-        }))
+        <?php
+            echo 'var product_id = '.$product_id.';';
+            echo 'var sizes_data = '.json_encode($sizes_of_product_color).';';
+        ?>
     </script>
 
     <script>
         $(document).ready(function(){
-            $('.product-option__select-item').click(function(e){
-                e.preventDefault();
-            })
-
-            $('.product-option__select-item--color').click(function(){
-                var color_slug = $(this).val();
+            $('input[name="color"]').change(function(){
+                var color_slug = $('input[name="color"]:checked').val();
                 var action = 'product_detail_change';
 
                 $.ajax({
                     type: 'post',
-                    url: './php/ajax_response.php',
+                    url: '../php/ajax_response.php',
                     dataType: 'json',
                     data: {
                         action, product_id, color_slug
@@ -421,53 +443,57 @@
                     $('.product-detail__main-image').attr('src', response.main_image);
                     $('.product-detail__sub-images').html(response.images);
                     $('.product-option__select--size-select').html(response.sizes);
+
+                    sizes_data = response.sizes_data;
+                    $('.quantity__quantity-remaining').addClass('hidden_tag');
+                    $('.product-option__selected-option--size').text('');
                 })
             })
+
+            $('.product-option__select-item--color').click(function(){
+                $('.product-option__select-item--color').removeClass('product-option__select-item--is-selected');
+                $(this).addClass('product-option__select-item--is-selected');
+                $('.product-option__selected-option--color').text($(this).attr('color-value'));
+            })
+
+            $('.quantity__augure').click(function(){
+                var currentValue = Number($('.quantity__control').val());
+                var selectedSize = $('input[name="size"]:checked').val();
+                if(currentValue + 1 <= sizes_data[selectedSize].remaining_quantity){
+                    $('.quantity__control').val(currentValue + 1);
+                    $('.quantity__display').text(currentValue + 1);
+                }
+            })
+
+            $('.quantity__reduce').click(function(){
+                var currentValue = Number($('.quantity__control').val());
+                if(currentValue - 1 >= 1){
+                    $('.quantity__control').val(currentValue - 1);
+                    $('.quantity__display').text(currentValue - 1);
+                }
+            })
         })
-    </script>
 
-    <script>
-        var mainImage = document.querySelector('.product-detail__main-image');
-        var subImages = document.querySelectorAll('.product-detail__sub-image');
-        subImages.forEach(
-            x => x.addEventListener('click', function(){
-                subImages.forEach(
-                    y => y.classList.remove('product-detail__sub-image--is-selected')
-                )
-                this.classList.add('product-detail__sub-image--is-selected');
-                mainImage.src = this.src;
-            })
-        )
+        $(document).on('click', '.product-option__select-item--size', function(e){
+            $('.product-option__select-item--size').removeClass('product-option__select-item--is-selected');
+            $(this).addClass('product-option__select-item--is-selected');
+        })
 
-        var productSizeOptions = document.querySelectorAll('.product-option__select-item--size');
-        productSizeOptions.forEach(
-            x => x.addEventListener('click', function(){
-                productSizeOptions.forEach(
-                    y => y.classList.remove('product-option__select-item--is-selected')
-                )
-                x.classList.add('product-option__select-item--is-selected');
+        $(document).on('click', '.product-detail__sub-image', function(){
+            $('.product-detail__sub-image').removeClass('product-detail__sub-image--is-selected');
+            $(this).addClass('product-detail__sub-image--is-selected');
+            $('.product-detail__main-image').attr('src', $(this).attr('src'));
+        })
 
-                var sizeValue = x.getAttribute('value');
+        $(document).on('change', 'input[name="size"]', function(){
+            $('.product-option__selected-option--size').text($(this).attr('size-value'));
+            
+            $('.quantity__control').val(1);
+            $('.quantity__display').text(1);
 
-                var selectedSizeInfo = document.querySelector('.product-option__selected-option--size');
-                selectedSizeInfo.innerText = sizeValue;
-            })
-        )
-
-        var productSizeOptions = document.querySelectorAll('.product-option__select-item--color');
-        productSizeOptions.forEach(
-            x => x.addEventListener('click', function(){
-                productSizeOptions.forEach(
-                    y => y.classList.remove('product-option__select-item--is-selected')
-                )
-                x.classList.add('product-option__select-item--is-selected');
-
-                var colorValue = x.getAttribute('color-value');
-
-                var selectedSizeInfo = document.querySelector('.product-option__selected-option--color');
-                selectedSizeInfo.innerText = colorValue;
-            })
-        )
+            $('.quantity__quantity-remaining').removeClass('hidden_tag');
+            $('.quantity__quantity-remaining-value').text(sizes_data[$(this).val()].remaining_quantity);
+        })
     </script>
 
     <script>
@@ -498,7 +524,6 @@
         )
     </script>
 
-    <script src="./js/quantity_up_down.js"></script>
-    <script src="./js/functions.js"></script>
+    <script src="../js/functions.js"></script>
 </body>
 </html>

@@ -17,9 +17,9 @@
 
     function getGeneralRatingOfProduct($product_id){
         global $_conn;
-        global $PRODUCT_QUERY_GET_RATING_SCORE;
+        global $PRODUCT_QUERY_GET_RATING_SCORE_OF_PRODUCT;
 
-        $stmt = $_conn->prepare($PRODUCT_QUERY_GET_RATING_SCORE);
+        $stmt = $_conn->prepare($PRODUCT_QUERY_GET_RATING_SCORE_OF_PRODUCT);
         $stmt->bind_param('s', $product_id);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -31,9 +31,9 @@
 
     function getAllColorsOfProduct($product_id){
         global $_conn;
-        global $PRODUCT_QUERY_GET_ALL_COLORS;
+        global $PRODUCT_QUERY_GET_ALL_COLORS_OF_PRODUCT;
 
-        $stmt = $_conn->prepare($PRODUCT_QUERY_GET_ALL_COLORS);
+        $stmt = $_conn->prepare($PRODUCT_QUERY_GET_ALL_COLORS_OF_PRODUCT);
         $stmt->bind_param('s', $product_id);
         $stmt->execute();
         $colors = $stmt->get_result();
@@ -78,9 +78,33 @@
         $result = [];
 
         while($size = $sizes->fetch_assoc()){
-            $result[] = $size;
+            $result[$size['product_id']] = ['size_name' => $size['size_name'], 'remaining_quantity' => $size['remaining_quantity'], 'sold_quantity' => $size['sold_quantity']];
         }
 
         return $result;
+    }
+
+    function isExistProduct($product_id){
+        global $_conn;
+        global $PRODUCT_QUERY_CHECK_EXIST;
+
+        $stmt = $_conn->prepare($PRODUCT_QUERY_CHECK_EXIST);
+        $stmt->bind_param('s', $product_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if($result->num_rows > 0)
+            return true;
+        return false;
+    }
+
+    function getAllRandomProductCards(){
+        global $_conn;
+        global $PRODUCT_QUERY_GET_ALL_RANDOM_PRODUCT_CARD_INFO;
+
+        $result = $_conn->query($PRODUCT_QUERY_GET_ALL_RANDOM_PRODUCT_CARD_INFO);
+        $data = $result->fetch_all();
+
+        return json_encode($data);
     }
 ?>

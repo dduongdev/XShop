@@ -19,9 +19,14 @@ quantityAugureButtons.forEach(function(button){
         var quantityControl = quantity.querySelector('.quantity__control');
         var quantityDisplay = quantity.querySelector('.quantity__display');
         var currentQuantity = parseInt(quantityControl.value);
-        if(currentQuantity < 99){
+        if(currentQuantity < 5){
             quantityControl.value = currentQuantity + 1;
             quantityDisplay.innerHTML = quantityControl.value;
         }
     })
 })
+
+// $('.quantity__reduce').click(function(){
+//     var product_size_id = $('input[name="size"]').val();
+
+// })

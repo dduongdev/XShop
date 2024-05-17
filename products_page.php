@@ -1,7 +1,7 @@
 <?php
     require_once 'php/dbconnect.php';
     require_once 'php/dbcommands.php';
-    require_once 'php/functions.php';
+    require_once 'php/init_rating_stars.php';
     require_once 'php/product_dao.php';
 ?>
 
@@ -13,9 +13,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>X-Shop</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
-    <link rel="stylesheet" href="./css/grid.css">
-    <link rel="stylesheet" href="./css/base.css">
-    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="../css/grid.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -122,7 +122,7 @@
         
                         <div class="row">
                             <?php 
-                                $sql = $PRODUCT_QUERY_GET_PRODUCT_CARD_INFO;
+                                $sql = $PRODUCT_QUERY_GET_ALL_PRODUCT_CARD_INFO;
                                 $result = $_conn->query($sql);
                                 while($row = $result->fetch_assoc()){
                                     $rating = getGeneralRatingOfProduct($row['id']);
@@ -133,7 +133,7 @@
 
 
                                     echo '<div class="col l-2-4 m-6 c-6">';
-                                    echo '<a class="product-card" href="product_detail_page.php?id='.$row['id'].'&product='.$row['slug'].'">';
+                                    echo '<a class="product-card" href="../product_detail_page.php/'.$row['slug'].'-'.$row['id'].'">';
                                     echo '<div class="product-card__img" style="background-image: url('.$row['main_img'].');"></div>';
                                     echo '<div class="product-card__content">';
 

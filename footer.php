@@ -17,7 +17,7 @@
                 <div class="footer__contact-container">
                     <div class="footer__contact-item">
                         <span>
-                            <img src="./images/icons/icon-hotline.svg" alt="" class="footer__contact-icon">
+                            <img src="../images/icons/icon-hotline.svg" alt="" class="footer__contact-icon">
                         </span>
                         <div class="footer__contact-content">
                             <span class="footer__contact-type">
@@ -35,7 +35,7 @@
 
                     <div class="footer__contact-item">
                         <span>
-                            <img src="./images/icons/icon-email.svg" alt="" class="footer__contact-icon">
+                            <img src="../images/icons/icon-email.svg" alt="" class="footer__contact-icon">
                         </span>
                         <div class="footer__contact-content">
                             <span class="footer__contact-type">
@@ -52,19 +52,19 @@
 
                 <div class="footer__social-container">
                     <a href="" class="footer__social-link ">
-                        <img src="./images/icons/icon-facebook.png" alt="" class="footer__social-icon">
+                        <img src="../images/icons/icon-facebook.png" alt="" class="footer__social-icon">
                     </a>
                     <a href="" class="footer__social-link ">
-                        <img src="./images/icons/icon-zalo.png" alt="" class="footer__social-icon">
+                        <img src="../images/icons/icon-zalo.png" alt="" class="footer__social-icon">
                     </a>
                     <a href="" class="footer__social-link ">
-                        <img src="./images/icons/icon-tiktok.png" alt="" class="footer__social-icon">
+                        <img src="../images/icons/icon-tiktok.png" alt="" class="footer__social-icon">
                     </a>
                     <a href="" class="footer__social-link ">
-                        <img src="./images/icons/icon-instar.svg" alt="" class="footer__social-icon">
+                        <img src="../images/icons/icon-instar.svg" alt="" class="footer__social-icon">
                     </a>
                     <a href="" class="footer__social-link ">
-                        <img src="./images/icons/icon-youtube.svg" alt="" class="footer__social-icon">
+                        <img src="../images/icons/icon-youtube.svg" alt="" class="footer__social-icon">
                     </a>
                 </div>
             </div>
@@ -149,16 +149,16 @@
 
                     <div class="footer__menu-content footer__menu-content--for-payment">
                         <span>
-                            <img src="./images/paymentproviders/0217f1d345587aa0a300e69e2195c492.png" alt="" class="footer__payment-provider">
+                            <img src="../images/paymentproviders/0217f1d345587aa0a300e69e2195c492.png" alt="" class="footer__payment-provider">
                         </span>
                         <span>
-                            <img src="./images/paymentproviders/2c46b83d84111ddc32cfd3b5995d9281.png" alt="" class="footer__payment-provider">
+                            <img src="../images/paymentproviders/2c46b83d84111ddc32cfd3b5995d9281.png" alt="" class="footer__payment-provider">
                         </span>
                         <span>
-                            <img src="./images/paymentproviders/5e3f0bee86058637ff23cfdf2e14ca09.png" alt="" class="footer__payment-provider">
+                            <img src="../images/paymentproviders/5e3f0bee86058637ff23cfdf2e14ca09.png" alt="" class="footer__payment-provider">
                         </span>
                         <span>
-                            <img src="./images/paymentproviders/9263fa8c83628f5deff55e2a90758b06.png" alt="" class="footer__payment-provider">
+                            <img src="../images/paymentproviders/9263fa8c83628f5deff55e2a90758b06.png" alt="" class="footer__payment-provider">
                         </span>
                     </div>
                 </div>
