@@ -143,7 +143,7 @@
         const paginationLimitItem = 5;
         renderPagination();
 
-        function handlePageNavigation(pageNumber) {
+        function handlePagination(pageNumber) {
             currentPage = pageNumber;
             itemsPerPage = products_data.slice((currentPage - 1) * itemsPerPageCount, (currentPage - 1) * itemsPerPageCount + itemsPerPageCount);
             renderProductData();
@@ -210,7 +210,7 @@
                 if (currentPage > 1) {
                     currentPage -= 1;
                     renderPagination();
-                    handlePageNavigation(currentPage);
+                    handlePagination(currentPage);
                 }
             })
 
@@ -218,7 +218,7 @@
                 if (currentPage < totalPage) {
                     currentPage += 1;
                     renderPagination();
-                    handlePageNavigation(currentPage);
+                    handlePagination(currentPage);
                 }
             })
         })
@@ -226,7 +226,7 @@
         $(document).on('click', '.pagination__link--can-change', function () {
             currentPage = parseInt($(this).text());
             renderPagination();
-            handlePageNavigation(currentPage);
+            handlePagination(currentPage);
         })
 
         function renderPagination() {

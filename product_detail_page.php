@@ -1,5 +1,5 @@
 <?php
-    require_once './php/init_rating_stars.php';
+    include_once './php/init_rating_stars.php';
     require_once './php/product_dao.php';
     require_once './php/color_dao.php';
 
@@ -14,7 +14,8 @@
     $rating;
 
     $url_parts = explode('-', $_SERVER['REQUEST_URI']);
-    $product_id = array_pop($url_parts);
+    $lastPart = array_pop($url_parts);
+    $product_id = explode('?', $lastPart)[0];
 
     if(isExistProduct($product_id)){
         $product_colors = getAllColorsOfProduct($product_id);
@@ -88,7 +89,7 @@
                                 <p class="product-detail__title"><?php echo $product_info['product_name']; ?></p>
 
                                 <div class="rating-score rating-score--product-detail">
-                                    <?php initRatingStars($rating['rating_score']); ?>
+                                    <?php echo initRatingStars($rating['rating_score']); ?>
                                     <span class="product-detail__rating-score">(<?php echo $rating['rating_score']; ?>)</span>
                                 </div>
     
@@ -195,7 +196,7 @@
                                             </div>
     
                                             <span class="quantity__quantity-remaining hidden_tag">
-                                                <span class="quantity__quantity-remaining-value">7749</span>
+                                                <span class="quantity__quantity-remaining-value"></span>
                                                 sản phẩm có sẵn
                                             </span>
                                         </div>
@@ -231,7 +232,7 @@
                                 <span class="overall-rating__title">Đánh giá sản phẩm</span>
                                 <span class="overall-rating__score"><?php echo $rating['rating_score']; ?></span>
                                 <div class="rating-score rating-score--overall-rating">
-                                    <?php initRatingStars($rating['rating_score']); ?>
+                                    <?php echo initRatingStars($rating['rating_score']); ?>
                                 </div>
                                 <span class="overall-rating__count"><?php echo $rating['rating_count'] ?> lượt đánh giá</span>
                             </div>
@@ -523,7 +524,5 @@
             })
         )
     </script>
-
-    <script src="../js/functions.js"></script>
 </body>
 </html>

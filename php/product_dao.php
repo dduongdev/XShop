@@ -1,6 +1,7 @@
 <?php
-    require 'dbconnect.php';
-    include 'dbcommands.php';
+    require_once 'dbconnect.php';
+    require_once 'dbcommands.php';
+    require_once 'init_rating_stars.php';
 
     function getProductInformation($product_id){
         global $_conn;
@@ -106,5 +107,29 @@
         $data = $result->fetch_all();
 
         return json_encode($data);
+    }
+
+    function queryPagination($sql, $start, $end){
+        global $_conn;
+
+        $stmt = $_conn->prepare($sql);
+        $stmt->bind_param('ss', $start, $end);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result;
+    }
+
+    function getProductCount(){
+        global $_conn;
+        global $PRODUCT_QUERY_GET_PRODUCT_COUNT;
+
+        $result = $_conn->query($PRODUCT_QUERY_GET_PRODUCT_COUNT);
+        $data = $result->fetch_assoc();
+        $data = $data['product_count'];
+
+        $result->close();
+
+        return $data;
     }
 ?>

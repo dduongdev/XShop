@@ -3,6 +3,69 @@
     require_once 'php/dbcommands.php';
     require_once 'php/init_rating_stars.php';
     require_once 'php/product_dao.php';
+    require_once 'php/random_dao.php';
+
+    $product_query_get = '';
+
+    $initial_sql = 'SELECT products.id, product_name, main_img, unit_price, discount_percentage, products.slug, calc_rating_score_of_product(products.id) AS rating_score
+                FROM products'; 
+    $join_part = 'JOIN products_color 
+                    ON products.id = products_color.product_id
+                    JOIN colors
+                    ON products_color.color_id = colors.id
+                    JOIN products_size
+                    ON products_color.id = products_size.product_color_id
+                    JOIN sizes
+                    ON products_size.size_id = sizes.id
+                    JOIN categories
+                    ON products.category_id = categories.id';
+    $group_by_part = 'GROUP BY products.id';
+    $order_by_part = 'ORDER BY ';
+    $where_conditions = [];
+    $order_conditions = [];
+
+    $url = $_SERVER['REQUEST_URI'];
+    $url_parts = explode('?', $url);
+    $each_param = [];
+    if (count($url_parts) > 1 && $url_parts[1] !== '') {
+        $params = explode('&', $url_parts[1]);
+        foreach ($params as $value) {
+            list($key, $param_value) = explode('=', $value);
+            $each_param[$key] = explode('%25', $param_value);
+        }
+
+        foreach ($each_param as $key => $value) {
+            if ($key !== 'orderby' && $key !== 'sortby') {
+                $escaped_values = array_map('htmlspecialchars', $value);
+                $where_conditions[] = "$key IN ('" . implode("', '", $escaped_values) . "')";
+            }
+        }
+
+        if (isset($each_param['orderby'])) {
+            $order_by_part .= 'unit_price * (1 - discount_percentage) ' . htmlspecialchars($each_param['orderby'][0]) . ' ';
+        }
+        if (isset($each_param['sortby'])) {
+            if (isset($each_param['orderby'])) {
+                $order_by_part .= ', ';
+            }
+            $order_by_part .= 'release_date desc ';
+        }
+
+        $filter_sql = $initial_sql;
+        if(isset($each_param['colors.slug']) || isset($each_param['sizes.size_name']) || isset($each_param['categories.id'])){
+            $filter_sql .= ' ' . $join_part;
+            $filter_sql .= ' WHERE ' . implode(' AND ', $where_conditions);
+            $filter_sql .= ' ' . $group_by_part;
+        }
+
+        if (isset($each_param['sortby']) || isset($each_param['orderby'])) {
+            $filter_sql .= ' ' . $order_by_part;
+        }
+
+        $product_query_get = $filter_sql;
+    } else {
+        $product_query_get = $initial_sql;
+    }
 ?>
 
 <!DOCTYPE html>
@@ -20,6 +83,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
     <div class="app">
@@ -40,26 +104,17 @@
                                 </p>
         
                                 <ul class="product-filter__clothing reset-ul">
-                                    <li class="product-filter__clothing-item">
-                                        <input type="checkbox" name="" id="product-filter--select-shirt">
-                                        <label class="product-filter__clothing-title" for="product-filter--select-shirt">
-                                            Áo
-                                        </label>
-                                    </li>
-        
-                                    <li class="product-filter__clothing-item">
-                                        <input type="checkbox" name="" id="product-filter--select-trousers">
-                                        <label class="product-filter__clothing-title" for="product-filter--select-trousers">
-                                            Quần
-                                        </label>
-                                    </li>
-        
-                                    <li class="product-filter__clothing-item">
-                                        <input type="checkbox" name="" id="product-filter--select-underwear">
-                                        <label class="product-filter__clothing-title" for="product-filter--select-underwear">
-                                            Đồ lót
-                                        </label>
-                                    </li>
+                                    <?php
+                                        $result = executeNonParamQuery($CATEGORY_QUERY_GET_ALL);
+
+                                        foreach($result as $row){
+                                            echo '<li class="product-filter__clothing-item">';
+                                            echo '<input type="checkbox" name="categories.id" value="'.$row[0].'" id="product-filter--select-'.$row[2].'" class="product-filter__checkbox" '.(isset($each_param['categories.id']) && in_array($row[0], $each_param['categories.id']) ? 'checked' : '').'>';
+                                            echo '<label class="product-filter__clothing-title" for="product-filter--select-'.$row[2].'">';
+                                            echo ' '.$row[1];
+                                            echo '</label>';
+                                        }
+                                    ?>
                                 </ul>
                             </div>
         
@@ -73,7 +128,7 @@
                                         $sql = $SIZE_QUERY_GET_ALL;
                                         $result = $_conn->query($sql);
                                         while($row = $result->fetch_assoc()){
-                                            echo '<button class="product-filter__size-item product-filter__button" name="size" value="'.$row['size_name'].'">'.$row['size_name'].'</button>';
+                                            echo '<button class="product-filter__size-item product-filter__button js-product-filter__button '.((isset($each_param['sizes.size_name']) && in_array($row['size_name'], $each_param['sizes.size_name'])) ? 'products-page__function-button--is-selected' : ' ').'" name="sizes.size_name" value="'.$row['size_name'].'">'.$row['size_name'].'</button>';
                                         }
                                         $result->close();
                                     ?> 
@@ -90,7 +145,7 @@
                                         $sql = $COLOR_QUERY_GET_ALL;
                                         $result = $_conn->query($sql);
                                         while($row = $result->fetch_assoc()){
-                                            echo '<button class="product-filter__color-item product-filter__button" name="color" value='.$row['color_name'].'>';
+                                            echo '<button class="product-filter__color-item product-filter__button js-product-filter__button '.((isset($each_param['colors.slug']) && in_array($row['slug'], $each_param['colors.slug'])) ? 'products-page__function-button--is-selected' : ' ').'" name="colors.slug" value='.$row['slug'].'>';
                                             echo '<div class="product-filter__color-img" style="background-image: url('.$row['img'].');"></div>';
                                             echo '<span class="product-filter__color-desc">'.$row['color_name'].'</span>';
                                             echo '</button>';
@@ -110,61 +165,27 @@
                                 Sắp xếp theo
                             </span>
         
-                            <button class="products-page__sort-type" value="new">Mới nhất</button>
-                            <button class="products-page__sort-type" value="bestseller">Bán chạy</button>
+                            <button class="js-product-filter__button products-page__sort-type
+                                <?php echo ((isset($each_param['sortby'])) ? 'products-page__function-button--is-selected': ' ') ?>
+                            " name="sortby" value="latest">Mới nhất</button>
         
-                            <input type="radio" name="sort-price" id="products-page__sort-price-asc" value="price-asc">
-                            <label class="products-page__sort-type" for="products-page__sort-price-asc">Giá thấp đến cao</label>
+                            <input type="radio" name="orderby" id="products-page__sort-price-asc" value="asc">
+                            <label class="products-page__sort-type
+                                <?php echo ((isset($each_param['orderby']) && in_array('asc', $each_param['orderby'])) ? 'products-page__function-button--is-selected': ' ') ?>
+                            " for="products-page__sort-price-asc">Giá thấp đến cao</label>
         
-                            <input type="radio" name="sort-price" id="product-page__sort-price-desc" value="price-desc">
-                            <label class="products-page__sort-type" for="products-page__sort-price-desc">Giá cao đến thấp</label>
+                            <input type="radio" name="orderby" id="products-page__sort-price-desc" value="desc">
+                            <label class="products-page__sort-type
+                            <?php echo ((isset($each_param['orderby']) && in_array('desc', $each_param['orderby'])) ? 'products-page__function-button--is-selected': ' ') ?>
+                            " for="products-page__sort-price-desc">Giá cao đến thấp</label>
                         </form>
         
-                        <div class="row">
-                            <?php 
-                                $sql = $PRODUCT_QUERY_GET_ALL_PRODUCT_CARD_INFO;
-                                $result = $_conn->query($sql);
-                                while($row = $result->fetch_assoc()){
-                                    $rating = getGeneralRatingOfProduct($row['id']);
-
-                                    $unit_price = $row['unit_price'];
-                                    $discount_percentage = $row['discount_percentage'];
-                                    $sell_price = $unit_price * (1-$discount_percentage);
-
-
-                                    echo '<div class="col l-2-4 m-6 c-6">';
-                                    echo '<a class="product-card" href="../product_detail_page.php/'.$row['slug'].'-'.$row['id'].'">';
-                                    echo '<div class="product-card__img" style="background-image: url('.$row['main_img'].');"></div>';
-                                    echo '<div class="product-card__content">';
-
-                                    echo '<p class="product-card__title">'.$row['product_name'].'</p>';
-
-                                    echo '<div class="rating-score rating-score--product-card">';
-                                    initRatingStars($rating['rating_score']);
-                                    echo '<span class="product-detail__rating-score">('.$rating['rating_score'].')</span>';
-                                    echo '</div>';
-
-                                    echo '<div class="product-card__price">';
-                                    if($discount_percentage > 0){
-                                        echo '<span class="product-card__current-price">'.number_format($sell_price, 0, ',', '.').'đ</span>';
-                                        echo '<span class="product-card__old-price">'.number_format($unit_price, 0, ',', '.').'đ</span>';
-                                        echo '<span class="product-card__discount">-'.($discount_percentage * 100).'%</span>';
-                                    }
-                                    else {
-                                        echo '<span class="product-card__current-price">'.number_format($unit_price, 0, ',', '.').'đ</span>';
-                                    }
-                                    echo '</div>';
-
-                                    echo '</div>';
-                                    echo '</a>';
-                                    echo '</div>';
-                                }
-                                $result->close();
-                            ?>
+                        <div class="row products-page__product-container">
+                            
                         </div>
         
-                        <div class="loadmore">
-                            <button class="loadmore-btn">
+                        <div class="loadmore loadmore--products_page">
+                            <button class="loadmore-btn loadmore-btn--products_page">
                                 Xem thêm
                             </button>
                         </div>
@@ -175,6 +196,8 @@
         
         <?php include "footer.php" ?>
     </div>
+
+    <script src="../js/toogleParameterUrl.js"></script>
 
     <script>
         var colorButtons = document.querySelectorAll('.product-card__color');
@@ -188,6 +211,123 @@
 
                 var productCard_colorInfo = product_card.querySelector('.product-card__color-info');
                 productCard_colorInfo.innerText = selectedImg.alt;
+            })
+        })
+    </script>
+
+    <script>
+        <?php
+            echo 'var products_data = '.json_encode(executeNonParamQuery($product_query_get)).';';
+        ?>
+    </script>
+
+    <script>
+        let currentPage = 1
+        var itemsPerPageCount = 15;
+        let totalPage = (products_data.length % itemsPerPageCount == 0) ? products_data.length / itemsPerPageCount : Math.ceil(products_data.length / itemsPerPageCount);
+        let itemsPerPage = products_data.slice((currentPage - 1) * itemsPerPageCount, (currentPage - 1) * itemsPerPageCount + itemsPerPageCount);
+        renderProductData();
+        
+        if(currentPage == totalPage){
+            $('.loadmore--products_page').addClass('hidden_tag');
+        }
+
+        function handlePagination(pageNumber) {
+            currentPage = pageNumber;
+            itemsPerPage = products_data.slice((currentPage - 1) * itemsPerPageCount, (currentPage - 1) * itemsPerPageCount + itemsPerPageCount);
+            renderProductData();
+        }
+
+        function renderProductData() {
+            let element = '';
+            itemsPerPage.map(value => {
+                element += `
+                    <div class="col l-2-4">
+                        <a class="product-card" href="../product_detail_page.php/${value[5]}-${value[0]}">
+                            <div class="product-card__img" style="background-image: url(${value[2]});"></div>
+                            <div class="product-card__content">
+                                <p class="product-card__title">${value[1]}</p>
+                                <div class="rating-score rating-score--product-card">
+                                    ${renderRatingStars(parseFloat(value[6]))}
+                                    <span class="product-detail__rating-score">(${value[6]})</span>
+                                </div>
+                                <div class="product-card__price">
+                                    ${renderProductPrice(parseFloat(value[3]), parseFloat(value[4]))}
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                `;
+            });
+            $('.products-page__product-container').html($('.products-page__product-container').html() + element);
+        }
+
+        function renderProductPrice(unit_price, discount_percentage) {
+            let result = '';
+            if (discount_percentage > 0.0) {
+                var new_price = unit_price * (1 - discount_percentage);
+                result += `<span class="product-card__current-price">${new_price.toLocaleString('de-DE')}đ</span>`;
+                result += `<span class="product-card__old-price">${unit_price.toLocaleString('de-DE')}đ</span>`;
+                result += `<span class="product-card__discount">-${discount_percentage * 100}%</span>`;
+            } else {
+                result += `<span class="product-card__current-price">${unit_price.toLocaleString('de-DE')}đ</span>`;
+            }
+            return result;
+        }
+
+        function renderRatingStars(rating_score){
+            let result = '';
+            var i = 1;
+            for(; i <= Math.floor(rating_score); i++){
+                result += `<div class="rating-score__star is-active"></div>`;
+            }
+
+            if(rating_score > Math.floor(rating_score)){
+                result += `<div class="rating-score__star is-half"></div>`;
+                i++;
+            }
+
+            for(; i <= 5; i++){
+                result += `<div class="rating-score__star is-neutral"></div>`;
+            }
+
+            return result;
+        }
+    </script>
+
+    <script>
+        $(document).ready(function(){
+            $('.loadmore-btn--products_page').click(function(){
+                if(currentPage < totalPage){
+                    currentPage++;
+                    handlePagination(currentPage);
+
+                    if(currentPage == totalPage){
+                        $('.loadmore--products_page').addClass('hidden_tag');
+                    }
+                }
+            })
+
+            $('.js-product-filter__button').click(function(e){
+                e.preventDefault();
+
+                toogleParameterUrl($(this).attr('name'), $(this).val());
+            })
+
+            $('.product-filter__checkbox').change(function(){
+                toogleParameterUrl($(this).attr('name'), $(this).val());
+            })
+
+            $('input[name="orderby"]').change(function(){
+                const url = new URL(window.location.href);
+                const params = new URLSearchParams(url.search);
+
+                if(params.has('orderby')){
+                    params.delete('orderby');
+                }
+
+                params.set($(this).attr('name'), $(this).val());
+                window.location.href = `${url.pathname}?${params}`;
             })
         })
     </script>

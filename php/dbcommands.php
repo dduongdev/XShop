@@ -3,12 +3,15 @@
 
     $COLOR_QUERY_GET_ALL = "SELECT * FROM colors";
 
+    $CATEGORY_QUERY_GET_ALL = "SELECT * FROM categories";
+
     $PRODUCT_QUERY_GET_ALL_RANDOM_PRODUCT_CARD_INFO = "SELECT id, product_name, main_img, unit_price, discount_percentage, slug, calc_rating_score_of_product(id) AS rating_score
                                                         FROM products
                                                         ORDER BY RAND()";
 
-    $PRODUCT_QUERY_GET_ALL_PRODUCT_CARD_INFO = "SELECT id, product_name, main_img, unit_price, discount_percentage, slug
-                                                FROM products";
+    $PRODUCT_QUERY_GET_LIMIT_PRODUCT_CARD_INFO = "SELECT id, product_name, main_img, unit_price, discount_percentage, slug, calc_rating_score_of_product(id) AS rating_score
+                                                FROM products
+                                                LIMIT ?, ?";
 
     $PRODUCT_QUERY_GET_RATING_SCORE_OF_PRODUCT = "SELECT COALESCE((SUM(rating) + 5)/(COUNT(*) + 1), 5) AS rating_score, COUNT(feedbacks.id) AS rating_count
                                         FROM products LEFT JOIN feedbacks
@@ -39,5 +42,5 @@
                                             ON products_color.color_id = colors.id
                                             WHERE products_color.product_id = ? AND colors.slug = ?";
     $PRODUCT_QUERY_CHECK_EXIST = "SELECT id FROM products WHERE id = ?";
-    
+    $PRODUCT_QUERY_GET_PRODUCT_COUNT = "SELECT COUNT(*) as product_count FROM products";
 ?>
