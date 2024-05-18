@@ -169,15 +169,13 @@
                                 <?php echo ((isset($each_param['sortby'])) ? 'products-page__function-button--is-selected': ' ') ?>
                             " name="sortby" value="latest">Mới nhất</button>
         
-                            <input type="radio" name="orderby" id="products-page__sort-price-asc" value="asc">
-                            <label class="products-page__sort-type
+                            <button class="products-page__sort-type products-page__sort-type--price 
                                 <?php echo ((isset($each_param['orderby']) && in_array('asc', $each_param['orderby'])) ? 'products-page__function-button--is-selected': ' ') ?>
-                            " for="products-page__sort-price-asc">Giá thấp đến cao</label>
-        
-                            <input type="radio" name="orderby" id="products-page__sort-price-desc" value="desc">
-                            <label class="products-page__sort-type
-                            <?php echo ((isset($each_param['orderby']) && in_array('desc', $each_param['orderby'])) ? 'products-page__function-button--is-selected': ' ') ?>
-                            " for="products-page__sort-price-desc">Giá cao đến thấp</label>
+                            " name="orderby" value="asc">Giá thấp đến cao</button>
+
+                            <button class="products-page__sort-type products-page__sort-type--price 
+                                <?php echo ((isset($each_param['orderby']) && in_array('desc', $each_param['orderby'])) ? 'products-page__function-button--is-selected': ' ') ?>
+                            " name="orderby" value="desc">Giá cao đến thấp</button>
                         </form>
         
                         <div class="row products-page__product-container">
@@ -318,15 +316,23 @@
                 toogleParameterUrl($(this).attr('name'), $(this).val());
             })
 
-            $('input[name="orderby"]').change(function(){
+            $('.products-page__sort-type--price').click(function(e){
+                e.preventDefault();
+                
                 const url = new URL(window.location.href);
                 const params = new URLSearchParams(url.search);
 
                 if(params.has('orderby')){
+                    var oldValue = params.get('orderby');
+                    console.log(oldValue);
                     params.delete('orderby');
+                    if(oldValue !== $(this).val()){
+                        params.set($(this).attr('name'), $(this).val());
+                    }
+                } else {
+                    params.set($(this).attr('name'), $(this).val());
                 }
 
-                params.set($(this).attr('name'), $(this).val());
                 window.location.href = `${url.pathname}?${params}`;
             })
         })

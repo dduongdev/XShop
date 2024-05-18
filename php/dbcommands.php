@@ -1,7 +1,7 @@
 <?php
     $SIZE_QUERY_GET_ALL = "SELECT * FROM sizes";
 
-    $COLOR_QUERY_GET_ALL = "SELECT * FROM colors";
+    $COLOR_QUERY_GET_ALL = "SELECT * FROM colors ORDER BY LENGTH(color_name) asc";
 
     $CATEGORY_QUERY_GET_ALL = "SELECT * FROM categories";
 

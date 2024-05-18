@@ -426,8 +426,6 @@
     border-radius: 8px;
     display: flex;
     flex-direction: column;
-    position: sticky;
-    top: 4rem;
 }
 
 .product-filter__item {
@@ -551,44 +549,13 @@
     padding: 4px;
 }
 
-.product-card__options-color {
-    margin-bottom: 4px;
-}
-
-.product-card__color {
-    border: transparent 1px solid;
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 2px;
-    cursor: pointer;
-}
-
-.product-card__color img {
-    display: none;
-}
-
-.product-card__color:hover {
-    border: #000 1px solid;
-}
-
-.product-card__color span {
-    width: 36px;
-    height: 20px;
-    display: block;
-    background-repeat: no-repeat;
-    background-size: 250%;
-    background-position: 50%;
-    border-radius: 8px;
-    padding: 4px 0;
-}
-
 .product-card__title {
     font-size: 1.6rem;
     margin: 4px 0;
     line-height: 1.8rem;
     color: #231f20;
     font-weight: 700;
-    max-height: 3.6rem;
+    height: 3.6rem;
     overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
