@@ -418,6 +418,13 @@
     color: var(--black-color);
 }
 
+.products-page__desc--no-product {
+    margin: auto;
+    font-size: 2rem;
+    color: #777;
+    font-style: italic;
+}
+
 .product-filter {
     font-size: 1.4rem;
     color: #231f20;

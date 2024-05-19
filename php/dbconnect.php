@@ -2,7 +2,7 @@
     $server = 'localhost';
     $username = 'root';
     $password = '040313';
-    $database = 'xshop_ver5';
+    $database = 'xshop_ver8';
 
     $_conn = new mysqli($server, $username, $password, $database);
 

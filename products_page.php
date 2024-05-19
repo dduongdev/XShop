@@ -9,16 +9,16 @@
 
     $initial_sql = 'SELECT products.id, product_name, main_img, unit_price, discount_percentage, products.slug, calc_rating_score_of_product(products.id) AS rating_score
                 FROM products'; 
-    $join_part = 'JOIN products_color 
+    $join_part = 'JOIN category_product
+                    ON products.id = category_product.product_id
+                    JOIN products_color
                     ON products.id = products_color.product_id
                     JOIN colors
                     ON products_color.color_id = colors.id
                     JOIN products_size
-                    ON products_color.id = products_size.product_color_id
+                    ON products_size.product_color_id = products_color.id
                     JOIN sizes
-                    ON products_size.size_id = sizes.id
-                    JOIN categories
-                    ON products.category_id = categories.id';
+                    ON products_size.size_id = sizes.id';   
     $group_by_part = 'GROUP BY products.id';
     $order_by_part = 'ORDER BY ';
     $where_conditions = [];
@@ -52,7 +52,7 @@
         }
 
         $filter_sql = $initial_sql;
-        if(isset($each_param['colors.slug']) || isset($each_param['sizes.size_name']) || isset($each_param['categories.id'])){
+        if(isset($each_param['colors.slug']) || isset($each_param['sizes.size_name']) || isset($each_param['category_id'])){
             $filter_sql .= ' ' . $join_part;
             $filter_sql .= ' WHERE ' . implode(' AND ', $where_conditions);
             $filter_sql .= ' ' . $group_by_part;
@@ -109,7 +109,7 @@
 
                                         foreach($result as $row){
                                             echo '<li class="product-filter__clothing-item">';
-                                            echo '<input type="checkbox" name="categories.id" value="'.$row[0].'" id="product-filter--select-'.$row[2].'" class="product-filter__checkbox" '.(isset($each_param['categories.id']) && in_array($row[0], $each_param['categories.id']) ? 'checked' : '').'>';
+                                            echo '<input type="checkbox" name="category_id" value="'.$row[0].'" id="product-filter--select-'.$row[2].'" class="product-filter__checkbox" '.(isset($each_param['category_id']) && in_array($row[0], $each_param['category_id']) ? 'checked' : '').'>';
                                             echo '<label class="product-filter__clothing-title" for="product-filter--select-'.$row[2].'">';
                                             echo ' '.$row[1];
                                             echo '</label>';
@@ -179,7 +179,7 @@
                         </form>
         
                         <div class="row products-page__product-container">
-                            
+                            <span class="products-page__desc--no-product hidden_tag">Không có sản phẩm nào.</span>
                         </div>
         
                         <div class="loadmore loadmore--products_page">
@@ -226,8 +226,11 @@
         let itemsPerPage = products_data.slice((currentPage - 1) * itemsPerPageCount, (currentPage - 1) * itemsPerPageCount + itemsPerPageCount);
         renderProductData();
         
-        if(currentPage == totalPage){
+        if(totalPage <= 1){
             $('.loadmore--products_page').addClass('hidden_tag');
+        }
+        if(products_data == 0) {
+            $('.products-page__desc--no-product').removeClass('hidden_tag');
         }
 
         function handlePagination(pageNumber) {
@@ -266,7 +269,7 @@
                 var new_price = unit_price * (1 - discount_percentage);
                 result += `<span class="product-card__current-price">${new_price.toLocaleString('de-DE')}đ</span>`;
                 result += `<span class="product-card__old-price">${unit_price.toLocaleString('de-DE')}đ</span>`;
-                result += `<span class="product-card__discount">-${discount_percentage * 100}%</span>`;
+                result += `<span class="product-card__discount">-${Math.round(discount_percentage * 100, 1)}%</span>`;
             } else {
                 result += `<span class="product-card__current-price">${unit_price.toLocaleString('de-DE')}đ</span>`;
             }

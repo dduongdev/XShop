@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 18, 2024 lúc 01:18 PM
+-- Thời gian đã tạo: Th5 19, 2024 lúc 05:39 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -18,14 +18,14 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `xshop_ver5`
+-- Cơ sở dữ liệu: `xshop_ver8`
 --
 
 DELIMITER $$
 --
 -- Các hàm
 --
-CREATE DEFINER=`` FUNCTION `calc_rating_score_of_product` (`p_product_id` BIGINT) RETURNS FLOAT DETERMINISTIC BEGIN
+CREATE DEFINER=`root`@`localhost` FUNCTION `calc_rating_score_of_product` (`p_product_id` BIGINT) RETURNS FLOAT DETERMINISTIC BEGIN
     DECLARE rating_score FLOAT DEFAULT 0;
 
     SELECT COALESCE((SUM(feedbacks.rating) + 5) / (COUNT(feedbacks.rating) + 1), 5) 
@@ -87,7 +87,86 @@ INSERT INTO `categories` (`id`, `category_name`, `slug`) VALUES
 (2, 'Quần Jeans', 'quan-jeans'),
 (3, 'Quần thể thao', 'quan-the-thao'),
 (4, 'Quần shorts', 'quan-shorts'),
-(5, 'Áo Polo', 'ao-polo');
+(5, 'Áo Polo', 'ao-polo'),
+(6, 'Áo khoác', 'ao-khoac'),
+(7, 'Áo sơ mi', 'ao-so-mi');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `category_product`
+--
+
+CREATE TABLE `category_product` (
+  `product_id` bigint(20) NOT NULL DEFAULT 0,
+  `category_id` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `category_product`
+--
+
+INSERT INTO `category_product` (`product_id`, `category_id`) VALUES
+(2, 1),
+(2, 5),
+(3, 2),
+(4, 1),
+(5, 1),
+(6, 1),
+(6, 5),
+(7, 1),
+(8, 1),
+(9, 1),
+(10, 1),
+(11, 1),
+(12, 1),
+(12, 6),
+(13, 6),
+(14, 1),
+(14, 5),
+(15, 1),
+(15, 5),
+(16, 1),
+(17, 2),
+(18, 2),
+(19, 2),
+(20, 2),
+(21, 2),
+(22, 3),
+(23, 3),
+(24, 3),
+(24, 4),
+(25, 3),
+(25, 4),
+(26, 3),
+(26, 4),
+(27, 3),
+(27, 4),
+(28, 3),
+(28, 4),
+(30, 3),
+(30, 4),
+(31, 3),
+(31, 4),
+(32, 3),
+(32, 4),
+(33, 4),
+(35, 3),
+(35, 4),
+(36, 4),
+(37, 3),
+(37, 4),
+(38, 5),
+(39, 5),
+(40, 1),
+(40, 5),
+(41, 5),
+(42, 5),
+(43, 5),
+(44, 7),
+(45, 7),
+(46, 7),
+(47, 7);
 
 -- --------------------------------------------------------
 
@@ -180,7 +259,6 @@ CREATE TABLE `products` (
   `discount_percentage` float DEFAULT 0,
   `product_desc` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`product_desc`)),
   `slug` text NOT NULL,
-  `category_id` bigint(20) NOT NULL,
   `main_img` varchar(255) NOT NULL,
   `release_date` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -189,47 +267,51 @@ CREATE TABLE `products` (
 -- Đang đổ dữ liệu cho bảng `products`
 --
 
-INSERT INTO `products` (`id`, `product_name`, `unit_price`, `discount_percentage`, `product_desc`, `slug`, `category_id`, `main_img`, `release_date`) VALUES
-(2, 'Áo Polo Thể Thao Pro Active 1595', 239000, 0.1, '[\"Chất liệu 100% Recycled Polyester\", \"Vải dệt Knit Interlock\", \"Công nghệ ExDry thấm hút tốt, nhanh khô, thoáng khí\", \"Vải co giãn thoải mái\", \"Form áo vừa vặn, tôn dáng\"]', 'ao-polo-the-thao-pro-active-1595', 1, '../images/products/24CMAW.PL004.7_17.webp', '2023-05-01 00:00:00'),
-(3, 'Quần Jeans Nam siêu nhẹ', 499000, 0.05, '[\"Chất liệu Denim 8.5 Oz mỏng nhẹ\", \"Thành phần: 80% Cotton, 18% Polyester, 2% Spandex\", \"Vải Denim được wash trước khi may, không rút và hạn chế ra màu sau khi giặt\", \"Dáng Straight rộng phóng thoáng, thoải mái, không thùng thình\", \"Lưu ý: Sản phẩm vẫn sẽ bạc màu sau một thời gian dài sử dụng theo tính chất tự nhiên\"]', 'quan-jeans-name-sieu-nhe', 2, '../images/products/23CMCW.JE006.2_45.webp', '2023-04-01 00:00:00'),
-(4, 'Áo Thun Nam Chạy Bộ Graphic Special', 199000, 0, '[\"Chất liệu 100% Recycled Polyester\", \"Vải dệt Knit Interlock\", \"Công nghệ ExDry thấm hút tốt, nhanh khô, thoáng khí\", \"Vải co giãn thoải mái\", \"Form áo vừa vặn, tôn dáng\"]', 'ao-thun-nam-chay-bo-graphic-special', 1, '../images/products/GRAPHICS.AGANIN.10.webp', '2023-04-02 00:00:00'),
-(5, 'Áo Thun Nam Chạy Bộ Graphic Heartbeat', 199000, 0, '[\"Chất liệu 100% Recycled Polyester\", \"Vải dệt Knit Interlock\", \"Công nghệ ExDry thấm hút tốt, nhanh khô, thoáng khí\", \"Vải co giãn thoải mái\", \"Form áo vừa vặn, tôn dáng\"]', 'ao-thun-nam-chay-bo-graphic-heart-beat', 1, '../images/products/23CMAW.AT003.20.webp', '2023-07-06 00:00:00'),
-(6, 'Áo Polo Thể Thao Active Premium', 295000, 0.1, '[\"Chất liệu 100% Recycled Polyester\", \"Vải dệt Knit Interlock\", \"Công nghệ ExDry thấm hút tốt, nhanh khô, thoáng khí\", \"Vải co giãn thoải mái\", \"Form áo vừa vặn, tôn dáng\"]', 'ao-polo-the-thao-active-premium', 1, '../images/products/24CMAW.PL001.1_23.webp', '2023-10-20 00:00:00'),
-(7, 'Áo Singlet Nam Chạy Bộ Graphic Photic Zone', 189000, 0, '[\"Chất liệu 100% Recycled Polyester\", \"Vải dệt Knit Interlock\", \"Công nghệ ExDry thấm hút tốt, nhanh khô, thoáng khí\", \"Vải co giãn thoải mái\", \"Form áo vừa vặn, tôn dáng\"]', 'ao-singlet-nam-chay-bo-graphic-photic-zone', 1, '../images/products/24CMAW.TT07.1_64.webp', '2023-06-24 00:00:00'),
-(8, 'Áo Thun Nam Chạy Bộ Graphic Photic Zone', 199000, 0, '[\"Chất liệu 100% Recycled Polyester\", \"Vải dệt Knit Interlock\", \"Công nghệ ExDry thấm hút tốt, nhanh khô, thoáng khí\", \"Vải co giãn thoải mái\", \"Form áo vừa vặn, tôn dáng\"]', 'ao-thun-nam-chay-bo-graphic-photic-zone', 1, '../images/products/24CMAW.AT011.1_91.webp', '2023-12-27 00:00:00'),
-(9, 'Áo Thun Nam Gym Powerfit', 299000, 0.15, '[\"Chất liệu: 86% Polyester Recycled + 14% Spandex\", \"Co giãn 4 chiều mang lại sự thoải mái để bạn vận động hết mình\", \"Thiết kế công thái học, cải tiến giữ các đường may không bị mài mòn và tăng độ bền\", \"Chất liệu thấm mồ hôi và khô nhanh, thoáng khí mang lại khả năng khô thoáng vượt trội\", \"Form áo: Slim fit\"]', 'ao-thun-nam-gym-powerfit', 1, '../images/products/ao-thun-gym-powerfit-18.webp', '2023-07-01 00:00:00'),
-(10, 'Áo Thun Thể Thao Active Basics', 159000, 0, '[\"Chất liệu: 86% Polyester Recycled + 14% Spandex\", \"Co giãn 4 chiều mang lại sự thoải mái để bạn vận động hết mình\", \"Thiết kế công thái học, cải tiến giữ các đường may không bị mài mòn và tăng độ bền\", \"Chất liệu thấm mồ hôi và khô nhanh, thoáng khí mang lại khả năng khô thoáng vượt trội\", \"Form áo: Slim fit\"]', 'ao-thun-the-thao-active-basics', 1, '../images/products/24CMAW.AT005.9.webp', '2023-07-11 00:00:00'),
-(11, 'Áo Thun Nam chạy bộ Essential', 159000, 0, '[\"Chất liệu: 97% Poly + 3% Spandex\", \"Xử lý hoàn thiện vải: Quick-Dry + Wicking + Stretc\", \"Công nghệ Chafe-Free hạn chế tối đa ma sát trong quá trình vận động từ các đường may tối giản hoá\", \"Sản phẩm được đánh giá phù hợp với hoạt động chạy bộ bởi các Runner chuyên nghiệp\", \"Form áo: Slim fit\"]', 'ao-thun-nam-chay-bo-essential', 1, '../images/products/DSC04870_copy.webp', '2023-02-20 00:00:00'),
-(12, 'Áo Khoác Nam Thể Thao Pro Active', 499000, 0.2, '[\"Thành phần: 100% Polyester\", \"Chất liệu áo khoác thể thao có khả năng giữ ấm\", \"Hạn chế xù lông và chống nhăn\", \"Form áo: Regular, ôm nhẹ\"]', 'ao-khoac-nam-the-thao-pro-active', 1, '../images/products/QD001.20_38.webp', '2023-02-10 00:00:00'),
-(13, 'Áo Khoác Nam có mũ Daily Wear', 499000, 0.2, '[\"Thành phần: 100% Polyester\", \"Chất liệu áo khoác thể thao có khả năng giữ ấm\", \"Hạn chế xù lông và chống nhăn\", \"Form áo: Regular, ôm nhẹ\"]', 'ao-khoac-nam-co-mu-daily-wear', 1, '../images/products/CM006.thumb1.2_74.webp', '2023-02-20 00:00:00'),
-(14, 'Áo Polo Nam Thể Thao Promax-S1', 239000, 0.06, '[\"Chất liệu: 100% Poly, định lượng vải 155gsm siêu nhẹ\", \"Xử lý hoàn thiện vải: Quick-Dry và Wicking\", \"Phù hợp với: đi làm, đi chơi, mặc ở nhà\", \"Kiểu dáng: Regular fit dáng suông\"]', 'ao-polo-nam-the-thao-promax-s1', 1, '../images/products/apl.pm.lg.trg3.jfif', '2023-05-14 00:00:00'),
-(15, 'Áo Polo Nam Dài Tay Thể Thao Essentials', 279000, 0.1, '[\"Chất liệu: 100% Poly, định lượng vải 155gsm siêu nhẹ\", \"Kiểu dệt: Interlock\", \"Kiểu dệt Interlock giúp bề mặt vải thoáng khí, độ bền cao vẫn giữ sự độ mềm mại\", \"Vải hoàn thiện công nghệ Nhanh khô (ExDry) và thấm hút (Wicking)\", \"Form: Regular, ôm vừa\"]', 'ao-polo-nam-dai-tay-the-thao-essentials', 1, '../images/products/23CMAW.PL001.1s6_74.webp', '2023-05-31 00:00:00'),
-(16, 'Áo Tanktop Nam Thể Thao Active V2', 159000, 0, '[\"Chất liệu: 100% Poly, định lượng vải 155gsm siêu nhẹ\", \"Kiểu dệt: Interlock\", \"Kiểu dệt Interlock giúp bề mặt vải thoáng khí, độ bền cao vẫn giữ sự độ mềm mại\", \"Vải hoàn thiện công nghệ Nhanh khô (ExDry) và thấm hút (Wicking)\", \"Form: Regular, ôm vừa\"]', 'ao-tanktop-nam-the-thao-active-v2', 1, '../images/products/ATT.TT.A.5.webp', '2023-12-20 00:00:00'),
-(17, 'Quần Jeans Nam Basics dáng Slim fit', 499000, 0.05, '[\"Chất liệu: Denim\", \"Thành phần: 98% Cotton + 2% Spandex\", \"Công nghệ Laser Marking tạo các vệt hiệu ứng chuẩn xác trên sản phẩm\", \"Vải Denim được wash trước khi may nên không rút và hạn chế ra màu sau khi giặt\", \"Bề mặt quần không thô ráp\", \"Co giãn tốt giúp quần ôm vừa vặn, thoải mái\", \"Dáng Slim Fit ôm tôn dáng, giúp bạn hack đôi chân dài và gọn đẹp\"]', 'quan-jeans-nam-basics-dang-slim-fit', 2, '../images/products/23CMCW.JE002.7_72.webp', '2023-08-08 00:00:00'),
-(18, 'Quần Jeans Nam Copper Denim Straight', 599000, 0.1, '[\"Chất liệu: Denim\", \"Thành phần: 98% Cotton + 2% Spandex\", \"Công nghệ Laser Marking tạo các vệt hiệu ứng chuẩn xác trên sản phẩm\", \"Vải Denim được wash trước khi may nên không rút và hạn chế ra màu sau khi giặt\", \"Bề mặt quần không thô ráp\", \"Co giãn tốt giúp quần ôm vừa vặn, thoải mái\", \"Dáng Slim Fit ôm tôn dáng, giúp bạn hack đôi chân dài và gọn đẹp\"]', 'quan-jeans-nam-copper-denim-straight', 2, '../images/products/copperstraightdenim10.webp', '2023-02-05 00:00:00'),
-(19, 'Quần Jeans Nam Copper Denim OG Slim', 599000, 0.08, '[\"Chất liệu: Denim\", \"Thành phần: 98% Cotton + 2% Spandex\", \"Công nghệ Laser Marking tạo các vệt hiệu ứng chuẩn xác trên sản phẩm\", \"Vải Denim được wash trước khi may nên không rút và hạn chế ra màu sau khi giặt\", \"Bề mặt quần không thô ráp\", \"Co giãn tốt giúp quần ôm vừa vặn, thoải mái\", \"Dáng Slim Fit ôm tôn dáng, giúp bạn hack đôi chân dài và gọn đẹp\"]', 'quan-jeans-nam-copper-denim-og-slim', 2, '../images/products/Quan_Jeans_dang_OG_Slim-thuumb-1.webp', '2023-09-09 00:00:00'),
-(20, 'Quần Jeans Nam Copper Denim Slim Fit', 599000, 0.08, '[\"Chất liệu: Denim\", \"Thành phần: 98% Cotton + 2% Spandex\", \"Công nghệ Laser Marking tạo các vệt hiệu ứng chuẩn xác trên sản phẩm\", \"Vải Denim được wash trước khi may nên không rút và hạn chế ra màu sau khi giặt\", \"Bề mặt quần không thô ráp\", \"Co giãn tốt giúp quần ôm vừa vặn, thoải mái\", \"Dáng Slim Fit ôm tôn dáng, giúp bạn hack đôi chân dài và gọn đẹp\"]', 'quan-jeans-nam-copper-denim-slim-fit', 2, '../images/products/Quan_Jeans_dang_Slim_Fit-thumb-1.webp', '2023-02-27 00:00:00'),
-(21, 'Quần Jeans Nam dáng Slim Fit V2', 459000, 0.04, '[\"Chất liệu: Denim\", \"Thành phần: 98% Cotton + 2% Spandex\", \"Công nghệ Laser Marking tạo các vệt hiệu ứng chuẩn xác trên sản phẩm\", \"Vải Denim được wash trước khi may nên không rút và hạn chế ra màu sau khi giặt\", \"Bề mặt quần không thô ráp\", \"Co giãn tốt giúp quần ôm vừa vặn, thoải mái\", \"Dáng Slim Fit ôm tôn dáng, giúp bạn hack đôi chân dài và gọn đẹp\"]', 'quan-jeans-nam-dang-slim-fit-v2', 2, '../images/products/_CMM0081.webp', '2023-09-17 00:00:00'),
-(22, 'Quần Jogger Nam UT đa năng', 499000, 0.01, '[\"Thành phần: 90% Polyamide + 10% Spandex\", \"Vải Polyamide dày dặn, có độ bền và chịu ma sát tốt, phù hợp hoạt động ngoài trời\", \"Vải được xử lí công nghệ Trượt nước (Water Repellent C6)\", \"Chất liệu co giãn thoải mái vận động\", \"Co giãn tốt giúp quần ôm vừa vặn, thoải mái\", \"Thiết kế nhiều túi lớn, tiện lợi đựng đồ\"]', 'quan-joggeer-nam-ut-da-nang', 3, '../images/products/utdanangthumb231.webp', '2023-01-31 00:00:00'),
-(23, 'Quần Dài Nam Thể Thao Pro Active', 399000, 0.35, '[\"Thành phần: 100% Polyester\", \"Chất liệu quần dài thể thao có khả năng giữ ấm\", \"Vải được xử lí công nghệ Trượt nước (Water Repellent C6)\", \"Chất liệu co giãn thoải mái vận động\", \"Co giãn tốt giúp quần ôm vừa vặn, thoải mái\", \"Thiết kế nhiều túi lớn, tiện lợi đựng đồ\"]', 'quan-dai-name-the-thao-pro-active', 3, '../images/products/QD001.1_67.webp', '2023-04-14 00:00:00'),
-(24, 'Quần Shorts Nam Thể Thao 7\"', 239000, 0.33, '[\"Chất liệu: 100% sợi Recycled Polyester\", \"Xử lý hoàn thiện vải: Quick-Dry + Wicking + Stretch\", \"Vải Recycle dệt kiểu Double Weaving mang lại cảm giác Cooling khi mặc\", \"Chất liệu co giãn thoải mái vận động\", \"Co giãn tốt giúp quần ôm vừa vặn, thoải mái\", \"Thiết kế nhiều túi lớn, tiện lợi đựng đồ\"]', 'quan-shorts-nam-the-thao-7', 3, '../images/products/7recycle.den5.webp', '2023-03-03 00:00:00'),
-(25, 'Quần Shorts Nam Chạy Bộ Coolmate Basics', 99000, 0, '[\"Chất liệu: 100% Polyester thoáng mát\", \"Thiết kế dáng xẻ tà tăng cường thoải mái khi vận động\", \"Vải Recycle dệt kiểu Double Weaving mang lại cảm giác Cooling khi mặc\", \"Chất liệu co giãn thoải mái vận động\", \"Co giãn tốt giúp quần ôm vừa vặn, thoải mái\", \"Thiết kế nhiều túi lớn, tiện lợi đựng đồ\"]', 'quan-shorts-nam-chay-bo-coolmate-basics', 3, '../images/products/QSBCBS3D.1_4.webp', '2023-12-27 00:00:00'),
-(26, 'Quần Short Nam Thể Thao Promax-S1', 189000, 0, '[\"Chất liệu: 100% Poly\", \"Xử lý hoàn thiện vải: Quick-Dry và Wicking\", \"Phù hợp với: chơi thể thao, mặc ở nhà\", \"Chất liệu co giãn thoải mái vận động\", \"Co giãn tốt giúp quần ôm vừa vặn, thoải mái\", \"Thiết kế nhiều túi lớn, tiện lợi đựng đồ\"]', 'quan-short-nam-the-thao-promax-s1', 3, '../images/products/qtt.pm.v2.1.webp', '2023-06-08 00:00:00'),
-(27, 'Quần Shorts Nam Gym Power 2 lớp', 399000, 0, '[\"Vải chính: 100% Polyester\", \"Co giãn 4 chiều mang lại sự thoải mái để bạn vận động hết mình\", \"Phù hợp với: chơi thể thao, mặc ở nhà\", \"Chất liệu co giãn thoải mái vận động\", \"Co giãn tốt giúp quần ôm vừa vặn, thoải mái\", \"Thiết kế nhiều túi lớn, tiện lợi đựng đồ\"]', 'quan-shorts-nam-gym-power-2-lop', 3, '../images/products/qs2l..gp.5.webp', '2023-03-17 00:00:00'),
-(28, 'Quần Shorts Nam chạy bộ Advanced', 349000, 0, '[\"Chất liệu: 89% Recycled Polyester - 11% Spandex\", \"Công nghệ Chafe-Free hạn chế tối đa ma sát trong quá trình vận động từ các đường may tối giản hoá\", \"Phù hợp với: chơi thể thao, mặc ở nhà\", \"Chất liệu co giãn thoải mái vận động\", \"Co giãn tốt giúp quần ôm vừa vặn, thoải mái\", \"Thiết kế nhiều túi lớn, tiện lợi đựng đồ\"]', 'quan-shorts-nam-chay-bo-advanced', 3, '../images/products/CMQST.RN002.XBD.3.webp', '2023-09-24 00:00:00'),
-(30, 'Quần Shorts Nam Chạy Bộ 2 lớp Essentials III', 399000, 0.09, '[\"Vải chính: 45% Polyester + 55% Recycle Polyester\", \"Công nghệ ExDry thấm hút tốt, nhanh khô, thoáng khí\", \"Phù hợp với: chơi thể thao, mặc ở nhà\", \"Chất liệu co giãn thoải mái vận động\", \"Co giãn tốt giúp quần ôm vừa vặn, thoải mái\", \"Thiết kế nhiều túi lớn, tiện lợi đựng đồ\"]', 'quan-shorts-nam-chay-bo-2-lop-esentials-III', 4, '../images/products/24CMAW.QS019.22_56.webp', '2023-01-11 00:00:00'),
-(31, 'Quần Shorts thể thao 7 inch đa năng', 198000, 0.09, '[\"Chất liệu: 86% Polyester + 14% Spandex, định lượng vải 125gsm\", \"Công nghệ ExDry thấm hút tốt, nhanh khô, thoáng khí\", \"Quần co giãn thoải mái\", \"Chất liệu co giãn thoải mái vận động\", \"Co giãn tốt giúp quần ôm vừa vặn, thoải mái\", \"Thiết kế nhiều túi lớn, tiện lợi đựng đồ\"]', 'quan-shorts-the-thao-7-inch-da-nang', 4, '../images/products/thumb7indanan2_81_copy.webp', '2023-12-14 00:00:00'),
-(32, 'Quần Shorts Nam chạy bộ Essentials 5\"', 189000, 0.09, '[\"Chất liệu 100% Polyester\", \"Công nghệ ExDry thấm hút tốt, nhanh khô, thoáng khí\", \"Công nghệ ExDry thấm hút tốt, nhanh khô, thoáng khí\", \"Vải dệt co giãn độ bền cao\", \"Định lượng vải 84gsm siêu nhẹ thoải mái vận động\"]', 'quan-shorts-nam-chay-bo-essentials', 4, '../images/products/24CMAW.QS008.4_100.webp', '2023-09-06 00:00:00'),
-(33, 'Quần Shorts Nam Daily Short', 269000, 0, '[\"Chất liệu 100% Polyester\", \"Công nghệ ExDry thấm hút tốt, nhanh khô, thoáng khí\", \"Công nghệ ExDry thấm hút tốt, nhanh khô, thoáng khí\", \"Vải dệt co giãn độ bền cao\", \"Định lượng vải 84gsm siêu nhẹ thoải mái vận động\"]', 'quan-shorts-nam-daily-short', 4, '../images/products/QS.DP.15_68.webp', '2023-07-19 00:00:00'),
-(35, 'Quần Shorts Nam Chạy Bộ Ultra Fast II', 229000, 0, '[\"Chất liệu 100% Polyester\", \"Công nghệ ExDry thấm hút tốt, nhanh khô, thoáng khí\", \"Công nghệ ExDry thấm hút tốt, nhanh khô, thoáng khí\", \"Vải dệt co giãn độ bền cao\", \"Định lượng vải 84gsm siêu nhẹ thoải mái vận động\"]', 'quan-shorts-nam-chay-bo-ultra-fast-II', 3, '../images/products/24CMAW.QS018.3_95.webp', '2023-09-10 00:00:00'),
-(36, 'Quần Shorts Nam Mặc Nhà', 99000, 0, '[\"Chất liệu 100% Polyester\", \"Công nghệ ExDry thấm hút tốt, nhanh khô, thoáng khí\", \"Công nghệ ExDry thấm hút tốt, nhanh khô, thoáng khí\", \"Vải dệt co giãn độ bền cao\", \"Định lượng vải 84gsm siêu nhẹ thoải mái vận động\"]', 'quan-short-nam-mac-nha', 3, '../images/products/24CMHU.BX010.DOO1.3d_92.webp', '2023-10-26 00:00:00'),
-(37, 'Quần Shorts Nam Thể Thao 7\"', 159000, 0, '[\"Chất liệu 100% Polyester\", \"Công nghệ ExDry thấm hút tốt, nhanh khô, thoáng khí\", \"Công nghệ ExDry thấm hút tốt, nhanh khô, thoáng khí\", \"Vải dệt co giãn độ bền cao\", \"Định lượng vải 84gsm siêu nhẹ thoải mái vận động\"]', 'quan-shorts-nam-the-thao-7', 3, '../images/products/7recycle.xchi6.webp', '2023-01-05 00:00:00'),
-(38, 'Áo Polo Nam Pique Cotton', 299000, 0, '[\"Chất liệu 100% Cotton\", \"Xử lí hoàn thiện giúp bề mặt vải ít xù lông, mềm mịn và bền màu hơn\", \"Kiểu dệt Pique giúp áo thoáng mát\", \"Độ dày vải vừa phải giúp áo tôn dáng\"]', 'ao-polo-nam-pique-cotton', 5, '../images/products/poloapl220.11.jpg', '2023-08-12 00:00:00'),
-(39, 'Áo Polo Nam dài tay Essentials', 399000, 0, '[\"Thành phần: 95% Cotton + 5% Spandex\", \"Xử lí hoàn thiện giúp bề mặt vải ít xù lông, mềm mịn và bền màu hơn\", \"Co giãn 4 chiều, mang đến sự thoải mái trong hoạt động\", \"Chất liệu Cotton tự nhiên thấm hút mồ hôi tốt\"]', 'ao-polo-nam-dai-tay-essentials', 5, '../images/products/_CMM0071_62.webp', '2023-01-09 00:00:00'),
-(40, 'Áo Polo Thể Thao Active Pique', 233000, 0, '[\"Thành phần: 95% Cotton + 5% Spandex\", \"Xử lí hoàn thiện giúp bề mặt vải ít xù lông, mềm mịn và bền màu hơn\", \"Co giãn 4 chiều, mang đến sự thoải mái trong hoạt động\", \"Chất liệu Cotton tự nhiên thấm hút mồ hôi tốt\"]', 'ao-polo-the-thao-active-pique', 5, '../images/products/24CMAW.PL003.BEE6_58.webp', '2023-04-14 00:00:00'),
-(41, 'Áo Polo Nam Cafe Bo Kẻ', 329000, 0, '[\"Thành phần: 95% Cotton + 5% Spandex\", \"Xử lí hoàn thiện giúp bề mặt vải ít xù lông, mềm mịn và bền màu hơn\", \"Co giãn 4 chiều, mang đến sự thoải mái trong hoạt động\", \"Chất liệu Cotton tự nhiên thấm hút mồ hôi tốt\"]', 'ao-polo-nam-cafe-bo-ke', 5, '../images/products/24CMCW.PL001.THUMB1_41.webp', '2023-05-05 00:00:00'),
-(42, 'Áo Polo Nam phối Jeans', 399000, 0, '[\"Thành phần: 95% Cotton + 5% Spandex\", \"Xử lí hoàn thiện giúp bề mặt vải ít xù lông, mềm mịn và bền màu hơn\", \"Co giãn 4 chiều, mang đến sự thoải mái trong hoạt động\", \"Chất liệu Cotton tự nhiên thấm hút mồ hôi tốt\"]', 'ao-polo-nam-phoi-jeans', 5, '../images/products/thumbPolo_Copper_1A1.webp', '2023-11-07 00:00:00'),
-(43, 'Áo Polo Nam Graphene', 165000, 0, '[\"Thành phần: 95% Cotton + 5% Spandex\", \"Xử lí hoàn thiện giúp bề mặt vải ít xù lông, mềm mịn và bền màu hơn\", \"Co giãn 4 chiều, mang đến sự thoải mái trong hoạt động\", \"Chất liệu Cotton tự nhiên thấm hút mồ hôi tốt\"]', 'ao-polo-nam-dai-tay-essentials', 5, '../images/products/polographene.2.webp', '2023-03-29 00:00:00');
+INSERT INTO `products` (`id`, `product_name`, `unit_price`, `discount_percentage`, `product_desc`, `slug`, `main_img`, `release_date`) VALUES
+(2, 'Áo Polo Thể Thao Pro Active 1595', 239000, 0.1, '[\"Chất liệu 100% Recycled Polyester\", \"Vải dệt Knit Interlock\", \"Công nghệ ExDry thấm hút tốt, nhanh khô, thoáng khí\", \"Vải co giãn thoải mái\", \"Form áo vừa vặn, tôn dáng\"]', 'ao-polo-the-thao-pro-active-1595', '../images/products/24CMAW.PL004.1_64.webp', '2023-05-01 00:00:00'),
+(3, 'Quần Jeans Nam siêu nhẹ', 499000, 0.05, '[\"Chất liệu Denim 8.5 Oz mỏng nhẹ\", \"Thành phần: 80% Cotton, 18% Polyester, 2% Spandex\", \"Vải Denim được wash trước khi may, không rút và hạn chế ra màu sau khi giặt\", \"Dáng Straight rộng phóng thoáng, thoải mái, không thùng thình\", \"Lưu ý: Sản phẩm vẫn sẽ bạc màu sau một thời gian dài sử dụng theo tính chất tự nhiên\"]', 'quan-jeans-name-sieu-nhe', '../images/products/23CMCW.JE006.2_45.webp', '2023-04-01 00:00:00'),
+(4, 'Áo Thun Nam Chạy Bộ Graphic Special', 199000, 0, '[\"Chất liệu 100% Recycled Polyester\", \"Vải dệt Knit Interlock\", \"Công nghệ ExDry thấm hút tốt, nhanh khô, thoáng khí\", \"Vải co giãn thoải mái\", \"Form áo vừa vặn, tôn dáng\"]', 'ao-thun-nam-chay-bo-graphic-special', '../images/products/GRAPHICS.AGANIN.10.webp', '2023-04-02 00:00:00'),
+(5, 'Áo Thun Nam Chạy Bộ Graphic Heartbeat', 199000, 0, '[\"Chất liệu 100% Recycled Polyester\", \"Vải dệt Knit Interlock\", \"Công nghệ ExDry thấm hút tốt, nhanh khô, thoáng khí\", \"Vải co giãn thoải mái\", \"Form áo vừa vặn, tôn dáng\"]', 'ao-thun-nam-chay-bo-graphic-heart-beat', '../images/products/23CMAW.AT003.20.webp', '2023-07-06 00:00:00'),
+(6, 'Áo Polo Thể Thao Active Premium', 295000, 0.1, '[\"Chất liệu 100% Recycled Polyester\", \"Vải dệt Knit Interlock\", \"Công nghệ ExDry thấm hút tốt, nhanh khô, thoáng khí\", \"Vải co giãn thoải mái\", \"Form áo vừa vặn, tôn dáng\"]', 'ao-polo-the-thao-active-premium', '../images/products/24CMAW.PL001.1_23.webp', '2023-10-20 00:00:00'),
+(7, 'Áo Singlet Nam Chạy Bộ Graphic Photic Zone', 189000, 0, '[\"Chất liệu 100% Recycled Polyester\", \"Vải dệt Knit Interlock\", \"Công nghệ ExDry thấm hút tốt, nhanh khô, thoáng khí\", \"Vải co giãn thoải mái\", \"Form áo vừa vặn, tôn dáng\"]', 'ao-singlet-nam-chay-bo-graphic-photic-zone', '../images/products/24CMAW.TT07.1_64.webp', '2023-06-24 00:00:00'),
+(8, 'Áo Thun Nam Chạy Bộ Graphic Photic Zone', 199000, 0, '[\"Chất liệu 100% Recycled Polyester\", \"Vải dệt Knit Interlock\", \"Công nghệ ExDry thấm hút tốt, nhanh khô, thoáng khí\", \"Vải co giãn thoải mái\", \"Form áo vừa vặn, tôn dáng\"]', 'ao-thun-nam-chay-bo-graphic-photic-zone', '../images/products/24CMAW.AT011.1_91.webp', '2023-12-27 00:00:00'),
+(9, 'Áo Thun Nam Gym Powerfit', 299000, 0.15, '[\"Chất liệu: 86% Polyester Recycled + 14% Spandex\", \"Co giãn 4 chiều mang lại sự thoải mái để bạn vận động hết mình\", \"Thiết kế công thái học, cải tiến giữ các đường may không bị mài mòn và tăng độ bền\", \"Chất liệu thấm mồ hôi và khô nhanh, thoáng khí mang lại khả năng khô thoáng vượt trội\", \"Form áo: Slim fit\"]', 'ao-thun-nam-gym-powerfit', '../images/products/ao-thun-gym-powerfit-18.webp', '2023-07-01 00:00:00'),
+(10, 'Áo Thun Thể Thao Active Basics', 159000, 0, '[\"Chất liệu: 86% Polyester Recycled + 14% Spandex\", \"Co giãn 4 chiều mang lại sự thoải mái để bạn vận động hết mình\", \"Thiết kế công thái học, cải tiến giữ các đường may không bị mài mòn và tăng độ bền\", \"Chất liệu thấm mồ hôi và khô nhanh, thoáng khí mang lại khả năng khô thoáng vượt trội\", \"Form áo: Slim fit\"]', 'ao-thun-the-thao-active-basics', '../images/products/24CMAW.AT005.9.webp', '2023-07-11 00:00:00'),
+(11, 'Áo Thun Nam chạy bộ Essential', 159000, 0, '[\"Chất liệu: 97% Poly + 3% Spandex\", \"Xử lý hoàn thiện vải: Quick-Dry + Wicking + Stretc\", \"Công nghệ Chafe-Free hạn chế tối đa ma sát trong quá trình vận động từ các đường may tối giản hoá\", \"Sản phẩm được đánh giá phù hợp với hoạt động chạy bộ bởi các Runner chuyên nghiệp\", \"Form áo: Slim fit\"]', 'ao-thun-nam-chay-bo-essential', '../images/products/DSC04870_copy.webp', '2023-02-20 00:00:00'),
+(12, 'Áo Khoác Nam Thể Thao Pro Active', 499000, 0.2, '[\"Thành phần: 100% Polyester\", \"Chất liệu áo khoác thể thao có khả năng giữ ấm\", \"Hạn chế xù lông và chống nhăn\", \"Form áo: Regular, ôm nhẹ\"]', 'ao-khoac-nam-the-thao-pro-active', '../images/products/QD001.20_38.webp', '2023-02-10 00:00:00'),
+(13, 'Áo Khoác Nam có mũ Daily Wear', 499000, 0.2, '[\"Thành phần: 100% Polyester\", \"Chất liệu áo khoác thể thao có khả năng giữ ấm\", \"Hạn chế xù lông và chống nhăn\", \"Form áo: Regular, ôm nhẹ\"]', 'ao-khoac-nam-co-mu-daily-wear', '../images/products/CM006.thumb1.2_74.webp', '2023-02-20 00:00:00'),
+(14, 'Áo Polo Nam Thể Thao Promax-S1', 239000, 0.06, '[\"Chất liệu: 100% Poly, định lượng vải 155gsm siêu nhẹ\", \"Xử lý hoàn thiện vải: Quick-Dry và Wicking\", \"Phù hợp với: đi làm, đi chơi, mặc ở nhà\", \"Kiểu dáng: Regular fit dáng suông\"]', 'ao-polo-nam-the-thao-promax-s1', '../images/products/apl.pm.lg.trg3.jfif', '2023-05-14 00:00:00'),
+(15, 'Áo Polo Nam Dài Tay Thể Thao Essentials', 279000, 0.1, '[\"Chất liệu: 100% Poly, định lượng vải 155gsm siêu nhẹ\", \"Kiểu dệt: Interlock\", \"Kiểu dệt Interlock giúp bề mặt vải thoáng khí, độ bền cao vẫn giữ sự độ mềm mại\", \"Vải hoàn thiện công nghệ Nhanh khô (ExDry) và thấm hút (Wicking)\", \"Form: Regular, ôm vừa\"]', 'ao-polo-nam-dai-tay-the-thao-essentials', '../images/products/23CMAW.PL001.1s6_74.webp', '2023-05-31 00:00:00'),
+(16, 'Áo Tanktop Nam Thể Thao Active V2', 159000, 0, '[\"Chất liệu: 100% Poly, định lượng vải 155gsm siêu nhẹ\", \"Kiểu dệt: Interlock\", \"Kiểu dệt Interlock giúp bề mặt vải thoáng khí, độ bền cao vẫn giữ sự độ mềm mại\", \"Vải hoàn thiện công nghệ Nhanh khô (ExDry) và thấm hút (Wicking)\", \"Form: Regular, ôm vừa\"]', 'ao-tanktop-nam-the-thao-active-v2', '../images/products/ATT.TT.A.5.webp', '2023-12-20 00:00:00'),
+(17, 'Quần Jeans Nam Basics dáng Slim fit', 499000, 0.05, '[\"Chất liệu: Denim\", \"Thành phần: 98% Cotton + 2% Spandex\", \"Công nghệ Laser Marking tạo các vệt hiệu ứng chuẩn xác trên sản phẩm\", \"Vải Denim được wash trước khi may nên không rút và hạn chế ra màu sau khi giặt\", \"Bề mặt quần không thô ráp\", \"Co giãn tốt giúp quần ôm vừa vặn, thoải mái\", \"Dáng Slim Fit ôm tôn dáng, giúp bạn hack đôi chân dài và gọn đẹp\"]', 'quan-jeans-nam-basics-dang-slim-fit', '../images/products/23CMCW.JE002.7_72.webp', '2023-08-08 00:00:00'),
+(18, 'Quần Jeans Nam Copper Denim Straight', 599000, 0.1, '[\"Chất liệu: Denim\", \"Thành phần: 98% Cotton + 2% Spandex\", \"Công nghệ Laser Marking tạo các vệt hiệu ứng chuẩn xác trên sản phẩm\", \"Vải Denim được wash trước khi may nên không rút và hạn chế ra màu sau khi giặt\", \"Bề mặt quần không thô ráp\", \"Co giãn tốt giúp quần ôm vừa vặn, thoải mái\", \"Dáng Slim Fit ôm tôn dáng, giúp bạn hack đôi chân dài và gọn đẹp\"]', 'quan-jeans-nam-copper-denim-straight', '../images/products/copperstraightdenim10.webp', '2023-02-05 00:00:00'),
+(19, 'Quần Jeans Nam Copper Denim OG Slim', 599000, 0.08, '[\"Chất liệu: Denim\", \"Thành phần: 98% Cotton + 2% Spandex\", \"Công nghệ Laser Marking tạo các vệt hiệu ứng chuẩn xác trên sản phẩm\", \"Vải Denim được wash trước khi may nên không rút và hạn chế ra màu sau khi giặt\", \"Bề mặt quần không thô ráp\", \"Co giãn tốt giúp quần ôm vừa vặn, thoải mái\", \"Dáng Slim Fit ôm tôn dáng, giúp bạn hack đôi chân dài và gọn đẹp\"]', 'quan-jeans-nam-copper-denim-og-slim', '../images/products/Quan_Jeans_dang_OG_Slim-thuumb-1.webp', '2023-09-09 00:00:00'),
+(20, 'Quần Jeans Nam Copper Denim Slim Fit', 599000, 0.08, '[\"Chất liệu: Denim\", \"Thành phần: 98% Cotton + 2% Spandex\", \"Công nghệ Laser Marking tạo các vệt hiệu ứng chuẩn xác trên sản phẩm\", \"Vải Denim được wash trước khi may nên không rút và hạn chế ra màu sau khi giặt\", \"Bề mặt quần không thô ráp\", \"Co giãn tốt giúp quần ôm vừa vặn, thoải mái\", \"Dáng Slim Fit ôm tôn dáng, giúp bạn hack đôi chân dài và gọn đẹp\"]', 'quan-jeans-nam-copper-denim-slim-fit', '../images/products/Quan_Jeans_dang_Slim_Fit-thumb-1.webp', '2023-02-27 00:00:00'),
+(21, 'Quần Jeans Nam dáng Slim Fit V2', 459000, 0.04, '[\"Chất liệu: Denim\", \"Thành phần: 98% Cotton + 2% Spandex\", \"Công nghệ Laser Marking tạo các vệt hiệu ứng chuẩn xác trên sản phẩm\", \"Vải Denim được wash trước khi may nên không rút và hạn chế ra màu sau khi giặt\", \"Bề mặt quần không thô ráp\", \"Co giãn tốt giúp quần ôm vừa vặn, thoải mái\", \"Dáng Slim Fit ôm tôn dáng, giúp bạn hack đôi chân dài và gọn đẹp\"]', 'quan-jeans-nam-dang-slim-fit-v2', '../images/products/_CMM0081.webp', '2023-09-17 00:00:00'),
+(22, 'Quần Jogger Nam UT đa năng', 499000, 0.01, '[\"Thành phần: 90% Polyamide + 10% Spandex\", \"Vải Polyamide dày dặn, có độ bền và chịu ma sát tốt, phù hợp hoạt động ngoài trời\", \"Vải được xử lí công nghệ Trượt nước (Water Repellent C6)\", \"Chất liệu co giãn thoải mái vận động\", \"Co giãn tốt giúp quần ôm vừa vặn, thoải mái\", \"Thiết kế nhiều túi lớn, tiện lợi đựng đồ\"]', 'quan-joggeer-nam-ut-da-nang', '../images/products/utdanangthumb231.webp', '2023-01-31 00:00:00'),
+(23, 'Quần Dài Nam Thể Thao Pro Active', 399000, 0.35, '[\"Thành phần: 100% Polyester\", \"Chất liệu quần dài thể thao có khả năng giữ ấm\", \"Vải được xử lí công nghệ Trượt nước (Water Repellent C6)\", \"Chất liệu co giãn thoải mái vận động\", \"Co giãn tốt giúp quần ôm vừa vặn, thoải mái\", \"Thiết kế nhiều túi lớn, tiện lợi đựng đồ\"]', 'quan-dai-name-the-thao-pro-active', '../images/products/QD001.1_67.webp', '2023-04-14 00:00:00'),
+(24, 'Quần Shorts Nam Thể Thao 7\"', 239000, 0.33, '[\"Chất liệu: 100% sợi Recycled Polyester\", \"Xử lý hoàn thiện vải: Quick-Dry + Wicking + Stretch\", \"Vải Recycle dệt kiểu Double Weaving mang lại cảm giác Cooling khi mặc\", \"Chất liệu co giãn thoải mái vận động\", \"Co giãn tốt giúp quần ôm vừa vặn, thoải mái\", \"Thiết kế nhiều túi lớn, tiện lợi đựng đồ\"]', 'quan-shorts-nam-the-thao-7', '../images/products/7recycle.den5.webp', '2023-03-03 00:00:00'),
+(25, 'Quần Shorts Nam Chạy Bộ Coolmate Basics', 99000, 0, '[\"Chất liệu: 100% Polyester thoáng mát\", \"Thiết kế dáng xẻ tà tăng cường thoải mái khi vận động\", \"Vải Recycle dệt kiểu Double Weaving mang lại cảm giác Cooling khi mặc\", \"Chất liệu co giãn thoải mái vận động\", \"Co giãn tốt giúp quần ôm vừa vặn, thoải mái\", \"Thiết kế nhiều túi lớn, tiện lợi đựng đồ\"]', 'quan-shorts-nam-chay-bo-coolmate-basics', '../images/products/QSBCBS3D.1_4.webp', '2023-12-27 00:00:00'),
+(26, 'Quần Short Nam Thể Thao Promax-S1', 189000, 0, '[\"Chất liệu: 100% Poly\", \"Xử lý hoàn thiện vải: Quick-Dry và Wicking\", \"Phù hợp với: chơi thể thao, mặc ở nhà\", \"Chất liệu co giãn thoải mái vận động\", \"Co giãn tốt giúp quần ôm vừa vặn, thoải mái\", \"Thiết kế nhiều túi lớn, tiện lợi đựng đồ\"]', 'quan-short-nam-the-thao-promax-s1', '../images/products/qtt.pm.v2.1.webp', '2023-06-08 00:00:00'),
+(27, 'Quần Shorts Nam Gym Power 2 lớp', 399000, 0, '[\"Vải chính: 100% Polyester\", \"Co giãn 4 chiều mang lại sự thoải mái để bạn vận động hết mình\", \"Phù hợp với: chơi thể thao, mặc ở nhà\", \"Chất liệu co giãn thoải mái vận động\", \"Co giãn tốt giúp quần ôm vừa vặn, thoải mái\", \"Thiết kế nhiều túi lớn, tiện lợi đựng đồ\"]', 'quan-shorts-nam-gym-power-2-lop', '../images/products/qs2l..gp.5.webp', '2023-03-17 00:00:00'),
+(28, 'Quần Shorts Nam chạy bộ Advanced', 349000, 0, '[\"Chất liệu: 89% Recycled Polyester - 11% Spandex\", \"Công nghệ Chafe-Free hạn chế tối đa ma sát trong quá trình vận động từ các đường may tối giản hoá\", \"Phù hợp với: chơi thể thao, mặc ở nhà\", \"Chất liệu co giãn thoải mái vận động\", \"Co giãn tốt giúp quần ôm vừa vặn, thoải mái\", \"Thiết kế nhiều túi lớn, tiện lợi đựng đồ\"]', 'quan-shorts-nam-chay-bo-advanced', '../images/products/CMQST.RN002.XBD.3.webp', '2023-09-24 00:00:00'),
+(30, 'Quần Shorts Nam Chạy Bộ 2 lớp Essentials III', 399000, 0.09, '[\"Vải chính: 45% Polyester + 55% Recycle Polyester\", \"Công nghệ ExDry thấm hút tốt, nhanh khô, thoáng khí\", \"Phù hợp với: chơi thể thao, mặc ở nhà\", \"Chất liệu co giãn thoải mái vận động\", \"Co giãn tốt giúp quần ôm vừa vặn, thoải mái\", \"Thiết kế nhiều túi lớn, tiện lợi đựng đồ\"]', 'quan-shorts-nam-chay-bo-2-lop-esentials-III', '../images/products/24CMAW.QS019.22_56.webp', '2023-01-11 00:00:00'),
+(31, 'Quần Shorts thể thao 7 inch đa năng', 198000, 0.09, '[\"Chất liệu: 86% Polyester + 14% Spandex, định lượng vải 125gsm\", \"Công nghệ ExDry thấm hút tốt, nhanh khô, thoáng khí\", \"Quần co giãn thoải mái\", \"Chất liệu co giãn thoải mái vận động\", \"Co giãn tốt giúp quần ôm vừa vặn, thoải mái\", \"Thiết kế nhiều túi lớn, tiện lợi đựng đồ\"]', 'quan-shorts-the-thao-7-inch-da-nang', '../images/products/thumb7indanan2_81_copy.webp', '2023-12-14 00:00:00'),
+(32, 'Quần Shorts Nam chạy bộ Essentials 5\"', 189000, 0.09, '[\"Chất liệu 100% Polyester\", \"Công nghệ ExDry thấm hút tốt, nhanh khô, thoáng khí\", \"Công nghệ ExDry thấm hút tốt, nhanh khô, thoáng khí\", \"Vải dệt co giãn độ bền cao\", \"Định lượng vải 84gsm siêu nhẹ thoải mái vận động\"]', 'quan-shorts-nam-chay-bo-essentials', '../images/products/24CMAW.QS008.4_100.webp', '2023-09-06 00:00:00'),
+(33, 'Quần Shorts Nam Daily Short', 269000, 0, '[\"Chất liệu 100% Polyester\", \"Công nghệ ExDry thấm hút tốt, nhanh khô, thoáng khí\", \"Công nghệ ExDry thấm hút tốt, nhanh khô, thoáng khí\", \"Vải dệt co giãn độ bền cao\", \"Định lượng vải 84gsm siêu nhẹ thoải mái vận động\"]', 'quan-shorts-nam-daily-short', '../images/products/QS.DP.15_68.webp', '2023-07-19 00:00:00'),
+(35, 'Quần Shorts Nam Chạy Bộ Ultra Fast II', 229000, 0, '[\"Chất liệu 100% Polyester\", \"Công nghệ ExDry thấm hút tốt, nhanh khô, thoáng khí\", \"Công nghệ ExDry thấm hút tốt, nhanh khô, thoáng khí\", \"Vải dệt co giãn độ bền cao\", \"Định lượng vải 84gsm siêu nhẹ thoải mái vận động\"]', 'quan-shorts-nam-chay-bo-ultra-fast-II', '../images/products/24CMAW.QS018.3_95.webp', '2023-09-10 00:00:00'),
+(36, 'Quần Shorts Nam Mặc Nhà', 99000, 0, '[\"Chất liệu 100% Polyester\", \"Công nghệ ExDry thấm hút tốt, nhanh khô, thoáng khí\", \"Công nghệ ExDry thấm hút tốt, nhanh khô, thoáng khí\", \"Vải dệt co giãn độ bền cao\", \"Định lượng vải 84gsm siêu nhẹ thoải mái vận động\"]', 'quan-short-nam-mac-nha', '../images/products/24CMHU.BX010.DOO1.3d_92.webp', '2023-10-26 00:00:00'),
+(37, 'Quần Shorts Nam Thể Thao 7\"', 159000, 0, '[\"Chất liệu 100% Polyester\", \"Công nghệ ExDry thấm hút tốt, nhanh khô, thoáng khí\", \"Công nghệ ExDry thấm hút tốt, nhanh khô, thoáng khí\", \"Vải dệt co giãn độ bền cao\", \"Định lượng vải 84gsm siêu nhẹ thoải mái vận động\"]', 'quan-shorts-nam-the-thao-7', '../images/products/7recycle.xchi6.webp', '2023-01-05 00:00:00'),
+(38, 'Áo Polo Nam Pique Cotton', 299000, 0, '[\"Chất liệu 100% Cotton\", \"Xử lí hoàn thiện giúp bề mặt vải ít xù lông, mềm mịn và bền màu hơn\", \"Kiểu dệt Pique giúp áo thoáng mát\", \"Độ dày vải vừa phải giúp áo tôn dáng\"]', 'ao-polo-nam-pique-cotton', '../images/products/poloapl220.11.jpg', '2023-08-12 00:00:00'),
+(39, 'Áo Polo Nam dài tay Essentials', 399000, 0, '[\"Thành phần: 95% Cotton + 5% Spandex\", \"Xử lí hoàn thiện giúp bề mặt vải ít xù lông, mềm mịn và bền màu hơn\", \"Co giãn 4 chiều, mang đến sự thoải mái trong hoạt động\", \"Chất liệu Cotton tự nhiên thấm hút mồ hôi tốt\"]', 'ao-polo-nam-dai-tay-essentials', '../images/products/_CMM0071_62.webp', '2023-01-09 00:00:00'),
+(40, 'Áo Polo Thể Thao Active Pique', 233000, 0, '[\"Thành phần: 95% Cotton + 5% Spandex\", \"Xử lí hoàn thiện giúp bề mặt vải ít xù lông, mềm mịn và bền màu hơn\", \"Co giãn 4 chiều, mang đến sự thoải mái trong hoạt động\", \"Chất liệu Cotton tự nhiên thấm hút mồ hôi tốt\"]', 'ao-polo-the-thao-active-pique', '../images/products/24CMAW.PL003.BEE6_58.webp', '2023-04-14 00:00:00'),
+(41, 'Áo Polo Nam Cafe Bo Kẻ', 329000, 0, '[\"Thành phần: 95% Cotton + 5% Spandex\", \"Xử lí hoàn thiện giúp bề mặt vải ít xù lông, mềm mịn và bền màu hơn\", \"Co giãn 4 chiều, mang đến sự thoải mái trong hoạt động\", \"Chất liệu Cotton tự nhiên thấm hút mồ hôi tốt\"]', 'ao-polo-nam-cafe-bo-ke', '../images/products/24CMCW.PL001.THUMB1_41.webp', '2023-05-05 00:00:00'),
+(42, 'Áo Polo Nam phối Jeans', 399000, 0, '[\"Thành phần: 95% Cotton + 5% Spandex\", \"Xử lí hoàn thiện giúp bề mặt vải ít xù lông, mềm mịn và bền màu hơn\", \"Co giãn 4 chiều, mang đến sự thoải mái trong hoạt động\", \"Chất liệu Cotton tự nhiên thấm hút mồ hôi tốt\"]', 'ao-polo-nam-phoi-jeans', '../images/products/thumbPolo_Copper_1A1.webp', '2023-11-07 00:00:00'),
+(43, 'Áo Polo Nam Graphene', 165000, 0, '[\"Thành phần: 95% Cotton + 5% Spandex\", \"Xử lí hoàn thiện giúp bề mặt vải ít xù lông, mềm mịn và bền màu hơn\", \"Co giãn 4 chiều, mang đến sự thoải mái trong hoạt động\", \"Chất liệu Cotton tự nhiên thấm hút mồ hôi tốt\"]', 'ao-polo-nam-dai-tay-essentials', '../images/products/polographene.2.webp', '2023-03-29 00:00:00'),
+(44, 'Áo Sơ Mi Dài Tay Premium Poplin', 599000, 0.1, '[\"Chất liệu 100% Cotton mềm mại, chống nhăn, kiểu dệt Poplin tạo ra các lỗ nhỏ thoáng khí\", \"Vải có khả năng trượt nước, chống bám bụi\", \"Vải ứng dụng công nghệ nano giúp loại bỏ hơn 70% vi khuẩn và khử mùi hiệu quả\", \"Vải có độ bền cao, không bị xù lông sau nhiều lần giặt\", \"Kiểu dáng: Slim Fit thanh lịch\"]', 'ao-so-mi-dai-tay-premium-poplin', '../images/products/Poplin_Den_6.webp', '2023-11-09 00:00:00'),
+(45, 'Áo Sơ Mi Dài Tay Premium Dobby', 599000, 0.1, '[\"Chất liệu 100% Cotton mềm mại, chống nhăn, kiểu dệt Poplin tạo ra các lỗ nhỏ thoáng khí\", \"Vải có khả năng trượt nước, chống bám bụi\", \"Vải ứng dụng công nghệ nano giúp loại bỏ hơn 70% vi khuẩn và khử mùi hiệu quả\", \"Vải có độ bền cao, không bị xù lông sau nhiều lần giặt\", \"Kiểu dáng: Slim Fit thanh lịch\"]', 'ao-so-mi-dai-tay-premium-dobby', '../images/products/dobbypre5_75.webp', '2023-02-27 00:00:00'),
+(46, 'Áo Sơ Mi Dài Tay Essentials Cotton', 399000, 0.1, '[\"Chất liệu 100% Cotton mềm mại\", \"Thoáng mát, thấm hút mồ hôi tốt\", \"Vải có độ bền cao, không bị xù lông sau nhiều lần giặt\", \"Phù hợp với: đi làm, đi chơi\", \"Kiểu dáng: Regular loose dễ dàng phối đồ, tạo layer\"]', 'ao-so-mi-dai-tay-essentials-cotton', '../images/products/24CMCW.SM001.13_6.webp', '2023-01-16 00:00:00'),
+(47, 'Áo Sơ mi dài tay Café-DriS', 499000, 0.14, '[\"Chất liệu: 50% S.Café + 50% Recycled PET\", \"Thoáng mát, thấm hút mồ hôi tốt\", \"Vải có độ bền cao, không bị xù lông sau nhiều lần giặt\", \"Phù hợp với: đi làm, đi chơi\", \"Kiểu dáng: Regular fit dáng suông\"]', 'ao-so-mi-dai-tay-cafe-dris', '../images/products/2uIMG_1077_copy.webp', '2023-05-26 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -303,7 +385,15 @@ INSERT INTO `products_color` (`id`, `color_id`, `product_id`) VALUES
 (57, 11, 41),
 (58, 9, 41),
 (59, 2, 42),
-(60, 2, 43);
+(60, 2, 43),
+(61, 2, 44),
+(62, 6, 45),
+(63, 3, 45),
+(64, 6, 46),
+(65, 8, 46),
+(66, 3, 46),
+(67, 1, 46),
+(68, 8, 47);
 
 -- --------------------------------------------------------
 
@@ -508,7 +598,50 @@ INSERT INTO `products_color_picture` (`product_color_id`, `product_color_img`) V
 (59, '../images/products/thumb2Polo_Copper_1A2-2.webp'),
 (60, '../images/products/polographene.2.webp'),
 (60, '../images/products/polographene.6.webp'),
-(60, '../images/products/polographene.5.webp');
+(60, '../images/products/polographene.5.webp'),
+(61, '../images/products/Poplin_Den_6.webp'),
+(61, '../images/products/Poplin_Den_7.webp'),
+(61, '../images/products/Poplin_Den_2.webp'),
+(61, '../images/products/Poplin_Den_1.webp'),
+(62, '../images/products/dobbypre5_75.webp'),
+(62, '../images/products/dobbypre6_66.webp'),
+(62, '../images/products/dobbypre9.webp'),
+(62, '../images/products/dobbypre8.webp'),
+(62, '../images/products/Dobby_Xanh_12u.webp'),
+(63, '../images/products/24CMCW.SM004.TRG1_11.webp'),
+(63, '../images/products/24CMCW.SM004.TRG4_27.webp'),
+(63, '../images/products/24CMCW.SM004.TRG3.webp'),
+(63, '../images/products/24CMCW.SM004.6P.webp'),
+(64, '../images/products/24CMCW.SM001.13_6.webp'),
+(65, '../images/products/24CMCW.SM001.ii17_92.webp'),
+(65, '../images/products/24CMCW.SM001.20_25.webp'),
+(65, '../images/products/24CMCW.SM001.ii18.webp'),
+(65, '../images/products/24CMCW.SM001.21.webp'),
+(65, '../images/products/24CMCW.SM001.19.webp'),
+(65, '../images/products/24CMCW.SM001.ii22.webp'),
+(66, '../images/products/24CMCW.SM001.ii7_79.webp'),
+(66, '../images/products/24CMCW.SM001.2D4z.webp'),
+(66, '../images/products/24CMCW.SM001.10_56.webp'),
+(66, '../images/products/24CMCW.SM001.ii8.webp'),
+(66, '../images/products/24CMCW.SM001.11.webp'),
+(66, '../images/products/24CMCW.SM001.9.webp'),
+(66, '../images/products/24CMCW.SM001.ii6.webp'),
+(67, '../images/products/24CMCW.SM001.ii1_34.webp'),
+(67, '../images/products/24CMCW.SM001.2D2z.webp'),
+(67, '../images/products/24CMCW.SM001.4_33.webp'),
+(67, '../images/products/24CMCW.SM001.ii2.webp'),
+(67, '../images/products/24CMCW.SM001.3.webp'),
+(67, '../images/products/24CMCW.SM001.ii5.webp'),
+(64, '../images/products/24CMCW.SM001.2D1_13.webp'),
+(64, '../images/products/24CMCW.SM001.15_19.webp'),
+(64, '../images/products/24CMCW.SM001.14.webp'),
+(64, '../images/products/24CMCW.SM001.16.webp'),
+(64, '../images/products/24CMCW.SM001.12.webp'),
+(68, '../images/products/2uIMG_1077_copy.webp'),
+(68, '../images/products/cf5.webp'),
+(68, '../images/products/uIMG_1035_copy.webp'),
+(68, '../images/products/IMG_1067_copy.webp'),
+(68, '../images/products/IMG_1070_copy.webp');
 
 -- --------------------------------------------------------
 
@@ -765,7 +898,46 @@ INSERT INTO `products_size` (`id`, `product_color_id`, `size_id`, `remaining_qua
 (237, 60, 2, 23, 6),
 (238, 60, 3, 95, 20),
 (239, 60, 4, 12, 22),
-(240, 60, 5, 81, 38);
+(240, 60, 5, 81, 38),
+(241, 61, 1, 19, 42),
+(242, 61, 2, 54, 43),
+(243, 61, 3, 53, 38),
+(244, 61, 4, 30, 35),
+(245, 61, 5, 89, 39),
+(246, 61, 6, 27, 19),
+(247, 62, 2, 19, 50),
+(248, 62, 3, 93, 17),
+(249, 62, 4, 6, 78),
+(250, 62, 5, 74, 34),
+(251, 62, 6, 50, 48),
+(252, 63, 2, 89, 3),
+(253, 63, 3, 50, 42),
+(254, 63, 4, 61, 80),
+(255, 63, 5, 16, 39),
+(256, 63, 6, 49, 30),
+(257, 64, 2, 28, 30),
+(258, 64, 3, 67, 46),
+(259, 64, 4, 29, 9),
+(260, 64, 5, 58, 61),
+(261, 65, 2, 33, 83),
+(262, 65, 3, 16, 31),
+(263, 65, 4, 10, 56),
+(264, 65, 5, 50, 85),
+(265, 65, 6, 72, 6),
+(266, 66, 3, 17, 65),
+(267, 66, 4, 73, 74),
+(268, 66, 5, 51, 33),
+(269, 66, 6, 12, 60),
+(270, 67, 2, 67, 55),
+(271, 67, 3, 72, 99),
+(272, 67, 4, 79, 97),
+(273, 67, 5, 50, 61),
+(274, 67, 6, 52, 79),
+(275, 68, 1, 60, 84),
+(276, 68, 2, 40, 48),
+(277, 68, 3, 20, 57),
+(278, 68, 4, 27, 65),
+(279, 68, 5, 42, 16);
 
 -- --------------------------------------------------------
 
@@ -838,6 +1010,13 @@ ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Chỉ mục cho bảng `category_product`
+--
+ALTER TABLE `category_product`
+  ADD PRIMARY KEY (`product_id`,`category_id`),
+  ADD KEY `category_id` (`category_id`);
+
+--
 -- Chỉ mục cho bảng `colors`
 --
 ALTER TABLE `colors`
@@ -869,8 +1048,7 @@ ALTER TABLE `orders_detail`
 -- Chỉ mục cho bảng `products`
 --
 ALTER TABLE `products`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `category_id` (`category_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Chỉ mục cho bảng `products_color`
@@ -920,7 +1098,7 @@ ALTER TABLE `addresses`
 -- AUTO_INCREMENT cho bảng `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT cho bảng `colors`
@@ -944,19 +1122,19 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT cho bảng `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT cho bảng `products_color`
 --
 ALTER TABLE `products_color`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT cho bảng `products_size`
 --
 ALTER TABLE `products_size`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=241;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=280;
 
 --
 -- AUTO_INCREMENT cho bảng `sizes`
@@ -988,6 +1166,13 @@ ALTER TABLE `cart`
   ADD CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`product_size_id`) REFERENCES `products_size` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Các ràng buộc cho bảng `category_product`
+--
+ALTER TABLE `category_product`
+  ADD CONSTRAINT `category_product_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`),
+  ADD CONSTRAINT `category_product_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
+
+--
 -- Các ràng buộc cho bảng `feedbacks`
 --
 ALTER TABLE `feedbacks`
@@ -1006,12 +1191,6 @@ ALTER TABLE `orders`
 ALTER TABLE `orders_detail`
   ADD CONSTRAINT `orders_detail_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `orders_detail_ibfk_2` FOREIGN KEY (`product_size_id`) REFERENCES `products_size` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Các ràng buộc cho bảng `products`
---
-ALTER TABLE `products`
-  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Các ràng buộc cho bảng `products_color`
