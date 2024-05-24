@@ -1,5 +1,39 @@
+<?php
+    session_start();
+
+    // Database Connection
+    $server = 'localhost';
+    $username = 'root';
+    $password = '';
+    $database = 'xshop_ver4';
+
+    $conn = new mysqli($server, $username, $password, $database);
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    if(isset($_POST['username']) && isset($_POST['password'])) {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $query = "select fullname from users where user_name='$username' and user_password='$password'";
+        $result = $conn->query($query);
+        $count = $result->num_rows;
+        $fullname = $result->fetch_assoc();
+        $fullname = $fullname['fullname'];
+        if($count > 0) {
+            $_SESSION['username'] = $username;
+            $_SESSION['fullname'] = $fullname;
+            header("Location: index.php");
+        } else {
+            echo "Login Not Successful";
+        }
+    }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,29 +49,35 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
+
 <body>
     <div class="app">
         <?php include "header.php" ?>
-        
+
         <div class="container">
             <div class="grid wide">
                 <div class="login-container">
-                    <form class="login-form" action="">
+                    <form class="login-form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                         <h1 class="login-form__heading">Đăng nhập</h1>
+                        <?php 
+                            if (isset($error_message)) {
+                                echo '<div class="error-message">' . $error_message . '</div>';
+                            }
+                        ?>
                         <div class="login-form__input-box">
-                            <input type="text" placeholder="Tên đăng nhập" required>
+                            <input type="text" name="username" placeholder="Tên đăng nhập" required>
                         </div>
-            
+
                         <div class="login-form__input-box">
-                            <input type="password" placeholder="Mật khẩu" required>
+                            <input type="password" name="password" placeholder="Mật khẩu" required>
                         </div>
-            
+
                         <div class="login-form__forgot-password-box">
                             <a href="#">Quên mật khẩu?</a>
                         </div>
-            
-                        <button type="submit" class="login-form__btn">Đăng nhập</button>
-            
+
+                        <button type="submit" name="save" class="login-form__btn">Đăng nhập</button>
+
                         <div class="login-form__link-box">
                             <p>Bạn chưa có tài khoản? <a href="register_page.php">Đăng ký</a></p>
                         </div>
@@ -49,4 +89,5 @@
         <?php include "footer.php" ?>
     </div>
 </body>
+
 </html>

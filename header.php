@@ -1,3 +1,8 @@
+<?php
+// Start the session at the very beginning of the header file
+session_start();
+?>
+
 <header class="header">
     <div class="grid wide">
         <div class="header__top-bar">
@@ -16,16 +21,27 @@
                         Trung tâm CSKH
                     </a>
                 </li>
-                <li class="nav-main__item nav-main__item--separate">
-                    <a href="../register_page.php" class="nav-main__link font-weight-500">
-                        Đăng ký
-                    </a>
-                </li>
-                <li class="nav-main__item">
-                    <a href="../login_page.php" class="nav-main__link font-weight-500">
-                        Đăng nhập
-                    </a>
-                </li>
+
+                <?php
+                    if(isset($_SESSION['username'])) {
+                        echo '<li class="nav-main__item">
+                                <a href="#" class="nav-main__link font-weight-500">
+                                    Chào '.$_SESSION['fullname'].'
+                                </a>
+                            </li>';
+                    } else {
+                        echo '<li class="nav-main__item nav-main__item--separate hidden_tag">
+                                <a href="register_page.php" class="nav-main__link font-weight-500">
+                                    Đăng ký
+                                </a>
+                            </li>';
+                        echo '<li class="nav-main__item hidden_tag">
+                                <a href="login_page.php" class="nav-main__link font-weight-500">
+                                    Đăng nhập
+                                </a>
+                                </li>';
+                    }
+                ?>
             </ul>
         </div>
 
