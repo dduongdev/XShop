@@ -15,13 +15,14 @@
     if(isset($_POST['username']) && isset($_POST['password'])) {
         $username = $_POST['username'];
         $password = $_POST['password'];
-        $query = "select count(user_name) as test from users where user_name='$username' and user_password='$password'";
+        $query = "select fullname from users where user_name='$username' and user_password='$password'";
         $result = $conn->query($query);
-        $count = $result->fetch_assoc();
-        $count = $count['test'];
-        echo $count;
+        $count = $result->num_rows;
+        $fullname = $result->fetch_assoc();
+        $fullname = $fullname['fullname'];
         if($count > 0) {
-            echo "Login successful";
+            $_SESSION['username'] = $username;
+            $_SESSION['fullname'] = $fullname;
             header("Location: index.php");
         } else {
             echo "Login Not Successful";
