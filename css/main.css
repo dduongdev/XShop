@@ -6,7 +6,7 @@
     right: 0;
     transition: transform 0.3s ease;
     background-color: rgba(0, 0, 0, .8);
-    z-index: 1;
+    z-index: 10;
     padding-left: 30px;
     padding-right: 30px;
     color: var(--white-color);
@@ -470,21 +470,34 @@
     width: 90%;
 }
 
-.product-filter__clothing-item {
+.product-filter__checkbox-item {
     margin: 4px 0;
+    cursor: pointer;
 }
 
-.product-filter__clothing-title {
+.product-filter__checkbox-title {
     display: inline-block;
     margin: 0;
     margin-left: 4px;
 }
 
-.product-filter__size,
-.product-filter__color {
+.product-filter__size {
     display: flex;
     flex-wrap: wrap;
     gap: 0.4rem;
+}
+
+.product-filter__color-img {
+    width: 4rem;
+    margin-left: auto;
+    background-size: contain;
+    background-position: 40%;
+    border-radius: 1rem;
+    border: #fff 0.5px solid;
+}
+
+.product-filter__color-item {
+    display: flex;
 }
 
 .product-filter__button {
@@ -513,21 +526,6 @@
 
 .product-filter__size-item {
     height: 30px;
-}
-
-.product-filter__color-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 4px;
-}
-
-.product-filter__color-img {
-    width: 20px;
-    height: 20px;
-    border-radius: 10px;
-    width: 80%;
-    margin-bottom: 4px;
 }
 
 .product-card {
@@ -647,6 +645,9 @@
     border: none;
     border-radius: 20px;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .footer__message-send-opinion-btn:hover {
@@ -1512,12 +1513,52 @@
     height: 4rem;
 }
 
-.cart__product-options--size {
-    width: 6rem;
+.cart__option {
+    position: relative;
 }
 
-.cart__product-options--color {
-    width: 10rem;
+.cart__option--current {
+    line-height: 4rem;
+    border: #777 1px solid;
+    padding: 0 8px;
+}
+
+.cart__option--other {
+    position: absolute;
+    width: 30rem;
+    min-height: 18rem;
+    background: #d9d9d9;
+    z-index: 1;
+    top: 100%;
+    left: -12px;
+    padding: 12px;
+    border-radius: 12px;
+    box-shadow: 4px 4px rgba(0, 0, 0, 0.3);
+}
+
+.cart__option-button {
+    width: 6rem;
+    border-radius: 8px;
+    border: #777 1px solid;
+    height: 3rem;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.cart__option-button:hover {
+    background-image: linear-gradient(to left, #a8b7e1, rgb(61 108 235));
+    color: #fff;
+}
+
+.cart__option-title {
+    margin: 0;
+    padding: 8px 0;
+    font-weight: bolder;
+}
+
+.cart__option-button--is-selected {
+    background-image: linear-gradient(to left, #a8b7e1, rgb(61 108 235));
+    color: #fff;
 }
 
 .cart__product-old-price {

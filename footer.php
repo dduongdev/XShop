@@ -9,9 +9,9 @@
                     <p class="footer__message-desc">
                         Chúng tôi luôn trân trọng và mong đợi nhận được mọi ý kiến đóng góp từ khách hàng để có thể nâng cấp trải nghiệm dịch vụ và sản phẩm tốt hơn nữa.
                     </p>
-                    <button href="#" class="footer__message-send-opinion-btn ">
+                    <a href="mailto:kyvalaxz2021@gmail.com" class="footer__message-send-opinion-btn ">
                         Đóng góp ý kiến
-                    </button>
+                    </a>
                 </div>
 
                 <div class="footer__contact-container">
@@ -24,7 +24,7 @@
                                 Hotline
                             </span>
                             <p class="footer__contact-info">
-                                <a href="tel: 0385216798" class="">
+                                <a href="tel:0385216798" class="">
                                     0385216798 
                                 </a>
                                 <br>
@@ -42,7 +42,7 @@
                                 Email
                             </span>
                             <p class="footer__contact-info">
-                                <a href="mailto: xshop@gmail.com" class="">
+                                <a href="mailto:kyvalaxz2021@gmail.com" class="">
                                     xshop@gmail.com
                                 </a>
                             </p>

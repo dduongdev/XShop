@@ -108,9 +108,9 @@
                                         $result = executeNonParamQuery($CATEGORY_QUERY_GET_ALL);
 
                                         foreach($result as $row){
-                                            echo '<li class="product-filter__clothing-item">';
+                                            echo '<li class="product-filter__checkbox-item">';
                                             echo '<input type="checkbox" name="category_id" value="'.$row[0].'" id="product-filter--select-'.$row[2].'" class="product-filter__checkbox" '.(isset($each_param['category_id']) && in_array($row[0], $each_param['category_id']) ? 'checked' : '').'>';
-                                            echo '<label class="product-filter__clothing-title" for="product-filter--select-'.$row[2].'">';
+                                            echo '<label class="product-filter__checkbox-title" for="product-filter--select-'.$row[2].'">';
                                             echo ' '.$row[1];
                                             echo '</label>';
                                         }
@@ -144,13 +144,15 @@
                                     <?php
                                         $sql = $COLOR_QUERY_GET_ALL;
                                         $result = $_conn->query($sql);
+                                    
+
                                         while($row = $result->fetch_assoc()){
-                                            echo '<button class="product-filter__color-item product-filter__button js-product-filter__button '.((isset($each_param['colors.slug']) && in_array($row['slug'], $each_param['colors.slug'])) ? 'products-page__function-button--is-selected' : ' ').'" name="colors.slug" value='.$row['slug'].'>';
+                                            echo '<label for="product-filter--select-'.$row['slug'].'" class="product-filter__checkbox-item product-filter__color-item">';
+                                            echo '<input type="checkbox" name="colors.slug" value="'.$row['slug'].'" id="product-filter--select-'.$row['slug'].'" class="product-filter__checkbox" '.((isset($each_param['colors.slug']) && in_array($row['slug'], $each_param['colors.slug'])) ? 'checked' : ' ').'>';
+                                            echo '<span class="product-filter__checkbox-title">'.$row['color_name'].'</span>';
                                             echo '<div class="product-filter__color-img" style="background-image: url('.$row['img'].');"></div>';
-                                            echo '<span class="product-filter__color-desc">'.$row['color_name'].'</span>';
-                                            echo '</button>';
+                                            echo '</label>';
                                         }
-                                        $result->close();
                                     ?>
                                 </div>
                             </div>

@@ -1,3 +1,28 @@
+<?php
+    require_once './php/dbconnect.php';
+
+    $query = 'SELECT * FROM cart WHERE user_id = '.$_SESSION['username'].'';
+    $cart_items = $_conn->query($query);
+    $products_size_id = [];
+    foreach($cart_item as $value){
+        $products_size_id[] = $value['product_size_id'];
+    }
+
+    $query = 'SELECT products.id, products.product_name, products.unit_price, products.discount_percentage, products.main_img
+                FROM products
+                JOIN products_color
+                ON products.id = products_color.product_id
+                JOIN products_size
+                ON products_color.id = products_size.product_color_id
+                WHERE product_color_id IN (?)
+                GROUP BY products.id';
+    $stmt = $_conn->prepare($query);
+    $stmt->bind_param('s', implode("', '", $products_size_id));
+    $stmt->execute();
+    $products = $stmt->get_result();
+    $products = $products->fetch_all();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,16 +57,45 @@
                         <input type="checkbox" name="" id="">
                         <img class="cart__product-img" src="./images/products/polo_active_premium_black.jpg" alt="">
                         <p class="cart__product-name">Áo sơ mi nam kiểu dáng basic TOPMEN khoác ngoài chất vải kaki cao cấp trẻ trung năng động phù hợp cả mặc đi làm, đi chơi</p>
-                        <select name="" id="" class="cart__product-options cart__product-options--size">
-                            <option value="M">M</option>
-                            <option value="L">L</option>
-                            <option value="XL">XL</option>
-                        </select>
-                        <select name="" id="" class="cart__product-options cart__product-options--color">
-                            <option value="Đen">Đen</option>
-                            <option value="Trắng">Trắng</option>
-                            <option value="Xám">Xám</option>
-                        </select>
+                        
+                        <div class="cart__option">
+                            <div class="cart__option--current">
+                                <span class="cart__option-info">Đen, M</span> 
+                                <i class="fa-solid fa-caret-down"></i>
+                            </div>
+                            
+
+                            <div class="cart__option--other">
+                                <div class="cart__option--color">
+                                    <p class="cart__option-title">
+                                        Màu sắc:
+                                    </p>
+
+                                    <div class="cart__option-container">
+                                        <button class="cart__option-button">
+                                            Cam
+                                        </button>
+
+                                        <button class="cart__option-button">
+                                            Đen
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="cart__option--size">
+                                    <p class="cart__option-title">
+                                        Kích thước:
+                                    </p>
+
+                                    <div class="cart__option-container">
+                                        <button class="cart__option-button">
+                                            S
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="cart__product-price">
                             <span class="cart__product-current-price">449.000đ</span>
                             <span class="cart__product-old-price">499.000đ</span>
@@ -55,86 +109,50 @@
                         <button class="cart__delete-cart-item-btn">Xoá</button>
                     </div>
 
-                    <div class="cart__item">
-                        <input type="checkbox" name="" id="">
-                        <img class="cart__product-img" src="./images/products/polo_active_premium_black.jpg" alt="">
-                        <p class="cart__product-name">Áo sơ mi nam kiểu dáng basic TOPMEN khoác ngoài chất vải kaki cao cấp trẻ trung năng động phù hợp cả mặc đi làm, đi chơi</p>
-                        <select name="" id="" class="cart__product-options cart__product-options--size">
-                            <option value="M">M</option>
-                            <option value="L">L</option>
-                            <option value="XL">XL</option>
-                        </select>
-                        <select name="" id="" class="cart__product-options cart__product-options--color">
-                            <option value="Đen">Đen</option>
-                            <option value="Trắng">Trắng</option>
-                            <option value="Xám">Xám</option>
-                        </select>
-                        <div class="cart__product-price">
-                            <span class="cart__product-current-price">449.000đ</span>
-                            <span class="cart__product-old-price">499.000đ</span>
-                        </div>
-                        <div class="quantity-change quantity-change--cart">
-                            <span class="quantity__reduce quantity__reduce--cart">-</span>
-                            <span class="quantity__display quantity__display--cart">1</span>
-                            <input type="number" value="1" min="1" max="99" class="quantity__control quantity__control--cart">
-                            <span class="quantity__augure quantity__augure--cart">+</span>
-                        </div>
-                        <button class="cart__delete-cart-item-btn">Xoá</button>
-                    </div>
 
-                    <div class="cart__item">
-                        <input type="checkbox" name="" id="">
-                        <img class="cart__product-img" src="./images/products/polo_active_premium_black.jpg" alt="">
-                        <p class="cart__product-name">Áo sơ mi nam kiểu dáng basic TOPMEN khoác ngoài chất vải kaki cao cấp trẻ trung năng động phù hợp cả mặc đi làm, đi chơi</p>
-                        <select name="" id="" class="cart__product-options cart__product-options--size">
-                            <option value="M">M</option>
-                            <option value="L">L</option>
-                            <option value="XL">XL</option>
-                        </select>
-                        <select name="" id="" class="cart__product-options cart__product-options--color">
-                            <option value="Đen">Đen</option>
-                            <option value="Trắng">Trắng</option>
-                            <option value="Xám">Xám</option>
-                        </select>
-                        <div class="cart__product-price">
-                            <span class="cart__product-current-price">449.000đ</span>
-                            <span class="cart__product-old-price">499.000đ</span>
-                        </div>
-                        <div class="quantity-change quantity-change--cart">
-                            <span class="quantity__reduce quantity__reduce--cart">-</span>
-                            <span class="quantity__display quantity__display--cart">1</span>
-                            <input type="number" value="1" min="1" max="99" class="quantity__control quantity__control--cart">
-                            <span class="quantity__augure quantity__augure--cart">+</span>
-                        </div>
-                        <button class="cart__delete-cart-item-btn">Xoá</button>
-                    </div>
+                    <?php
+                        foreach($cart_items as $value){
+                            $get_product_info_query = 'SELECT products.id as id, products.product_name as product_name, products.unit_price as unit_price, products.discount_percentage as discount_percentage, products.main_img as main_img
+                                                        FROM products
+                                                        JOIN products_color
+                                                        ON products.id = products_color.product_id
+                                                        JOIN products_size
+                                                        ON products_color.id = products_size.product_color_id
+                                                        WHERE product_color_id = ?
+                                                        GROUP BY products.id';
+                            $stmt = $_conn->prepare($get_product_info_query);
+                            $stmt->bind_param('s', $value['product_size_id']);
+                            $stmt->execute();
+                            $result = $stmt->get_result();
+                            $product_info = $result->fetch_assoc();
 
-                    <div class="cart__item">
-                        <input type="checkbox" name="" id="">
-                        <img class="cart__product-img" src="./images/products/polo_active_premium_black.jpg" alt="">
-                        <p class="cart__product-name">Áo sơ mi nam kiểu dáng basic TOPMEN khoác ngoài chất vải kaki cao cấp trẻ trung năng động phù hợp cả mặc đi làm, đi chơi</p>
-                        <select name="" id="" class="cart__product-options cart__product-options--size">
-                            <option value="M">M</option>
-                            <option value="L">L</option>
-                            <option value="XL">XL</option>
-                        </select>
-                        <select name="" id="" class="cart__product-options cart__product-options--color">
-                            <option value="Đen">Đen</option>
-                            <option value="Trắng">Trắng</option>
-                            <option value="Xám">Xám</option>
-                        </select>
-                        <div class="cart__product-price">
-                            <span class="cart__product-current-price">449.000đ</span>
-                            <span class="cart__product-old-price">499.000đ</span>
-                        </div>
-                        <div class="quantity-change quantity-change--cart">
-                            <span class="quantity__reduce quantity__reduce--cart">-</span>
-                            <span class="quantity__display quantity__display--cart">1</span>
-                            <input type="number" value="1" min="1" max="99" class="quantity__control quantity__control--cart">
-                            <span class="quantity__augure quantity__augure--cart">+</span>
-                        </div>
-                        <button class="cart__delete-cart-item-btn">Xoá</button>
-                    </div>
+                            echo '<div class="cart__item">';
+                            echo '<input type="checkbox" name="" id="">';
+                            echo '<img class="cart__product-img" src="'.$product_info['main_img'].'" alt="">';
+                            echo '<p class="cart__product-name">'.$product_info['product_name'].'</p>';
+                            echo '<div class="cart__option">';
+                            echo '<div class="cart__option--current">';
+
+                            $get_current_option_query = 'SELECT colors.color_name as color_name, sizes.size_name as size_name
+                                        FROM products_color
+                                        JOIN colors
+                                        ON products_color.color_id = colors.id
+                                        JOIN products_size
+                                        ON products_color.id = products_size.product_color_id
+                                        JOIN sizes
+                                        ON sizes.id = products_size.id
+                                        WHERE products_size.id = ?';
+                            $stmt = $_conn->prepare(get_current_option_query);
+                            $stmt->bind_param('s', $value['product_size_id']);
+                            $stmt->execute();
+                            $result = $stmt->get_result();
+                            $current_option = $result->fetch_assoc();
+
+                            echo '<span class="cart__option-info">'.$current_option['color_name'].', '.$current_option['size_name'].'</span>';
+                            echo '<i class="fa-solid fa-caret-down"></i>';
+                            echo '</div>';
+                        }
+                    ?>
                 </div>
 
                 <div class="cart__footer">

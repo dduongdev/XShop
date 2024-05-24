@@ -135,7 +135,7 @@
         ?>
 
         let currentPage = 1;
-        let itemsPerPageCount = 24;
+        let itemsPerPageCount = 18;
         let totalPage = (products_data.length % itemsPerPageCount == 0) ? products_data.length / itemsPerPageCount : Math.ceil(products_data.length / itemsPerPageCount);
         let itemsPerPage = products_data.slice((currentPage - 1) * itemsPerPageCount, (currentPage - 1) * itemsPerPageCount + itemsPerPageCount);
 
@@ -179,7 +179,7 @@
                 var new_price = unit_price * (1 - discount_percentage);
                 result += `<span class="product-card__current-price">${new_price.toLocaleString('de-DE')}đ</span>`;
                 result += `<span class="product-card__old-price">${unit_price.toLocaleString('de-DE')}đ</span>`;
-                result += `<span class="product-card__discount">-${discount_percentage * 100}%</span>`;
+                result += `<span class="product-card__discount">-${Math.round(discount_percentage * 100)}%</span>`;
             } else {
                 result += `<span class="product-card__current-price">${unit_price.toLocaleString('de-DE')}đ</span>`;
             }
