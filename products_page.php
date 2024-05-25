@@ -5,6 +5,8 @@
     require_once 'php/product_dao.php';
     require_once 'php/random_dao.php';
 
+    session_start();
+
     $product_query_get = '';
 
     $initial_sql = 'SELECT products.id, product_name, main_img, unit_price, discount_percentage, products.slug, calc_rating_score_of_product(products.id) AS rating_score

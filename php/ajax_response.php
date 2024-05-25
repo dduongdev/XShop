@@ -2,6 +2,8 @@
     require_once 'dbconnect.php';
     require_once 'dbcommands.php';
     require_once 'product_dao.php';
+    require_once 'cart_dao.php';
+    require_once 'user_dao.php';
 
     $action = $_POST['action'] ?? '';
     switch($action){
@@ -15,7 +17,31 @@
             $end = $_POST['end'];
             echo products_page_pagination($start, $end);
             break;
-            
+        case 'add_product_to_cart_of_user':
+            $username = $_POST['username'];
+            $product_id = $_POST['product_id'];
+            echo addProductToCartOfUser($username, $product_id);
+            break;
+        case 'add_new_address_for_user':
+            $username = $_POST['username'];
+            $address = $_POST['address'];
+            echo add_new_address_for_user($username, $address);
+            break;
+        case 'create_order':
+            $username = $_POST['username'];
+            $payment_method = $_POST['payment_method'];
+            $product_size_id = $_POST['product_size_id'];
+            $quantity = $_POST['quantity'];
+            $delivery_phone = $_POST['delivery_phone'];
+            $address_id = $_POST['address_id'];
+            $note = $_POST['note'];
+            echo create_order($username, $payment_method, $product_size_id, $quantity, $delivery_phone, $address_id, $note);
+            break;
+        case 'removeCartItem':
+            $username = $_POST['username'];
+            $product_id = $_POST['product_id'];
+            echo removeCartItem($username, $product_id);
+            break;
     }
 
     function product_detail_change($product_id, $color_slug){
@@ -31,11 +57,13 @@
         $sizes = getAllSizesOfColor($product_id, $color_slug);
 
         foreach($sizes as $key => $value){
-            $uid = uniqid('product-option_', true);
-            $result['sizes'] .= '<label for="'.$uid.'" class="product-option__select-item product-option__select-item--size">';
-            $result['sizes'] .= $value['size_name'];
-            $result['sizes'] .= '<input type="radio" class="hidden_tag" name="size" value="'.$key.'" size-value="'.$value['size_name'].'" id="'.$uid.'">';
-            $result['sizes'] .= '</label>';
+            if(((int)$value['remaining_quantity']) > 0){
+                $uid = uniqid('product-option_', true);
+                $result['sizes'] .= '<label for="'.$uid.'" class="product-option__select-item product-option__select-item--size">';
+                $result['sizes'] .= $value['size_name'];
+                $result['sizes'] .= '<input type="radio" class="hidden_tag" name="size" value="'.$key.'" size-value="'.$value['size_name'].'" id="'.$uid.'">';
+                $result['sizes'] .= '</label>';
+            }
         }  
 
         $result['sizes_data'] = $sizes;
@@ -86,5 +114,82 @@
         $data->close();
 
         return $html;
+    }
+
+    function addProductToCartOfUser($username, $product_id){
+        global $_conn;
+        global $CART_QUERY_ADD;
+
+        if(checkExistCartItemOfUser($username, $product_id)){
+            return json_encode(['toast_type' => 'info', 'toast_message' => 'Sản phẩm đã có trong giỏ hàng.']);
+        }
+        else {
+            $stmt = $_conn->prepare($CART_QUERY_ADD);
+            $stmt->bind_param('ss', $username, $product_id);
+            try {
+                $stmt->execute();
+                if($stmt->affected_rows > 0){
+                    return json_encode(['toast_type' => 'success', 'toast_message' => 'Thêm vào giỏ hàng thành công!']);
+                }
+                else {
+                    return json_encode(['toast_type' => 'warning', 'toast_message' => 'Thêm vào giỏ hàng không thành công!']);
+                }
+            }
+            catch(Exception){
+                return json_encode(['toast_type' => 'warning', 'toast_message' => 'Thêm vào giỏ hàng không thành công!']);
+            }
+        }
+    }
+
+    function add_new_address_for_user($username, $address){
+        global $_conn;
+
+        $user_id = getUserIdByUsername($username);
+
+        $query = "INSERT addresses(user_id, address) VALUES(?, ?)";
+        $stmt = $_conn->prepare($query);
+        $stmt->bind_param('ss', $user_id, $address);
+        $stmt->execute();
+        echo $_conn->insert_id;
+    }
+
+    function create_order($username, $payment_method, $product_size_id, $quantity, $delivery_phone, $address_id, $note){
+        global $_conn;
+
+        $user_id = getUserIdByUsername($username);
+
+        $query = "INSERT orders(user_id, payment_method, product_size_id, quantity, delivery_phone, address_id, note)
+                VALUES(?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $_conn->prepare($query);
+        $stmt->bind_param('sssssss', $user_id, $payment_method, $product_size_id, $quantity, $delivery_phone, $address_id, $note);
+        try {
+            $stmt->execute();
+            return json_encode(['toast_type' => 'success', 'toast_message' => 'Đặt hàng thành công!']);
+        }
+        catch(Exception){
+            return json_encode(['toast_type' => 'warning', 'toast_message' => 'Đặt hàng không thành công!']);
+        }
+    }
+
+    function removeCartItem($username, $product_id){
+        global $_conn;
+
+        $user_id = getUserIdByUsername($username);
+
+        $query = "DELETE FROM cart WHERE user_id = ? AND product_id = ?";
+        $stmt = $_conn->prepare($query);
+        $stmt->bind_param('ss', $user_id, $product_id);
+        try {
+            $stmt->execute();
+            if($stmt->affected_rows > 0){
+                return json_encode(['toast_type' => 'success', 'toast_message' => 'Xoá khỏi giỏ hàng thành công!']);
+            }
+            else {
+                return json_encode(['toast_type' => 'warning', 'toast_message' => 'Xoá khỏi giỏ hàng không thành công!']);
+            }
+        }
+        catch(Exception){
+            return json_encode(['toast_type' => 'warning', 'toast_message' => 'Xoá khỏi giỏ hàng không thành công!']);
+        }
     }
 ?>

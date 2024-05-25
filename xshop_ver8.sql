@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 19, 2024 lúc 05:39 PM
+-- Thời gian đã tạo: Th5 25, 2024 lúc 02:47 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -22,6 +22,19 @@ SET time_zone = "+00:00";
 --
 
 DELIMITER $$
+--
+-- Thủ tục
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ADD_PRODUCT_TO_CART_OF_USER` (IN `pr_username` VARCHAR(255), IN `pr_product_id` BIGINT)   BEGIN
+    DECLARE user_id BIGINT DEFAULT 0;
+
+    -- Lấy id từ bảng users và gán vào biến user_id
+    SELECT id INTO user_id FROM users WHERE user_name COLLATE utf8mb4_unicode_ci = pr_username;
+
+    -- Chèn dữ liệu vào bảng cart
+    INSERT INTO cart (user_id, product_id) VALUES (user_id, pr_product_id);
+END$$
+
 --
 -- Các hàm
 --
@@ -48,11 +61,15 @@ DELIMITER ;
 CREATE TABLE `addresses` (
   `id` bigint(20) NOT NULL,
   `user_id` bigint(20) NOT NULL,
-  `province` varchar(255) NOT NULL,
-  `district` varchar(255) NOT NULL,
-  `ward` varchar(255) NOT NULL,
-  `address_detail` text DEFAULT NULL
+  `address` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `addresses`
+--
+
+INSERT INTO `addresses` (`id`, `user_id`, `address`) VALUES
+(1, 1, 'Tổ 50, KV6, Nhơn Bình, Quy Nhơn, Bình Định');
 
 -- --------------------------------------------------------
 
@@ -62,9 +79,15 @@ CREATE TABLE `addresses` (
 
 CREATE TABLE `cart` (
   `user_id` bigint(20) NOT NULL,
-  `product_size_id` bigint(20) NOT NULL,
-  `quantity` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `product_id` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `cart`
+--
+
+INSERT INTO `cart` (`user_id`, `product_id`) VALUES
+(1, 5);
 
 -- --------------------------------------------------------
 
@@ -192,7 +215,7 @@ INSERT INTO `colors` (`id`, `color_name`, `img`, `slug`) VALUES
 (4, 'Cam', '../images/product_colors/orange.webp', 'cam'),
 (5, 'Tím', '../images/product_colors/violet.webp', 'tim'),
 (6, 'Xanh wash', '../images/product_colors/mau23CMCW.JE006.4.webp', 'xanh-wash'),
-(7, 'Xanh dương', '../images/product_colors/graphic.special.18_25.webp', 'xam-duong'),
+(7, 'Xanh dương', '../images/product_colors/graphic.special.18_25.webp', 'xanh-duong'),
 (8, 'Xanh nhạt', '../images/product_colors/Coolmate_x_Copper_Denim__Quan_Jeans_dang_Slim_Fit13.webp', 'xanh-nhat'),
 (9, 'Xanh rêu', '../images/product_colors/mauCotton_Short_6in_Reu_4.webp', 'xanh-reu'),
 (10, 'Đỏ', '../images/product_colors/24CMAW.QS008.8d.webp', 'do'),
@@ -231,20 +254,22 @@ CREATE TABLE `orders` (
   `user_id` bigint(20) NOT NULL,
   `payment_method` enum('online','offline') NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `order_status` tinyint(4) DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `orders_detail`
---
-
-CREATE TABLE `orders_detail` (
-  `order_id` bigint(20) NOT NULL,
+  `order_status` tinyint(4) DEFAULT 1,
   `product_size_id` bigint(20) NOT NULL,
-  `quantity` int(11) NOT NULL
+  `quantity` int(11) NOT NULL,
+  `delivery_phone` varchar(15) DEFAULT NULL,
+  `address_id` bigint(20) NOT NULL,
+  `note` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `orders`
+--
+
+INSERT INTO `orders` (`id`, `user_id`, `payment_method`, `created_at`, `order_status`, `product_size_id`, `quantity`, `delivery_phone`, `address_id`, `note`) VALUES
+(1, 1, 'offline', '2024-05-24 18:31:57', 1, 17, 1, '0385216798', 1, ''),
+(6, 1, 'offline', '2024-05-24 19:33:23', 1, 16, 1, '0385216798', 1, ''),
+(7, 1, 'offline', '2024-05-24 20:01:40', 1, 18, 1, '0385216798', 1, '');
 
 -- --------------------------------------------------------
 
@@ -1000,8 +1025,8 @@ ALTER TABLE `addresses`
 -- Chỉ mục cho bảng `cart`
 --
 ALTER TABLE `cart`
-  ADD PRIMARY KEY (`user_id`,`product_size_id`),
-  ADD KEY `product_size_id` (`product_size_id`);
+  ADD PRIMARY KEY (`user_id`,`product_id`),
+  ADD KEY `product_id` (`product_id`);
 
 --
 -- Chỉ mục cho bảng `categories`
@@ -1035,14 +1060,9 @@ ALTER TABLE `feedbacks`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`);
-
---
--- Chỉ mục cho bảng `orders_detail`
---
-ALTER TABLE `orders_detail`
-  ADD PRIMARY KEY (`order_id`,`product_size_id`),
-  ADD KEY `product_size_id` (`product_size_id`);
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `product_size_id` (`product_size_id`),
+  ADD KEY `address_id` (`address_id`);
 
 --
 -- Chỉ mục cho bảng `products`
@@ -1092,7 +1112,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT cho bảng `addresses`
 --
 ALTER TABLE `addresses`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT cho bảng `categories`
@@ -1116,7 +1136,7 @@ ALTER TABLE `feedbacks`
 -- AUTO_INCREMENT cho bảng `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT cho bảng `products`
@@ -1162,8 +1182,8 @@ ALTER TABLE `addresses`
 -- Các ràng buộc cho bảng `cart`
 --
 ALTER TABLE `cart`
-  ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`product_size_id`) REFERENCES `products_size` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
 
 --
 -- Các ràng buộc cho bảng `category_product`
@@ -1183,14 +1203,9 @@ ALTER TABLE `feedbacks`
 -- Các ràng buộc cho bảng `orders`
 --
 ALTER TABLE `orders`
-  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Các ràng buộc cho bảng `orders_detail`
---
-ALTER TABLE `orders_detail`
-  ADD CONSTRAINT `orders_detail_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `orders_detail_ibfk_2` FOREIGN KEY (`product_size_id`) REFERENCES `products_size` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`product_size_id`) REFERENCES `products_size` (`id`),
+  ADD CONSTRAINT `orders_ibfk_3` FOREIGN KEY (`address_id`) REFERENCES `addresses` (`id`);
 
 --
 -- Các ràng buộc cho bảng `products_color`

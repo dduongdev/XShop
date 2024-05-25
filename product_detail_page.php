@@ -2,6 +2,9 @@
     include_once './php/init_rating_stars.php';
     require_once './php/product_dao.php';
     require_once './php/color_dao.php';
+    session_start();
+
+    include './php/user_status.php';
 
     $product_id;
     $product_colors;
@@ -58,6 +61,7 @@
 <body>
     <div class="app">
         <?php include "header.php" ?>
+        <?php include "toast.php" ?>
 
         <div class="container">
             <div class="grid wide">
@@ -191,7 +195,7 @@
                                             <div class="quantity-change">
                                                 <span class="quantity__reduce">-</span>
                                                 <span class="quantity__display">1</span>
-                                                <input type="number" value="1" min="1" max="99" class="quantity__control">
+                                                <input type="number" value="1" min="1" max="" class="quantity__control">
                                                 <span class="quantity__augure">+</span>
                                             </div>
     
@@ -422,6 +426,7 @@
 
     <script>
         <?php
+            echo 'var username = "'.$_SESSION['username'].'";';
             echo 'var product_id = '.$product_id.';';
             echo 'var sizes_data = '.json_encode($sizes_of_product_color).';';
         ?>
@@ -449,6 +454,7 @@
                     $('.quantity__quantity-remaining').addClass('hidden_tag');
                     $('.product-option__selected-option--size').text('');
                 })
+
             })
 
             $('.product-option__select-item--color').click(function(){
@@ -472,6 +478,52 @@
                     $('.quantity__control').val(currentValue - 1);
                     $('.quantity__display').text(currentValue - 1);
                 }
+            })
+
+            $('.product-detail__action-btn--add-to-cart').click(function(event){
+                event.preventDefault();
+
+                if(username !== ''){
+                    const action = 'add_product_to_cart_of_user';
+
+                    $.ajax({
+                        type: 'post',
+                        url: '../php/ajax_response.php',
+                        dataType: 'json',
+                        data: {
+                            action, username, product_id
+                        }
+                    }).done(function(response){
+                        toast({
+                            title: 'Thông báo',
+                            message: response.toast_message,
+                            type: response.toast_type,
+                            duration: 4000
+                        })
+                    })
+                }
+                else {
+                    window.location.href = '../login_page.php';
+                }
+            })
+
+            $('.product-detail__action-btn--buy').click(function(event){
+                event.preventDefault();
+
+                var selectedSize = $('input[name="size"]:checked');
+                if(selectedSize.length == 0){
+                    toast({
+                        title: 'Thông báo',
+                        message: 'Vui lòng chọn size sản phẩm trước khi mua!',
+                        type: 'warning',
+                        duration: 4000
+                    })
+                    return;
+                }
+
+                var product_size_id = $('input[name="size"]:checked').val();
+                var quantity = $('.quantity__control').val();
+                window.location.href = '../payment_gateway_page.php?product_size_id=' + product_size_id + '&quantity=' + quantity;
             })
         })
 
@@ -523,6 +575,9 @@
                 event.stopPropagation();
             })
         )
+    </script>
+
+    <script src="../js/toast.js">
     </script>
 </body>
 </html>

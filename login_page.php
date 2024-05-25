@@ -1,32 +1,24 @@
 <?php
+	require_once './php/dbconnect.php';
     session_start();
-
-    // Database Connection
-    $server = 'localhost';
-    $username = 'root';
-    $password = '';
-    $database = 'xshop_ver4';
-
-    $conn = new mysqli($server, $username, $password, $database);
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
 
     if(isset($_POST['username']) && isset($_POST['password'])) {
         $username = $_POST['username'];
         $password = $_POST['password'];
-        $query = "select fullname from users where user_name='$username' and user_password='$password'";
-        $result = $conn->query($query);
+        $query = "select fullname from users where user_name=? and user_password=?";
+        $stmt = $_conn->prepare($query);
+        $stmt->bind_param('ss', $username, $password);
+        $stmt->execute();
+        $result = $stmt->get_result();
         $count = $result->num_rows;
-        $fullname = $result->fetch_assoc();
-        $fullname = $fullname['fullname'];
         if($count > 0) {
+            $fullname = $result->fetch_assoc();
+            $fullname = $fullname['fullname'];
             $_SESSION['username'] = $username;
             $_SESSION['fullname'] = $fullname;
+            $_SESSION['start_time'] = time();
             header("Location: index.php");
-        } else {
-            echo "Login Not Successful";
-        }
+        } 
     }
 
 ?>

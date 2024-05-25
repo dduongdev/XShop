@@ -1,6 +1,6 @@
 <?php
-// Start the session at the very beginning of the header file
-session_start();
+    require_once './php/dbconnect.php';
+    require_once './php/dbcommands.php';
 ?>
 
 <header class="header">
@@ -21,7 +21,6 @@ session_start();
                         Trung tâm CSKH
                     </a>
                 </li>
-
                 <?php
                     if(isset($_SESSION['username'])) {
                         echo '<li class="nav-main__item">
@@ -31,12 +30,12 @@ session_start();
                             </li>';
                     } else {
                         echo '<li class="nav-main__item nav-main__item--separate hidden_tag">
-                                <a href="register_page.php" class="nav-main__link font-weight-500">
+                                <a href="../register_page.php" class="nav-main__link font-weight-500">
                                     Đăng ký
                                 </a>
                             </li>';
                         echo '<li class="nav-main__item hidden_tag">
-                                <a href="login_page.php" class="nav-main__link font-weight-500">
+                                <a href="../login_page.php" class="nav-main__link font-weight-500">
                                     Đăng nhập
                                 </a>
                                 </li>';
@@ -59,16 +58,6 @@ session_start();
                 <li class="nav-sub__item">
                     <a href="../products_page.php" class="nav-sub__link">
                         Sản phẩm
-                    </a>
-                </li>
-                <li class="nav-sub__item">
-                    <a href="#" class="nav-sub__link">
-                        Đồ thể thao
-                    </a>
-                </li>
-                <li class="nav-sub__item">
-                    <a href="#" class="nav-sub__link">
-                        Mặc hằng ngày
                     </a>
                 </li>
             </ul>
@@ -136,25 +125,51 @@ session_start();
                             </header>
     
                             <ul class="header-dialog__list">
-                                <li class="header-dialog__item">
-                                    <a href="#" class="header-dialog__link">
-                                        <span><img src="../images/logo.png" alt="" class="header-dialog__img"></span>
-                                        <div class="header-dialog__info">
-                                            <p class="header-dialog__info-title">
-                                                Đồng hồ Apple Watch SE (2023) 40mm (GPS) Viền nhôm - Dây cao su
-                                            </p>
-                                            <p class="header-dialog__info-desc cart-dialog__info-desc">
-                                                5.999.000đ
-                                            </p>
-                                        </div>
-                                    </a>
-                                </li>
+                                <?php
+                                    $cart_item_count = 0;
+                                    if(isset($_SESSION['username'])){
+                                        $stmt = $_conn->prepare($CART_QUERY_GET_ALL_OF_USER);
+                                        $stmt->bind_param('s', $_SESSION['username']);
+                                        $stmt->execute();
+                                        $result = $stmt->get_result();
+                                        $cart_item_count = $result->num_rows;
+
+                                        while($row = $result->fetch_assoc()){
+                                            echo '<li class="header-dialog__item">';
+                                            echo '<a href="../product_detail_page.php/'.$row['slug'].'-'.$row['id'].'" class="header-dialog__link">';
+                                            echo '<img src="'.$row['main_img'].'" alt="" class="header-dialog__img">';
+                                            echo '<div class="header-dialog__info">';
+                                            echo '<p class="header-dialog__info-title">'.$row['product_name'].'</p>';
+                                            echo '<p class="cart-dialog__info-price">';
+                                            if($row['discount_percentage'] > 0.0){
+                                                echo '<span class="cart__item-current-price">'.(number_format($row['unit_price'] * (1 - $row['discount_percentage']), 0, ',', '.')).'đ</span>';
+                                                echo '<span class="cart-dialog__info-old-price">'.number_format($row['unit_price'], 0, ',', '.').'đ</span>';
+                                                echo '<span class="cart__item-discount">-'.($row['discount_percentage'] * 100).'%</span>';
+                                            }
+                                            else {
+                                                echo '<span class="cart__item-current-price">'.(number_format($row['unit_price'], 0, ',', '.')).'đ</span>';
+                                            }
+                                            echo '</p>';
+
+                                            echo '</div>';
+                                            echo '</a>';
+                                            echo '</li>';
+                                        }
+                                    }
+                                    else {
+                                        echo '<p class="cart-dialog__empty-message">Vui lòng đăng nhập để có thể sử dụng giỏ hàng.</p>';
+                                    }
+                                    
+                                    if(isset($_SESSION['username']) && $cart_item_count == 0) {
+                                        echo '<p class="cart-dialog__empty-message">Hãy lướt X-Shop và thêm vào giỏ hàng nhé <3</p>';
+                                    }
+                                ?>
                             </ul>
     
                             <footer class="header-dialog__footer cart-dialog__footer">
                                 <span class="cart-dialog__desc">
                                     <span class="cart-dialog__product-cnt">
-                                        1
+                                        <?php echo $cart_item_count; ?>
                                     </span>
                                     sản phẩm trong giỏ hàng
                                 </span>

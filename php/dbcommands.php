@@ -42,5 +42,20 @@
                                             ON products_color.color_id = colors.id
                                             WHERE products_color.product_id = ? AND colors.slug = ?";
     $PRODUCT_QUERY_CHECK_EXIST = "SELECT id FROM products WHERE id = ?";
-    $PRODUCT_QUERY_GET_PRODUCT_COUNT = "SELECT COUNT(*) as product_count FROM products";
+    
+    $CART_QUERY_CHECK_EXIST = "SELECT IFNULL(COUNT(*), 0) AS count
+                                FROM users
+                                JOIN cart
+                                ON users.id = cart.user_id
+                                WHERE user_name = ? AND product_id = ?";
+    $CART_QUERY_ADD = "CALL ADD_PRODUCT_TO_CART_OF_USER(?, ?)";
+    $CART_QUERY_GET_ALL_OF_USER = "SELECT products.id AS id, product_name, main_img, slug, unit_price, discount_percentage
+                                    FROM users
+                                    JOIN cart
+                                    ON users.id = cart.user_id
+                                    JOIN products
+                                    ON cart.product_id = products.id
+                                    WHERE user_name = ?";
+
+    $USER_QUERY_GET_ID_BY_USERNAME = "SELECT id FROM users WHERE user_name = ?";
 ?>
