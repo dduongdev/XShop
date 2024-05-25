@@ -4,8 +4,6 @@
     require_once './php/color_dao.php';
     session_start();
 
-    include './php/user_status.php';
-
     $product_id;
     $product_colors;
     $current_color_slug;
@@ -426,7 +424,7 @@
 
     <script>
         <?php
-            echo 'var username = "'.$_SESSION['username'].'";';
+            echo 'var username = "'.(isset($_SESSION['username']) ? $_SESSION['username'] : '').'";';
             echo 'var product_id = '.$product_id.';';
             echo 'var sizes_data = '.json_encode($sizes_of_product_color).';';
         ?>

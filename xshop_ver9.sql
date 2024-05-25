@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 25, 2024 lúc 02:47 AM
+-- Thời gian đã tạo: Th5 25, 2024 lúc 09:07 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `xshop_ver8`
+-- Cơ sở dữ liệu: `xshop_update`
 --
 
 DELIMITER $$
@@ -112,7 +112,8 @@ INSERT INTO `categories` (`id`, `category_name`, `slug`) VALUES
 (4, 'Quần shorts', 'quan-shorts'),
 (5, 'Áo Polo', 'ao-polo'),
 (6, 'Áo khoác', 'ao-khoac'),
-(7, 'Áo sơ mi', 'ao-so-mi');
+(7, 'Áo sơ mi', 'ao-so-mi'),
+(8, 'Áo tanktop', 'ao-tanktop');
 
 -- --------------------------------------------------------
 
@@ -150,6 +151,7 @@ INSERT INTO `category_product` (`product_id`, `category_id`) VALUES
 (15, 1),
 (15, 5),
 (16, 1),
+(16, 8),
 (17, 2),
 (18, 2),
 (19, 2),
@@ -189,7 +191,19 @@ INSERT INTO `category_product` (`product_id`, `category_id`) VALUES
 (44, 7),
 (45, 7),
 (46, 7),
-(47, 7);
+(47, 7),
+(48, 1),
+(48, 8),
+(49, 1),
+(49, 8),
+(50, 1),
+(50, 8),
+(51, 1),
+(51, 8),
+(52, 1),
+(52, 8),
+(53, 1),
+(53, 8);
 
 -- --------------------------------------------------------
 
@@ -336,7 +350,13 @@ INSERT INTO `products` (`id`, `product_name`, `unit_price`, `discount_percentage
 (44, 'Áo Sơ Mi Dài Tay Premium Poplin', 599000, 0.1, '[\"Chất liệu 100% Cotton mềm mại, chống nhăn, kiểu dệt Poplin tạo ra các lỗ nhỏ thoáng khí\", \"Vải có khả năng trượt nước, chống bám bụi\", \"Vải ứng dụng công nghệ nano giúp loại bỏ hơn 70% vi khuẩn và khử mùi hiệu quả\", \"Vải có độ bền cao, không bị xù lông sau nhiều lần giặt\", \"Kiểu dáng: Slim Fit thanh lịch\"]', 'ao-so-mi-dai-tay-premium-poplin', '../images/products/Poplin_Den_6.webp', '2023-11-09 00:00:00'),
 (45, 'Áo Sơ Mi Dài Tay Premium Dobby', 599000, 0.1, '[\"Chất liệu 100% Cotton mềm mại, chống nhăn, kiểu dệt Poplin tạo ra các lỗ nhỏ thoáng khí\", \"Vải có khả năng trượt nước, chống bám bụi\", \"Vải ứng dụng công nghệ nano giúp loại bỏ hơn 70% vi khuẩn và khử mùi hiệu quả\", \"Vải có độ bền cao, không bị xù lông sau nhiều lần giặt\", \"Kiểu dáng: Slim Fit thanh lịch\"]', 'ao-so-mi-dai-tay-premium-dobby', '../images/products/dobbypre5_75.webp', '2023-02-27 00:00:00'),
 (46, 'Áo Sơ Mi Dài Tay Essentials Cotton', 399000, 0.1, '[\"Chất liệu 100% Cotton mềm mại\", \"Thoáng mát, thấm hút mồ hôi tốt\", \"Vải có độ bền cao, không bị xù lông sau nhiều lần giặt\", \"Phù hợp với: đi làm, đi chơi\", \"Kiểu dáng: Regular loose dễ dàng phối đồ, tạo layer\"]', 'ao-so-mi-dai-tay-essentials-cotton', '../images/products/24CMCW.SM001.13_6.webp', '2023-01-16 00:00:00'),
-(47, 'Áo Sơ mi dài tay Café-DriS', 499000, 0.14, '[\"Chất liệu: 50% S.Café + 50% Recycled PET\", \"Thoáng mát, thấm hút mồ hôi tốt\", \"Vải có độ bền cao, không bị xù lông sau nhiều lần giặt\", \"Phù hợp với: đi làm, đi chơi\", \"Kiểu dáng: Regular fit dáng suông\"]', 'ao-so-mi-dai-tay-cafe-dris', '../images/products/2uIMG_1077_copy.webp', '2023-05-26 00:00:00');
+(47, 'Áo Sơ mi dài tay Café-DriS', 499000, 0.14, '[\"Chất liệu: 50% S.Café + 50% Recycled PET\", \"Thoáng mát, thấm hút mồ hôi tốt\", \"Vải có độ bền cao, không bị xù lông sau nhiều lần giặt\", \"Phù hợp với: đi làm, đi chơi\", \"Kiểu dáng: Regular fit dáng suông\"]', 'ao-so-mi-dai-tay-cafe-dris', '../images/products/2uIMG_1077_copy.webp', '2023-05-26 00:00:00'),
+(48, 'Áo Tanktop Nam Gym Powerfit', 239000, 0.4, '[\"Chất liệu: 86% Poly + 14% Spandex\", \"Co giãn 4 chiều mang lại sự thoải mái để bạn vận động hết mình\", \"Vải có độ bền cao, không bị xù lông sau nhiều lần giặt\", \"Chất liệu thấm mồ hôi và khô nhanh, thoáng khí mang lại khả năng khô thoáng vượt trội\", \"Kiểu dáng áo: Form Slim fit\"]', 'ao-tanktop-name-gym-powerfit', '../images/products/Tanktop_Powerfit_Xam_Nhat_1.webp', '2023-07-13 00:00:00'),
+(49, 'Áo Tanktop Nam Thể Thao Active phối màu', 169000, 0.35, '[\"Chất liệu: 100% Recycled Polyester\", \"Vải xử lí hoàn thiện tính năng Thấm hút (Wicking) và Nhanh khô (Ex-Dry)\", \"Vải có độ bền cao, không bị xù lông sau nhiều lần giặt\", \"Thoáng mát với chất vải thấm hút tốt, phù hợp mặc chơi thể thao\", \"Kiểu dáng: Regular fit dáng suông\"]', 'ao-tanktop-nam-the-thao-active-phoi-mau', '../images/products/AW.002.2_18.webp', '2023-02-15 00:00:00'),
+(50, 'Áo Singlet chạy bộ Fast & Free', 189000, 0, '[\"Chất liệu: 100% Polyester\", \"Xử lý hoàn thiện vải: Quick-Dry + Wicking + Stretch\", \"Công nghệ Chafe-Free hạn chế tối đa ma sát trong quá trình vận động từ các đường may tối giản hoá\", \"Thoáng mát với chất vải thấm hút tốt, phù hợp mặc chơi thể thao\", \"Trọng lượng áo siêu nhẹ, chỉ 76 gam\"]', 'ao-singlet-chay-bo-fast-free', '../images/products/3dsinglet.3_28.webp', '2023-09-26 00:00:00'),
+(51, 'Áo Sát Nách Nam Thể Thao Promax', 189000, 0, '[\"Áo Sát Nách Nam Thể Thao Promax\", \"Kiểu dệt Twill (chéo) mang lại cảm giác thoải mái khi mặc\", \"Công nghệ ExDry thấm hút tốt, nhanh khô, thoáng khí\", \"Phù hợp với: chơi thể thao, mặc ở nhà\", \"Kiểu dáng: Regular fit dáng suông\"]', 'ao-sat-nach-name-the-thao-promax', '../images/products/att.sn.xaq.5.jpg', '2023-11-11 00:00:00'),
+(52, 'Áo Ba Lỗ Nam Basics V2', 54000, 0.39, '[\"Chất liệu 100% Cotton chất lượng cao, đem đến trải nghiệm thoải mái hơn\", \"Vải đã chải lông kỹ, xử lý co giãn 2 chiều\", \"Công nghệ ExDry thấm hút tốt, nhanh khô, thoáng khí\", \"Phù hợp với: chơi thể thao, mặc ở nhà\", \"Kiểu dáng: Regular fit dáng suông\"]', 'ao-ba-lo-nam-basics-v2', '../images/products/3_lo_basics_mau_navy.webp', '2023-03-17 00:00:00'),
+(53, 'Áo Tanktop thể thao Active Essentials', 99000, 0, '[\"Thành phần: 51% Recycled Polyester + 49% Polyester\", \"Vải dệt Knit - EyeLet\", \"Công nghệ ExDry thấm hút tốt, nhanh khô, thoáng khí\", \"Form áo regular, tôn dáng\", \"Kiểu dáng: Regular fit dáng suông\"]', 'ao-tank-the-thao-active-essentials', '../images/products/24CMAW.TT003.34_23.webp', '2023-08-29 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -418,7 +438,14 @@ INSERT INTO `products_color` (`id`, `color_id`, `product_id`) VALUES
 (65, 8, 46),
 (66, 3, 46),
 (67, 1, 46),
-(68, 8, 47);
+(68, 8, 47),
+(69, 1, 48),
+(70, 2, 49),
+(71, 9, 50),
+(72, 6, 51),
+(73, 6, 52),
+(74, 7, 53),
+(75, 1, 53);
 
 -- --------------------------------------------------------
 
@@ -666,7 +693,27 @@ INSERT INTO `products_color_picture` (`product_color_id`, `product_color_img`) V
 (68, '../images/products/cf5.webp'),
 (68, '../images/products/uIMG_1035_copy.webp'),
 (68, '../images/products/IMG_1067_copy.webp'),
-(68, '../images/products/IMG_1070_copy.webp');
+(68, '../images/products/IMG_1070_copy.webp'),
+(69, '../images/products/Tanktop_Powerfit_Xam_Nhat_2.webp'),
+(69, '../images/products/Tanktop_Powerfit_Xam_Nhat_1.webp'),
+(69, '../images/products/Tanktop_Powerfit_Xam_Nhat_5.webp'),
+(70, '../images/products/AW.002.2_18.webp'),
+(70, '../images/products/AW.002.6_36.webp'),
+(70, '../images/products/AW.002.1.webp'),
+(70, '../images/products/AW.002.7.webp'),
+(71, '../images/products/3dsinglet.3_28.webp'),
+(72, '../images/products/att.sn.xaq.5.jpg'),
+(72, '../images/products/att.sn.xaq.4.jpg.jpg'),
+(72, '../images/products/att.sn.xaq.2.jpg.jpg'),
+(73, '../images/products/3_lo_basics_mau_navy.webp'),
+(73, '../images/products/3_lo_basics_mau_navy_3.webp'),
+(73, '../images/products/3_lo_basics_mau_navy_4.webp'),
+(74, '../images/products/24CMAW.TT003.34_23.webp'),
+(74, '../images/products/24CMAW.TT003.33.webp'),
+(74, '../images/products/24CMAW.TT003.30.webp'),
+(75, '../images/products/24CMAW.TT003.23_84.webp'),
+(75, '../images/products/24CMAW.TT003.19.webp'),
+(75, '../images/products/24CMAW.TT003.20_91.webp');
 
 -- --------------------------------------------------------
 
@@ -962,7 +1009,49 @@ INSERT INTO `products_size` (`id`, `product_color_id`, `size_id`, `remaining_qua
 (276, 68, 2, 40, 48),
 (277, 68, 3, 20, 57),
 (278, 68, 4, 27, 65),
-(279, 68, 5, 42, 16);
+(279, 68, 5, 42, 16),
+(280, 69, 1, 82, 55),
+(281, 69, 2, 30, 84),
+(282, 69, 3, 29, 93),
+(283, 69, 4, 81, 24),
+(284, 69, 5, 77, 15),
+(285, 69, 6, 42, 68),
+(286, 70, 1, 58, 55),
+(287, 70, 2, 0, 37),
+(288, 70, 3, 83, 7),
+(289, 70, 4, 85, 7),
+(290, 70, 5, 79, 73),
+(291, 70, 6, 30, 33),
+(292, 71, 1, 68, 20),
+(293, 71, 2, 96, 21),
+(294, 71, 3, 18, 26),
+(295, 71, 4, 76, 5),
+(296, 71, 5, 98, 75),
+(297, 71, 6, 82, 86),
+(298, 72, 1, 70, 92),
+(299, 72, 2, 53, 89),
+(300, 72, 3, 87, 67),
+(301, 72, 4, 74, 68),
+(302, 72, 5, 22, 6),
+(303, 72, 6, 64, 2),
+(304, 73, 1, 95, 15),
+(305, 73, 2, 89, 2),
+(306, 73, 3, 45, 16),
+(307, 73, 4, 49, 95),
+(308, 73, 5, 30, 67),
+(309, 73, 6, 44, 19),
+(310, 74, 1, 69, 49),
+(311, 74, 2, 40, 53),
+(312, 74, 3, 47, 74),
+(313, 74, 4, 32, 39),
+(314, 74, 5, 98, 74),
+(315, 74, 6, 78, 67),
+(316, 75, 1, 0, 99),
+(317, 75, 2, 98, 94),
+(318, 75, 3, 77, 3),
+(319, 75, 4, 82, 4),
+(320, 75, 5, 72, 49),
+(321, 75, 6, 32, 11);
 
 -- --------------------------------------------------------
 
@@ -1118,7 +1207,7 @@ ALTER TABLE `addresses`
 -- AUTO_INCREMENT cho bảng `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT cho bảng `colors`
@@ -1142,19 +1231,19 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT cho bảng `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT cho bảng `products_color`
 --
 ALTER TABLE `products_color`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT cho bảng `products_size`
 --
 ALTER TABLE `products_size`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=280;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=322;
 
 --
 -- AUTO_INCREMENT cho bảng `sizes`

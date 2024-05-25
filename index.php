@@ -1,7 +1,6 @@
 <?php
     require_once './php/dbconnect.php';
     require_once './php/dbcommands.php';
-    require_once './php/init_rating_stars.php';
     require_once './php/product_dao.php';
 
     session_start();
