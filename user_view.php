@@ -102,8 +102,12 @@
                                 </div>
 
                                 <div class="row ud__row-padding-v6">
-                                    <div class="col l-4 l-o-8">
-                                        <button value="<?php echo $user_info['id'] ?>" class="user__button user--button--update-user-info hidden_tag">Cập nhật</button>
+                                    <div class="col l-4 l-o-4">
+                                        <button value="<?php echo $user_info['id'] ?>" class="user__button user__button--action user--button--update-user-info hidden_tag">Cập nhật</button>
+                                    </div>
+
+                                    <div class="col l-4">
+                                        <button class="user__button user__button--action js-logout-button">Đăng xuất</button>
                                     </div>
                                 </div>
                             </div>
@@ -327,6 +331,20 @@
                         })
                     }
                 })
+            })
+
+            $('.js-logout-button').click(function(event){
+                event.preventDefault();
+
+                $.ajax({
+                    url: '../php/ajax_response.php',
+                    type: 'post',
+                    data: {
+                        action: 'logout'
+                    }
+                })
+
+                window.location.href = '../index.php';
             })
         })
 

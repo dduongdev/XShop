@@ -5,6 +5,8 @@
     require_once 'cart_dao.php';
     require_once 'user_dao.php';
 
+    session_start();
+
     $action = $_POST['action'] ?? '';
     switch($action){
         case 'product_detail_change':
@@ -56,6 +58,9 @@
         case 'deleteOrder':
             $order_id = $_POST['order_id'];
             echo deleteOrder($order_id);
+            break;
+        case 'logout':
+            logout();
             break;
     }
 
@@ -265,5 +270,10 @@
         catch(Exception){
             throw new Exception();
         }
+    }
+
+    function logout(){
+        session_unset();
+        session_destroy();
     }
 ?>

@@ -2127,7 +2127,7 @@ input.user__form-control.user__form-control--new-address {
     font-weight: 500;
 }
 
-.user__button.user--button--update-user-info {
+.user__button--action {
     width: 100%;
 }
 
