@@ -1765,6 +1765,7 @@
     padding-bottom: 6px;
 }
 
+.user__order-name,
 .payment-gateway__product-name {
     flex: 1;
     font-weight: 500;
@@ -1777,6 +1778,7 @@
     gap: 2rem;
 }
 
+.user__order-img,
 .payment-gateway__product-img {
     width: 10rem;
     height: 10rem;
@@ -1790,25 +1792,30 @@
     border-bottom: #000 1px solid;
 }
 
+.user__order-price,
 .payment-gateway__product-price {
     display: flex;
     gap: 1rem;
 }
 
+.user__order-current-price,
 .payment-gateway__product-current-price {
     font-weight: bolder;
 }
 
+.user__order-old-price,
 .payment-gateway__product-old-price {
     color: #c4c4c4;
     text-decoration: line-through;
 }
 
+.user__order-discount,
 .payment-gateway__discount{
     color: #ff0000;
     font-weight: 700;
 }
 
+.user__order-total,
 .payment-gateway__product-total-amount {
     font-weight: bolder;
 }
@@ -1904,6 +1911,19 @@
     display: flex;
     align-items: center;
     gap: 1rem;
+}
+
+.cart__empty-message,
+.address__empty-message {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    font-size: 1.6rem;
+    font-size: 1.8rem;
+    color: #999;
+    font-style: italic;
 }
 /* End: Payment gateway CSS */
 
@@ -2028,3 +2048,90 @@
     cursor: pointer;
 }
 /* End: Toast CSS */
+
+/* Start: User view CSS */
+.user__form-control {
+    background: #fff;
+    border: 1px solid #d9d9d9;
+    box-sizing: border-box;
+    border-radius: 16px;
+    height: 50px;
+    width: 100%;
+    padding: 5px 20px;
+    transition: all .2s;
+    display: flex;
+    align-items: center;
+    font-size: 1.4rem;
+    color: var(--text-color);
+    overflow: hidden;
+}
+
+.user__button {
+    margin-left: auto;
+    border: none;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 1.6rem;
+}
+
+.user__button:hover {
+    background-color: #d9d9d9;
+    color: var(--text-color);
+}
+
+input.user__form-control.user__form-control--new-address {
+    border: none;
+    outline: none;
+    padding: 0;
+}
+
+.user__session-heading {
+    font-size: 2.4rem;
+    font-weight: bolder;
+    padding: 8px 0;
+}
+
+.message--empty {
+    margin: auto;
+    font-size: 1.6rem;
+    color: #999;
+    font-style: italic;
+    padding: 12px 0;
+}
+
+.user__session.user__session--orders {
+    margin-top: 2rem;
+}
+
+.user__session-content.user__session-content--orders {
+    border-top: #000 1px solid;
+    border-bottom: #000 1px solid;
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+.user__order {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    font-size: 1.6rem;
+}
+
+.user__order-option,
+.user__order-quantity {
+    font-weight: 500;
+}
+
+.user__button.user--button--update-user-info {
+    width: 100%;
+}
+
+.user__order + .user__order {
+    margin-top: 8px;
+}
+/* End: User view CSS */

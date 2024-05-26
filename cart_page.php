@@ -70,6 +70,8 @@
                             echo '</div>';
                         }
                     ?>
+
+                    <span class="cart__empty-message <?php echo ($result->num_rows == 0 ? '' : 'hidden_tag'); ?>">Giỏ hàng trống.</span>
                 </div>  
             </div>
         </div>
@@ -101,6 +103,10 @@
                 }).done(function(response){
                     if(response.toast_type === 'success'){
                         $clickedButton.closest('.cart__item').remove();
+
+                        if($('.cart__content .cart_item').length == 0){
+                            $('.cart__empty-message').removeClass('hidden_tag');
+                        }
                     }
 
                     toast ({

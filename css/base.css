@@ -102,3 +102,8 @@ a {
 .modal__close-btn:hover {
     transform: scale(1.1);
 }
+
+.ud__row-padding-v6 {
+    padding-top: 6px;
+    padding-bottom: 6px;
+}

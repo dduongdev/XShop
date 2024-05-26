@@ -24,7 +24,7 @@
                 <?php
                     if(isset($_SESSION['username'])) {
                         echo '<li class="nav-main__item">
-                                <a href="#" class="nav-main__link font-weight-500">
+                                <a href="../user_view.php" class="nav-main__link font-weight-500">
                                     Chào '.$_SESSION['fullname'].'
                                 </a>
                             </li>';

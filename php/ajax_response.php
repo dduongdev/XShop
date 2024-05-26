@@ -33,14 +33,29 @@
             $product_size_id = $_POST['product_size_id'];
             $quantity = $_POST['quantity'];
             $delivery_phone = $_POST['delivery_phone'];
-            $address_id = $_POST['address_id'];
+            $delivery_address = $_POST['delivery_address'];
             $note = $_POST['note'];
-            echo create_order($username, $payment_method, $product_size_id, $quantity, $delivery_phone, $address_id, $note);
+            echo create_order($username, $payment_method, $product_size_id, $quantity, $delivery_phone, $delivery_address, $note);
             break;
         case 'removeCartItem':
             $username = $_POST['username'];
             $product_id = $_POST['product_id'];
             echo removeCartItem($username, $product_id);
+            break;
+        case 'updateUserInfo':
+            $user_id = $_POST['user_id'];
+            $fullname = $_POST['fullname'];
+            $phone = $_POST['phone'];
+            $email = $_POST['email'];
+            echo updateUserInfo($user_id, $fullname, $phone, $email);
+            break;
+        case 'deleteAddress':
+            $address_id = $_POST['address_id'];
+            echo deleteAddress($address_id);
+            break;
+        case 'deleteOrder':
+            $order_id = $_POST['order_id'];
+            echo deleteOrder($order_id);
             break;
     }
 
@@ -149,19 +164,24 @@
         $query = "INSERT addresses(user_id, address) VALUES(?, ?)";
         $stmt = $_conn->prepare($query);
         $stmt->bind_param('ss', $user_id, $address);
-        $stmt->execute();
-        echo $_conn->insert_id;
+        try {
+            $stmt->execute();
+            echo $_conn->insert_id;
+        }
+        catch(Exception){
+            throw new Exception();
+        }
     }
 
-    function create_order($username, $payment_method, $product_size_id, $quantity, $delivery_phone, $address_id, $note){
+    function create_order($username, $payment_method, $product_size_id, $quantity, $delivery_phone, $delivery_address, $note){
         global $_conn;
 
         $user_id = getUserIdByUsername($username);
 
-        $query = "INSERT orders(user_id, payment_method, product_size_id, quantity, delivery_phone, address_id, note)
+        $query = "INSERT orders(user_id, payment_method, product_size_id, quantity, delivery_phone, delivery_address, note)
                 VALUES(?, ?, ?, ?, ?, ?, ?)";
         $stmt = $_conn->prepare($query);
-        $stmt->bind_param('sssssss', $user_id, $payment_method, $product_size_id, $quantity, $delivery_phone, $address_id, $note);
+        $stmt->bind_param('sssssss', $user_id, $payment_method, $product_size_id, $quantity, $delivery_phone, $delivery_address, $note);
         try {
             $stmt->execute();
             return json_encode(['toast_type' => 'success', 'toast_message' => 'Đặt hàng thành công!']);
@@ -190,6 +210,60 @@
         }
         catch(Exception){
             return json_encode(['toast_type' => 'warning', 'toast_message' => 'Xoá khỏi giỏ hàng không thành công!']);
+        }
+    }
+
+    function updateUserInfo($user_id, $fullname, $phone, $email) {
+        global $_conn;
+
+        $query = "UPDATE users
+                    SET fullname = ?, phone = ?, email = ?
+                    WHERE id = ?";
+        $stmt = $_conn->prepare($query);
+        $stmt->bind_param('ssss', $fullname, $phone, $email, $user_id);
+        try {
+            $stmt->execute();
+            return true;
+        }
+        catch(Exception){
+            return false;
+        }
+    }
+
+    function deleteAddress($address_id){
+        global $_conn;
+
+        $query = "DELETE FROM addresses
+                    WHERE id = ?";
+        $stmt = $_conn->prepare($query);
+        $stmt->bind_param('s', $address_id);
+        try {
+            $stmt->execute();
+            if($stmt->affected_rows > 0){
+                return true;
+            }
+            return false;
+        }
+        catch(Exception){
+            throw new Exception();
+        }
+    }
+
+    function deleteOrder($order_id){
+        global $_conn;
+
+        $query = "DELETE FROM orders WHERE id = ?";
+        $stmt = $_conn->prepare($query);
+        $stmt->bind_param('s', $order_id);
+        try {
+            $stmt->execute();
+            if($stmt->affected_rows > 0){
+                return true;
+            }
+            return false;
+        }
+        catch(Exception){
+            throw new Exception();
         }
     }
 ?>

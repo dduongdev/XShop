@@ -328,28 +328,9 @@
                 var delivery_phone = $('.js-input--phone').val();
                 var note = $('.js-input--note').val();
                 
-                var address_id = '';
-                var addressChecked = $('input[name=address]:checked');
-                if(addressChecked.length === 0){
-                    addNewAddressForUser($('.js-input--delivery-address').val())
-                    .then(function(response) {
-                        address_id = response;
-                        createOrder(username, payment_method, product_size_id, quantity, delivery_phone, address_id, note);
-                    })
-                }
-                else {
-                    address_id = $(addressChecked).val();
-                    createOrder(username, payment_method, product_size_id, quantity, delivery_phone, address_id, note);
-                }
-                
-                setTimeout(function() {
-                    window.location.href = '../index.php';
-                }, 5000);
-            })
-        })
+                var delivery_address = $('.js-input--delivery-address').val();
 
-        function createOrder(username, payment_method, product_size_id, quantity, delivery_phone, address_id, note){
-            $.ajax({
+                $.ajax({
                 url: '../php/ajax_response.php',
                 type: 'post',
                 dataType: 'json',
@@ -360,39 +341,25 @@
                     product_size_id,
                     quantity,
                     delivery_phone,
-                    address_id,
+                    delivery_address,
                     note
                 }
-            }).done(function(response){
-                toast ({
-                    title: 'Thông báo',
-                    message: response.toast_message,
-                    type: response.toast_type,
-                    duration: 4000
+                }).done(function(response){
+                    toast ({
+                        title: 'Thông báo',
+                        message: response.toast_message,
+                        type: response.toast_type,
+                        duration: 4000
+                    })
+
+                    if(response.toast_type === 'success'){
+                        setTimeout(() => {
+                            window.location.href = '../user_view.php';
+                        }, 5000);
+                    }
                 })
             })
-        }
-
-        function addNewAddressForUser(address) {
-            return new Promise(function(resolve, reject) {
-                $.ajax({
-                    url: '../php/ajax_response.php',
-                    type: 'post',
-                    dataType: 'text',
-                    data: {
-                        action: 'add_new_address_for_user',
-                        username,
-                        address
-                    }
-                }).done(function(response) {
-                    resolve(response); // Hoàn thành Promise với kết quả
-                }).fail(function(jqXHR, textStatus, errorThrown) {
-                    reject(errorThrown); // Từ chối Promise với lỗi
-                });
-            });
-        }
-
-
+        })
 
         $('.js-input--delivery-address').on('input', function(){
             $('input[name="address"]').prop('checked', false);

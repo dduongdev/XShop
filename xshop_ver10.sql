@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 25, 2024 lúc 09:07 AM
+-- Thời gian đã tạo: Th5 26, 2024 lúc 09:51 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -69,7 +69,7 @@ CREATE TABLE `addresses` (
 --
 
 INSERT INTO `addresses` (`id`, `user_id`, `address`) VALUES
-(1, 1, 'Tổ 50, KV6, Nhơn Bình, Quy Nhơn, Bình Định');
+(21, 1, '170 An Dương Vương, TP. Quy Nhơn, Bình Định');
 
 -- --------------------------------------------------------
 
@@ -81,13 +81,6 @@ CREATE TABLE `cart` (
   `user_id` bigint(20) NOT NULL,
   `product_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Đang đổ dữ liệu cho bảng `cart`
---
-
-INSERT INTO `cart` (`user_id`, `product_id`) VALUES
-(1, 5);
 
 -- --------------------------------------------------------
 
@@ -272,18 +265,16 @@ CREATE TABLE `orders` (
   `product_size_id` bigint(20) NOT NULL,
   `quantity` int(11) NOT NULL,
   `delivery_phone` varchar(15) DEFAULT NULL,
-  `address_id` bigint(20) NOT NULL,
-  `note` text DEFAULT NULL
+  `note` text DEFAULT NULL,
+  `delivery_address` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `orders`
 --
 
-INSERT INTO `orders` (`id`, `user_id`, `payment_method`, `created_at`, `order_status`, `product_size_id`, `quantity`, `delivery_phone`, `address_id`, `note`) VALUES
-(1, 1, 'offline', '2024-05-24 18:31:57', 1, 17, 1, '0385216798', 1, ''),
-(6, 1, 'offline', '2024-05-24 19:33:23', 1, 16, 1, '0385216798', 1, ''),
-(7, 1, 'offline', '2024-05-24 20:01:40', 1, 18, 1, '0385216798', 1, '');
+INSERT INTO `orders` (`id`, `user_id`, `payment_method`, `created_at`, `order_status`, `product_size_id`, `quantity`, `delivery_phone`, `note`, `delivery_address`) VALUES
+(10, 1, 'offline', '2024-05-26 19:47:42', 1, 277, 4, '0385216798', '', '170 An Dương Vương, TP. Quy Nhơn, Bình Định');
 
 -- --------------------------------------------------------
 
@@ -1150,8 +1141,7 @@ ALTER TABLE `feedbacks`
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`),
-  ADD KEY `product_size_id` (`product_size_id`),
-  ADD KEY `address_id` (`address_id`);
+  ADD KEY `product_size_id` (`product_size_id`);
 
 --
 -- Chỉ mục cho bảng `products`
@@ -1201,7 +1191,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT cho bảng `addresses`
 --
 ALTER TABLE `addresses`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT cho bảng `categories`
@@ -1225,7 +1215,7 @@ ALTER TABLE `feedbacks`
 -- AUTO_INCREMENT cho bảng `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT cho bảng `products`
@@ -1293,8 +1283,7 @@ ALTER TABLE `feedbacks`
 --
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`product_size_id`) REFERENCES `products_size` (`id`),
-  ADD CONSTRAINT `orders_ibfk_3` FOREIGN KEY (`address_id`) REFERENCES `addresses` (`id`);
+  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`product_size_id`) REFERENCES `products_size` (`id`);
 
 --
 -- Các ràng buộc cho bảng `products_color`
