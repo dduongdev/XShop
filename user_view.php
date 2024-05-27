@@ -157,7 +157,7 @@
                     <div class="col l-12">
                         <div class="user__session user__session--orders">
                             <div class="user__session-heading">
-                                Danh Sách đơn đặt hàng
+                                Danh sách đơn đặt hàng
                             </div>
 
                             <div class="user__session-content user__session-content--orders">
@@ -182,7 +182,7 @@
                                             echo '</span>';
                                             echo '<span>Số lượng: <span class="user__order-quantity">'.$order[7].'</span></span>';
                                             $total = ($order[4] > 0.0) ? $order[3] * (1 - $order[4]) * $order[7] : $order[3] * $order[7];
-                                            echo '<span>Thành tiền: <span class="user__order-total">'.number_format($total, 0, ',', '.').'</span></span>';
+                                            echo '<span>Thành tiền: <span class="user__order-total">'.number_format($total, 0, ',', '.').'đ</span></span>';
                                             echo '<button value="'.$order[0].'" class="user__button js-delete-order-button">Xoá</button>';
                                             echo '</div>';
                                         }
