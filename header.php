@@ -64,7 +64,7 @@
 
             <div class="header__actions">
                 <div class="header__action-item">
-                    <form   action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>"
+                    <form   action="../search_result.php"
                             role="search" 
                             class="header-searchbar" 
                             method="GET">
@@ -199,5 +199,14 @@
             }
             lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
         });
+
+        document.querySelector('.header-searchbar__search-button').addEventListener('click', function(event){
+            event.preventDefault();
+
+            let searchInput = document.getElementById('header-searchbar__label-target').value;
+            let encodedSearchInput = encodeURIComponent(searchInput);
+            let url = `../search_result.php?search=${encodedSearchInput}`;
+            window.location.href = url;
+        })
     </script>
 </header>

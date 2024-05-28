@@ -220,7 +220,8 @@
 
     function updateUserInfo($user_id, $fullname, $phone, $email) {
         global $_conn;
-
+        $_SESSION['fullname'] = $fullname;
+        
         $query = "UPDATE users
                     SET fullname = ?, phone = ?, email = ?
                     WHERE id = ?";

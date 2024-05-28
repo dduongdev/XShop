@@ -331,19 +331,19 @@
                 var delivery_address = $('.js-input--delivery-address').val();
 
                 $.ajax({
-                url: '../php/ajax_response.php',
-                type: 'post',
-                dataType: 'json',
-                 data: {
-                    action: 'create_order',
-                    username,
-                    payment_method, 
-                    product_size_id,
-                    quantity,
-                    delivery_phone,
-                    delivery_address,
-                    note
-                }
+                    url: '../php/ajax_response.php',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        action: 'create_order',
+                        username,
+                        payment_method, 
+                        product_size_id,
+                        quantity,
+                        delivery_phone,
+                        delivery_address,
+                        note
+                    }
                 }).done(function(response){
                     toast ({
                         title: 'Thông báo',
@@ -355,7 +355,7 @@
                     if(response.toast_type === 'success'){
                         setTimeout(() => {
                             window.location.href = '../user_view.php';
-                        }, 5000);
+                        }, 3000);
                     }
                 })
             })

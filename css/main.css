@@ -1633,6 +1633,10 @@
 .cart__buy-btn:hover {
     opacity: 0.8;
 }
+
+.cart__empty-message.hidden_tag {
+    display: none;
+}
 /* End: Cart */
 
 /* Start: Home */

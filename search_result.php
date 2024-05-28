@@ -26,6 +26,12 @@
     $where_conditions = [];
     $order_conditions = [];
 
+    if(!isset($_GET['search'])){
+        header("HTTP/1.0 404 Not Found");
+        echo "Page not found";
+        exit();
+    }
+
     $url = $_SERVER['REQUEST_URI'];
     $url_parts = explode('?', $url);
     $each_param = [];
@@ -102,32 +108,12 @@
         
         <div class="container">
             <div class="grid wide">
-                <h1 class="products-page__header">Tất cả sản phẩm</h1>
+                <h1 class="products-page__header">Kết quả tìm kiếm</h1>
                 <div class="row">
                     <div class="col l-2 m-0 c-0">
                         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" 
                                 class="product-filter"
                                 method="get">
-        
-                            <div class="product-filter__item">
-                                <p class="product-filter__title">
-                                    Danh mục
-                                </p>
-        
-                                <ul class="product-filter__clothing reset-ul">
-                                    <?php
-                                        $result = executeNonParamQuery($CATEGORY_QUERY_GET_ALL);
-
-                                        foreach($result as $row){
-                                            echo '<li class="product-filter__checkbox-item">';
-                                            echo '<input type="checkbox" name="category_id" value="'.$row[0].'" id="product-filter--select-'.$row[2].'" class="product-filter__checkbox" '.(isset($each_param['category_id']) && in_array($row[0], $each_param['category_id']) ? 'checked' : '').'>';
-                                            echo '<label class="product-filter__checkbox-title" for="product-filter--select-'.$row[2].'">';
-                                            echo ' '.$row[1];
-                                            echo '</label>';
-                                        }
-                                    ?>
-                                </ul>
-                            </div>
         
                             <div class="product-filter__item">
                                 <p class="product-filter__title">
