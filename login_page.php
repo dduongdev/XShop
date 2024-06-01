@@ -18,7 +18,10 @@
             $_SESSION['fullname'] = $fullname;
             $_SESSION['start_time'] = time();
             header("Location: index.php");
-        } 
+        }
+        else {
+            $error_message = "Tên đăng nhập hoặc mật khẩu không đúng.";
+        }
     }
 
 ?>

@@ -1932,6 +1932,7 @@
 /* End: Payment gateway CSS */
 
 /* Start: login page message */
+.login-container .error-message,
 .register-container .error-message {
     color: #ff3333;          /* Red color */
     background-color: #fff0f0;  /* Light red background */

@@ -6,6 +6,10 @@
     require_once './php/random_dao.php';
 
     session_start();
+    if(isset($_SESSION['username']) && (time() - $_SESSION['start_time'] >= 60*60*3)) {
+        session_unset();
+        session_destroy();
+    }
 
     $product_query_get = '';
 

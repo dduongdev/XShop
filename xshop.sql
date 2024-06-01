@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 26, 2024 lúc 09:51 PM
+-- Thời gian đã tạo: Th6 01, 2024 lúc 12:21 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -69,7 +69,9 @@ CREATE TABLE `addresses` (
 --
 
 INSERT INTO `addresses` (`id`, `user_id`, `address`) VALUES
-(21, 1, '170 An Dương Vương, TP. Quy Nhơn, Bình Định');
+(21, 1, '170 An Dương Vương, TP. Quy Nhơn, Bình Định'),
+(22, 1, 'Tổ 50, KV6, Nhơn BÌnh, Quy Nhơn'),
+(23, 1, '04 Nguyễn Văn Trỗi, TP. Quy Nhơn');
 
 -- --------------------------------------------------------
 
@@ -81,6 +83,14 @@ CREATE TABLE `cart` (
   `user_id` bigint(20) NOT NULL,
   `product_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `cart`
+--
+
+INSERT INTO `cart` (`user_id`, `product_id`) VALUES
+(1, 23),
+(1, 45);
 
 -- --------------------------------------------------------
 
@@ -274,7 +284,8 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `payment_method`, `created_at`, `order_status`, `product_size_id`, `quantity`, `delivery_phone`, `note`, `delivery_address`) VALUES
-(10, 1, 'offline', '2024-05-26 19:47:42', 1, 277, 4, '0385216798', '', '170 An Dương Vương, TP. Quy Nhơn, Bình Định');
+(12, 1, 'offline', '2024-05-27 06:29:24', 1, 291, 1, '0385216798', '', '170 An Dương Vương, TP. Quy Nhơn, Bình Định'),
+(15, 1, 'online', '2024-05-27 06:34:06', 1, 171, 1, '0385216798', '', '04 Nguyễn Văn i, TP. Quy Nhơn');
 
 -- --------------------------------------------------------
 
@@ -1191,7 +1202,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT cho bảng `addresses`
 --
 ALTER TABLE `addresses`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT cho bảng `categories`
@@ -1215,7 +1226,7 @@ ALTER TABLE `feedbacks`
 -- AUTO_INCREMENT cho bảng `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT cho bảng `products`

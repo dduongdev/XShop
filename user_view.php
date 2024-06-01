@@ -183,7 +183,7 @@
                                             echo '<span>Số lượng: <span class="user__order-quantity">'.$order[7].'</span></span>';
                                             $total = ($order[4] > 0.0) ? $order[3] * (1 - $order[4]) * $order[7] : $order[3] * $order[7];
                                             echo '<span>Thành tiền: <span class="user__order-total">'.number_format($total, 0, ',', '.').'đ</span></span>';
-                                            echo '<button value="'.$order[0].'" class="user__button js-delete-order-button">Xoá</button>';
+                                            echo '<button value="'.$order[0].'" class="user__button js-delete-order-button">Huỷ</button>';
                                             echo '</div>';
                                         }
                                     }
