@@ -5,19 +5,32 @@
     if(isset($_POST['username']) && isset($_POST['password'])) {
         $username = $_POST['username'];
         $password = $_POST['password'];
-        $query = "select fullname from users where user_name=? and user_password=?";
+        $query = "SELECT fullname, user_role FROM users WHERE user_name=? AND user_password=?";
         $stmt = $_conn->prepare($query);
         $stmt->bind_param('ss', $username, $password);
         $stmt->execute();
         $result = $stmt->get_result();
         $count = $result->num_rows;
         if($count > 0) {
-            $fullname = $result->fetch_assoc();
-            $fullname = $fullname['fullname'];
+            // $fullname = $result->fetch_assoc();
+            // $fullname = $fullname['fullname'];
+            // $_SESSION['username'] = $username;
+            // $_SESSION['fullname'] = $fullname;
+            // $_SESSION['start_time'] = time();
+            // header("Location: index.php");
+            $user = $result->fetch_assoc();
+            $fullname = $user['fullname'];
+            $user_role = $user['user_role'];
             $_SESSION['username'] = $username;
             $_SESSION['fullname'] = $fullname;
+            $_SESSION['user_role'] = $user_role;
             $_SESSION['start_time'] = time();
-            header("Location: index.php");
+            
+            if ($user_role == 'admin') {
+                header("Location: dashboard.html");
+            } else {
+                header("Location: index.php");
+            }
         }
         else {
             $error_message = "Tên đăng nhập hoặc mật khẩu không đúng.";

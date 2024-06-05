@@ -1,7 +1,7 @@
 <?php
     $server = 'localhost';
     $username = 'root';
-    $password = '040313';
+    $password = '';
     $database = 'xshop_update';
 
     $_conn = new mysqli($server, $username, $password, $database);
