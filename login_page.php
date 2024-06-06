@@ -27,7 +27,7 @@
             $_SESSION['start_time'] = time();
             
             if ($user_role == 'admin') {
-                header("Location: dashboard.html");
+                header("Location: dashboard.php");
             } else {
                 header("Location: index.php");
             }

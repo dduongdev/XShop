@@ -4,7 +4,7 @@
     require_once './php/init_rating_stars.php';
     require_once './php/product_dao.php';
     require_once './php/random_dao.php';
-
+    
     session_start();
     if(isset($_SESSION['username']) && (time() - $_SESSION['start_time'] >= 60*60*3)) {
         session_unset();
