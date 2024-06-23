@@ -1100,7 +1100,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `user_name`, `email`, `user_password`, `phone`, `user_role`, `fullname`) VALUES
 (1, 'dduongdev', 'kyvalaxz2021@gmail.com', 'k@buto2021//', '0385216798', 'customer', 'Nguyễn Đông Dương'),
-(2, 'admin', 'adminxshop@gmail.com', 'admin', '0000000000', 'customer', 'Admin');
+(2, 'admin', 'adminxshop@gmail.com', 'admin', '0000000000', 'admin', 'Admin');
 
 --
 -- Chỉ mục cho các bảng đã đổ
