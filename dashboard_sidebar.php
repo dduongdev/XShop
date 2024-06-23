@@ -13,7 +13,9 @@
             </a>
         </li>
         <li class="sidebar-list-item">
-            <span class="material-icons-outlined"> inventory_2 </span> Sản phẩm
+            <a href="list_products.php">
+                <span class="material-icons-outlined"> inventory_2 </span> Sản phẩm
+            </a>
         </li>
         <li class="sidebar-list-item">
             <span class="material-icons-outlined"> category </span> Danh mục
