@@ -45,10 +45,12 @@
                     <tbody>
                         <?php 
                             // SQL query to fetch required data
-                            $sql = "SELECT o.id, u.fullname AS user_name, p.product_name, p.unit_price, p.discount_percentage, o.order_status
-                                    FROM orders o
-                                    JOIN users u ON o.user_id = u.id
-                                    JOIN products p ON o.product_size_id = p.id";
+                            $sql = "SELECT orders.id, users.fullname AS user_name, products.product_name, products.unit_price, products.discount_percentage, orders.order_status
+                                    FROM orders
+                                    JOIN users ON orders.user_id = users.id
+                                    JOIN products_size ON orders.product_size_id = products_size.id
+                                    JOIN products_color ON products_size.product_color_id = products_color.id
+                                    JOIN products ON products_color.product_id = products.id";
                             
                             $result = $_conn->query($sql);
 
