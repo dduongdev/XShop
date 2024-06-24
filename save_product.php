@@ -8,7 +8,7 @@
         $server = 'localhost';
         $username = 'root';
         $password = '';
-        $database = 'xshop_update';
+        $database = 'xshop';
 
         // Create connection
         $conn = new mysqli($server, $username, $password, $database);
@@ -20,8 +20,7 @@
 
         // Prepare and bind parameters
         $stmt = $conn->prepare("UPDATE products SET product_name=?, unit_price=?, discount_percentage=?, product_desc=?, release_date=? WHERE id=?");
-        $stmt->bind_param("sddssi", $productName, $unitPrice, $discountPercentage, $productDesc, $releaseDate, $id);
-
+        
         // Set parameters from POST
         $id = $_POST['edit-product-id'];
         $productName = $_POST['edit-product-name'];
@@ -29,7 +28,8 @@
         $discountPercentage = $_POST['edit-discount-percentage'];
         $productDesc = $_POST['edit-product-desc'];
         $releaseDate = $_POST['edit-release-date'];
-
+        
+        $stmt->bind_param("sddssi", $productName, $unitPrice, $discountPercentage, $productDesc, $releaseDate, $id);
         // Execute the update
         if ($stmt->execute()) {
             echo "Product updated successfully."; // Echo success message

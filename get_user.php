@@ -1,14 +1,5 @@
 <?php
-$server = 'localhost';
-$username = 'root';
-$password = '';
-$database = 'xshop_update';
-
-$_conn = new mysqli($server, $username, $password, $database);
-
-if ($_conn->connect_error) {
-    die("Connection failed: " . $_conn->connect_error);
-}
+require_once './php/dbconnect.php';
 
 $id = $_GET['id'];
 $sql = "SELECT id, user_name, email, user_password, phone, fullname, user_role FROM users WHERE id=?";

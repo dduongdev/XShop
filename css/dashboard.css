@@ -79,6 +79,7 @@ body {
     font-size: 18px;
 }
 
+.dashboard_logo,
 .sidebar-list-item > a {
     text-decoration: none;
     color: #9e9ea4;

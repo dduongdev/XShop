@@ -1,3 +1,7 @@
+<?php
+    require_once './php/dbconnect.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,9 +20,6 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="./css/list_users.css">
     <link rel="stylesheet" href="./css/dashboard.css">
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="./js/toast.js"></script> <!-- Adjust the path as necessary -->
 
 </head>
 <body>
@@ -43,16 +44,6 @@
                     </thead>
                     <tbody>
                         <?php
-                            $server = 'localhost';
-                            $username = 'root';
-                            $password = '';
-                            $database = 'xshop_update';
-                        
-                            $_conn = new mysqli($server, $username, $password, $database);
-                        
-                            if ($_conn->connect_error) {
-                                die("Connection failed: " . $_conn->connect_error);
-                            }
 
                             $sql = "SELECT id, user_name, email, user_password, phone, fullname, user_role FROM users";
                             $result = $_conn->query($sql);

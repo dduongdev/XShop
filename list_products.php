@@ -1,3 +1,7 @@
+<?php
+    require_once './php/dbconnect.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,8 +18,11 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 
     <!-- Custom CSS -->
+     <link rel="stylesheet" href="./css/base.css">
     <link rel="stylesheet" href="./css/list_products.css">
     <link rel="stylesheet" href="./css/dashboard.css">
+    <link rel="stylesheet" href="./css/toast.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <style>
         .edit-form {
@@ -23,6 +30,8 @@
             margin-top: 20px;
         }
     </style>
+
+    <script src="./js/toast.js"></script>
 
     <script>
         function editProduct(id, productName, unitPrice, discountPercentage, productDesc, releaseDate) {
@@ -54,6 +63,7 @@
 
             // Show the edit form
             document.getElementById('edit-form').style.display = 'block';
+            document.getElementById('variant_form').style.display = 'block';
 
             // Scroll to the edit form section
             document.getElementById('edit-form').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -73,7 +83,7 @@
             formData.append('edit-product-name', productName);
             formData.append('edit-unit-price', unitPrice);
             formData.append('edit-discount-percentage', discountPercentage);
-            formData.append('edit-product-desc', productDesc);
+            formData.append('edit-product-desc', JSON.stringify(productDesc.split('\n').map(line => line.trim())));
             formData.append('edit-release-date', releaseDate);
 
             // Make AJAX request
@@ -83,12 +93,31 @@
                 if (xhr.status === 200) {
                     console.log(xhr.responseText); // Log the response
                     // Optionally, handle UI updates or show success message
+                    toast ({
+                        title: "Thông báo",
+                        message: "Sửa sản phẩm thành công!",
+                        type: "success",
+                        duration: 4000
+                    })
+
                 } else {
                     console.error('Error occurred: ' + xhr.statusText); // Log error
+                    toast ({
+                    title: "Thông báo",
+                    message: "Sửa sản phẩm không thành công!",
+                    type: "warning",
+                    duration: 4000
+                })
                 }
             };
             xhr.onerror = function() {
                 console.error('Request failed.'); // Log request failure
+                toast ({
+                    title: "Thông báo",
+                    message: "Sửa sản phẩm không thành công!",
+                    type: "warning",
+                    duration: 4000
+                })
             };
             xhr.send(formData); // Send form data
         }
@@ -102,6 +131,7 @@
         <main class="main-container">
             <div class="container">
                 <h2>Product List</h2>
+                <a class="add_product_link" href="./add_product.php">Add Products</a>
                 <table>
                     <thead>
                         <tr>
@@ -115,19 +145,9 @@
                     </thead>
                     <tbody>
                     <?php
-                        $server = 'localhost';
-                        $username = 'root';
-                        $password = '';
-                        $database = 'xshop_update';
-
-                        $conn = new mysqli($server, $username, $password, $database);
-
-                        if ($conn->connect_error) {
-                            die("Connection failed: " . $conn->connect_error);
-                        }
 
                         $sql = "SELECT id, product_name, unit_price, discount_percentage, product_desc, DATE_FORMAT(release_date, '%Y-%m-%d') AS release_date FROM products";
-                        $result = $conn->query($sql);
+                        $result = $_conn->query($sql);
 
                         if ($result->num_rows > 0) {
                             while($row = $result->fetch_assoc()) {
@@ -154,14 +174,14 @@
                                         <td>" . htmlspecialchars($row["discount_percentage"]) . "</td>
                                         <td>" . $formattedDescription . "</td>
                                         <td>" . htmlspecialchars($row["release_date"]) . "</td>
-
-                                        <td><button onclick='editProduct(" . $row["id"] . ", \"" . addslashes($row["product_name"]) . "\", " . $row["unit_price"] . ", " . $row["discount_percentage"] . ", \"" . addslashes($row["product_desc"]) . "\", \"" . addslashes($row["release_date"]) . "\")'>Edit</button></td>
+                                        <td><button class='edit_button' onclick='editProduct(" . $row["id"] . ", \"" . addslashes($row["product_name"]) . "\", " . $row["unit_price"] . ", " . $row["discount_percentage"] . ", \"" . addslashes($row["product_desc"]) . "\", \"" . addslashes($row["release_date"]) . "\")'>Edit</button>
+                                        <input type='hidden' class='product_id' value='".$row["id"]."'></td>
                                     </tr>";
                             }
                         } else {
                             echo "<tr><td colspan='6'>No products found</td></tr>";
                         }
-                        $conn->close();
+                        $_conn->close();
                     ?>
 
                     </tbody>
@@ -197,12 +217,89 @@
                                 <input type="date" id="edit-release-date" name="edit-release-date" required>
                             </div>
                         </div>
-                        <button type="button" onclick="submitEditForm()">Save Changes</button>
+                        <button class="" type="button" onclick="submitEditForm()">Save Changes</button>
                     </form>
                 </div>
+                        
+                <div id="variant_form">
+                    <div class="ud_row">
+                        <select name="" id="product_categories">
 
+                        </select>
+
+                        <button class="js-update-category">
+                            Update category
+                        </button>
+                    </div>
+                </div>
             </div>
         </main>
     </div>
+
+    <div class="modal modal--close">
+        <div class="modal__overlay"></div>
+
+        <div class="modal__body">
+            <div class="modal__inner">
+                <div class="update_category_modal modal__container modal--close">
+                    <button class="modal__close-btn">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+
+                    <div class="update_category_model__content">
+                        <select name="" id="all_categories">
+
+                        </select>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var productId = $(this).siblings('.product_id').val();
+        $(document).ready(function() {
+            $('.edit_button').click(function(e){
+                e.preventDefault();
+                productId = $(this).siblings('.product_id').val();
+                $.ajax({
+                    url: './php/get_product_categories.php',
+                    type: 'POST',
+                    data: { product_id: productId }
+                }).done(function(response){
+                    var categories = JSON.parse(response);
+                    $('#product_categories').empty();
+                    categories.forEach(function(category) {
+                        $('#product_categories').append(new Option(category.name, category.id));
+                    })
+                })
+            })
+
+            $('.js-update-category').click(function(e){
+                e.preventDefault();
+
+                $.ajax({
+                    url: './php/ajax_get_all_categories.php',
+                    type: 'POST'
+                }).done(function(response){
+                    var all_categories = JSON.parse(response);
+                    $('#all_categories').empty();
+                    all_categories.forEach(function(category){
+                        $('#all_categories').append(new Option(category.name, category.id));
+                    })
+                })
+            })
+
+            $('.js-update-category').click(function(e){
+                e.preventDefault();
+
+
+            })
+        });
+    </script>
+    <script>
+
+    </script>
 </body>
 </html>

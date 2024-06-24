@@ -1,0 +1,63 @@
+.header {
+    height: 4rem;
+    background-color: #000;
+}
+
+.nav {
+    display: flex;
+}
+
+.nav__item {
+    line-height: 4rem;
+    display: block;
+    color: #fff;
+    padding: 0 10px;
+    font-weight: bold;
+}
+
+.row--ud {
+    margin: 8px 0;
+}
+
+.input_control {
+    background: #fff;
+    border: 1px solid #d9d9d9;
+    box-sizing: border-box;
+    border-radius: 16px;
+    height: 50px;
+    width: 100%;
+    padding: 5px 20px;
+    transition: all .2s;
+    display: flex;
+    align-items: center;
+    font-size: 1.4rem;
+    color: var(--text-color);
+    overflow: hidden;
+}
+
+.input_control.input_control--textarea {
+    height: 222px;
+}
+
+.input_control.input_control--submit {
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 180px;
+    color: #fff;
+    text-align: center;
+    display: block;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button.input_control + button.input_control {
+    margin-left: 1rem;
+}
+
+.input_control--submit:hover {
+    opacity: 0.8;
+}
+
+.actions {
+    margin-left: auto;
+    display: flex;
+}

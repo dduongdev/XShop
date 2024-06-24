@@ -1,7 +1,7 @@
 <aside id="sidebar">
     <div class="sidebar-title">
         <div class="sidebar-brand">
-            <span class="material-icons-outlined">shopping_cart</span> CỬA HÀNG
+            <a class="dashboard_logo" href="./dashboard.php"><span class="material-icons-outlined">shopping_cart</span> CỬA HÀNG</a>
         </div>
         <span class="material-icons-outlined" onclick="closeSidebar()">close</span>
     </div>
