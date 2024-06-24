@@ -1,3 +1,13 @@
+<?php
+    session_start();
+
+    if(!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin'){
+        header("HTTP/1.0 404 Not Found");
+        echo "Page not found";
+        exit();
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
