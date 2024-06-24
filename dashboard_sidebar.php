@@ -18,7 +18,9 @@
             </a>
         </li>
         <li class="sidebar-list-item">
-            <span class="material-icons-outlined"> category </span> Danh mục
+            <a href="order_status.php">
+                <span class="material-icons-outlined"> category </span> Đơn hàng
+            </a>
         </li>
         <li class="sidebar-list-item">
             <a href="list_users.php">

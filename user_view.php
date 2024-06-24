@@ -26,7 +26,7 @@
     $addresses = $result->fetch_all();
     $result->close();
 
-    $get_all_orders_query = "SELECT orders.id AS id, product_name, main_img, unit_price, discount_percentage, color_name, size_name, orders.quantity AS quantity
+    $get_all_orders_query = "SELECT orders.id AS id, product_name, main_img, unit_price, discount_percentage, color_name, size_name, orders.quantity AS quantity, order_status
                                 FROM orders
                                 JOIN products_size
                                 ON orders.product_size_id = products_size.id
@@ -47,7 +47,19 @@
     $result = $stmt->get_result();
     $orders = $result->fetch_all();
     $result->close();
+
+    function orderStatus($status) {
+        if($status == 1) {
+            echo "Chờ duyệt";
+        } else if($status == 2) {
+            echo "Đang giao";
+        } else if($status == 3) {
+            echo "Đã giao";
+        }
+    }
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -167,6 +179,7 @@
                                             echo '<div class="user__order">';
                                             echo '<img src="'.$order[2].'" alt="" class="user__order-img">';
                                             echo '<span class="user__order-name">'.$order[1].'</span>';
+                                            echo '<span class="user__order-status">'.orderStatus($order[8]).'</span>';
                                             echo '<span>Loại: <span class="user__order-option">'.$order[5].', '.$order[6].'</span></span>';
                                             echo '<span class="user__order-price">';
                                             
